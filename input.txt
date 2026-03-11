@@ -1,0 +1,13 @@
+Markov chain is a mathematical model that is utilized to simulate random processes occurring over a duration of time.
+It consists of a set of states and the transitions between them. These transitions are probabilistic, which implies that
+the possibility of moving from one state to another solely depends on the current state and not on any past events. This
+model has extensive use in various fields such as physics, chemistry, biology, economics, and computer science.
+Transition matrix: The fundamental mathematical concept of a Markov chain is the transition matrix. This is a square
+matrix that describes the probability of moving from one state to another. If there are n states in the Markov chain,
+the transition matrix will be an n x n matrix, where each element (i,j) of the matrix represents the probability of
+moving from state i to state j. The sum of each row of the transition matrix must be 1, as the probabilities of moving
+to each state from the current state must add up to 1. Chapman-Kolmogorov equation: The basic theorem of Markov chain
+theory is the Chapman-Kolmogorov equation. These equations state that the probability of moving from one state to
+another over a sequence of steps is the product of the transition probabilities for each step. This means that we can
+compute the probability of a particular sequence of transitions by multiplying together the probabilities of each
+individual transition.
