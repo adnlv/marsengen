@@ -1,7 +1,9 @@
 #include <stdio.h>
-#include <assert.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 #include <string.h>
+#include <time.h>
 
 #define DELIM ' '
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
@@ -55,10 +57,11 @@ void format_input_text(char *buf, int *len_ptr)
     bool is_prev_letter = false;
     for (i = 0; i < len; ++i)
     {
-        char ch = getc(input_file);
-        if (ch <= 0)
+        int c = getc(input_file);
+        if (c == EOF)
             break;
 
+        char ch = (char)c;
         bool is_lower = IS_LOWER(ch);
         bool is_upper = IS_UPPER(ch);
         if (is_lower || is_upper)
@@ -77,7 +80,9 @@ void format_input_text(char *buf, int *len_ptr)
         }
     }
 
-    buf[--j] = '\0';
+    if (j > 0)
+        buf[j - 1] = '\0';
+
     *len_ptr = j;
 
     fprintf(logs_file, "Formatted text contains %d characters\n", j);
@@ -306,6 +311,84 @@ void fill_transition_matrix(ngram2_t *ngram2s,
     }
 }
 
+void generate(token_t *uniqs,
+              const int n_uniqs,
+              double *mat)
+{
+    srand((unsigned)time(NULL));
+
+    const int n_sentences = 16;
+
+    fprintf(logs_file, "Generating %d sentences\n", n_sentences);
+
+    for (int sentences = 0; sentences < n_sentences; ++sentences)
+    {
+        const int n_words_per_sentence = 16;
+        token_t words[n_words_per_sentence];
+        int words_len = 1;
+
+        int word_idx = rand() % n_uniqs;
+        words[0] = uniqs[word_idx];
+
+        while (words_len < n_words_per_sentence)
+        {
+            double sum = 0.0;
+            for (int i = 0; i < n_uniqs; ++i)
+                sum += mat[i * n_uniqs + word_idx];
+
+            if (sum <= 0.0)
+            {
+                word_idx = rand() % n_uniqs;
+                words[words_len++] = uniqs[word_idx];
+                continue;
+            }
+
+            double r = ((double)rand() / ((double)RAND_MAX + 1.0)) * sum;
+            double cumulative = 0.0;
+            int chosen = -1;
+            for (int i = 0; i < n_uniqs; ++i)
+            {
+                cumulative += mat[i * n_uniqs + word_idx];
+                if (r < cumulative)
+                {
+                    chosen = i;
+                    break;
+                }
+            }
+
+            if (chosen == -1)
+            {
+                for (int i = n_uniqs - 1; i >= 0; --i)
+                {
+                    if (mat[i * n_uniqs + word_idx] > 0.0)
+                    {
+                        chosen = i;
+                        break;
+                    }
+                }
+
+                if (chosen == -1)
+                    chosen = rand() % n_uniqs;
+            }
+
+            word_idx = chosen;
+            words[words_len++] = uniqs[word_idx];
+        }
+
+        fputs("Sentence: \"", logs_file);
+        for (int i = 0; i < words_len; ++i)
+        {
+            for (int j = 0; j < words[i].len; ++j)
+                fputc(words[i].ptr[j], logs_file);
+
+            if (i != words_len - 1)
+                fputc(' ', logs_file);
+        }
+
+        fputs("\"\n", logs_file);
+    }
+}
+
 int main(int argc, char **argv)
 {
     char *input_path = argc > 1 ? argv[1] : "input.txt";
@@ -336,6 +419,8 @@ int main(int argc, char **argv)
                            uniq_toks,
                            n_uniqs,
                            (double *)trans_mat);
+
+    generate(uniq_toks, n_uniqs, (double *)trans_mat);
 
     fclose(input_file);
     fclose(logs_file);
