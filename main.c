@@ -256,6 +256,56 @@ void get_unique_tokens(token_t *toks,
     *n_uniqs_ptr = n_uniqs;
 }
 
+void fill_transition_matrix(ngram2_t *ngram2s,
+                            const int n_2grams,
+                            token_t *uniqs,
+                            const int n_uniqs,
+                            double *mat)
+{
+    for (int i = 0; i < n_uniqs; ++i)
+        for (int j = 0; j < n_uniqs; ++j)
+            mat[j * n_uniqs + i] = 0;
+
+    for (int i = 0; i < n_uniqs; ++i)
+    {
+        for (int j = 0; j < n_uniqs; ++j)
+        {
+            int count = 0;
+            for (int k = 0; k < n_2grams; ++k)
+            {
+                if (ngram2s[k].fst->ptr == uniqs[i].ptr &&
+                    ngram2s[k].sec->ptr == uniqs[j].ptr)
+                {
+                    ++count;
+                }
+            }
+
+            mat[j * n_uniqs + i] = (double)count;
+        }
+
+        double sum = 0;
+        for (int j = 0; j < n_uniqs; ++j)
+            sum += mat[j * n_uniqs + i];
+
+        if (sum != 0)
+            for (int j = 0; j < n_uniqs; ++j)
+                mat[j * n_uniqs + i] /= sum;
+    }
+
+    fprintf(logs_file, "Transition matrix [%d by %d]\n", n_uniqs, n_uniqs);
+    for (int i = 0; i < n_uniqs; ++i)
+    {
+        fputc('[', logs_file);
+        for (int j = 0; j < n_uniqs; ++j)
+        {
+            fprintf(logs_file, "%.2lf", mat[j * n_uniqs + i]);
+            if (j != n_uniqs - 1)
+                fputc(',', logs_file);
+        }
+        fputs("]\n", logs_file);
+    }
+}
+
 int main(int argc, char **argv)
 {
     char *input_path = argc > 1 ? argv[1] : "input.txt";
@@ -279,6 +329,13 @@ int main(int argc, char **argv)
     token_t uniq_toks[n_tokens];
     int n_uniqs = 0;
     get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
+
+    double trans_mat[n_uniqs][n_uniqs];
+    fill_transition_matrix(ngram2s,
+                           n_2grams,
+                           uniq_toks,
+                           n_uniqs,
+                           (double *)trans_mat);
 
     fclose(input_file);
     fclose(logs_file);
