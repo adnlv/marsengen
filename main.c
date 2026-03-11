@@ -76,22 +76,71 @@ void format_input_text(char *buf, int *len_ptr)
         }
     }
 
-    /* Remove unsupported trailing characters */
-    assert(fseek(input_file, 0, SEEK_SET) == 0);
-    for (i = len - 1; i >= 0; --i)
-    {
-        char ch = buf[i];
-        if (IS_LOWER(ch) || IS_UPPER(ch))
-            break;
-
-        buf[i] = '\0';
-        --j;
-    }
-
+    buf[--j] = '\0';
     *len_ptr = j;
 
     fprintf(logs_file, "Formatted text contains %d characters\n", j);
-    fprintf(logs_file, "Formatted text: %s", buf);
+    fprintf(logs_file, "Formatted text: %s\n", buf);
+}
+
+typedef struct token
+{
+    char *ptr;
+    int len;
+} token_t;
+
+int count_tokens(const char *str, const int len)
+{
+    assert(str != NULL);
+    assert(len > 0);
+
+    int n_tokens = 1;
+    for (int i = 0; i < len; ++i)
+    {
+        if (str[i] == DELIM)
+            ++n_tokens;
+    }
+
+    fprintf(logs_file, "Text contains %d tokens\n", n_tokens);
+
+    return n_tokens;
+}
+
+void tokenize_input_text(char *str,
+                         const int str_len,
+                         token_t *tokens,
+                         const int n_tokens)
+{
+    assert(str != NULL);
+    assert(str_len > 0);
+    assert(tokens != NULL);
+    assert(n_tokens > 0);
+
+    int str_idx = 0;
+    char *cur_ptr = str;
+    char *prev_ptr = cur_ptr;
+    for (int i = 0; i < n_tokens; ++i)
+    {
+        tokens[i].ptr = cur_ptr;
+
+        while (*cur_ptr != DELIM && str_idx < str_len)
+        {
+            ++cur_ptr;
+            ++str_idx;
+        }
+
+        tokens[i].len = cur_ptr - prev_ptr;
+        prev_ptr = ++cur_ptr;
+        ++str_idx;
+    }
+
+    for (int i = 0; i < n_tokens; ++i)
+    {
+        fprintf(logs_file, "Token [%d] \"", i);
+        for (int j = 0; j < tokens[i].len; ++j)
+            fputc(tokens[i].ptr[j], logs_file);
+        fprintf(logs_file, "\" is %d characters long\n", tokens[i].len);
+    }
 }
 
 int main(int argc, char **argv)
@@ -103,8 +152,12 @@ int main(int argc, char **argv)
     open_log_file(logs_path);
 
     int text_len = get_input_file_len();
-    char text_buf[text_len];
-    format_input_text(text_buf, &text_len);
+    char text[text_len];
+    format_input_text(text, &text_len);
+
+    int tokens_len = count_tokens(text, text_len);
+    token_t tokens[text_len];
+    tokenize_input_text(text, text_len, tokens, tokens_len);
 
     fclose(input_file);
     fclose(logs_file);
