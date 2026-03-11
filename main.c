@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define DELIM ' '
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
@@ -134,12 +135,80 @@ void tokenize_input_text(char *str,
         ++str_idx;
     }
 
+    /**
+     * Optimize string comparisons by pointing to the first word occurrence.
+     * This allows to compare tokens by their strings memory addresses.
+     */
+    for (int i = 0; i < n_tokens; ++i)
+    {
+        token_t *t1 = &tokens[i];
+        for (int j = 0; j < n_tokens; ++j)
+        {
+            token_t *t2 = &tokens[j];
+
+            if (t1->len != t2->len)
+                continue;
+
+            if (strncmp(t1->ptr, t2->ptr, t1->len) != 0)
+                continue;
+
+            t2->ptr = t1->ptr;
+        }
+    }
+
     for (int i = 0; i < n_tokens; ++i)
     {
         fprintf(logs_file, "Token [%d] \"", i);
+
         for (int j = 0; j < tokens[i].len; ++j)
             fputc(tokens[i].ptr[j], logs_file);
-        fprintf(logs_file, "\" is %d characters long\n", tokens[i].len);
+
+        fprintf(logs_file,
+                "\" -> %p is %d characters long\n",
+                (void *)tokens[i].ptr,
+                tokens[i].len);
+    }
+}
+
+typedef struct ngram2
+{
+    token_t *fst;
+    token_t *sec;
+} ngram2_t;
+
+int count_2grams(const int n_tokens)
+{
+    const int n_2grams = n_tokens - 1;
+
+    fprintf(logs_file, "Generating %d 2-grams\n", n_2grams);
+
+    return n_2grams;
+}
+
+void gen_2grams_from_tokens(token_t *tokens,
+                            const int n_tokens,
+                            ngram2_t *ngram2s,
+                            const int n_2grams)
+{
+    for (int i = 0; i < n_2grams; ++i)
+    {
+        ngram2s[i].fst = &tokens[i];
+        ngram2s[i].sec = &tokens[i + 1];
+    }
+
+    for (int i = 0; i < n_2grams; ++i)
+    {
+        fprintf(logs_file, "2-Gram [%d] (\"", i);
+
+        for (int j = 0; j < ngram2s[i].fst->len; ++j)
+            fputc(ngram2s[i].fst->ptr[j], logs_file);
+
+        fprintf(logs_file, "\" -> %p, \"", (void *)ngram2s[i].fst);
+
+        for (int j = 0; j < ngram2s[i].sec->len; ++j)
+            fputc(ngram2s[i].sec->ptr[j], logs_file);
+
+        fprintf(logs_file, "\" -> %p)\n", (void *)ngram2s[i].sec);
     }
 }
 
@@ -155,9 +224,13 @@ int main(int argc, char **argv)
     char text[text_len];
     format_input_text(text, &text_len);
 
-    int tokens_len = count_tokens(text, text_len);
-    token_t tokens[text_len];
-    tokenize_input_text(text, text_len, tokens, tokens_len);
+    int n_tokens = count_tokens(text, text_len);
+    token_t tokens[n_tokens];
+    tokenize_input_text(text, text_len, tokens, n_tokens);
+
+    int n_2grams = count_2grams(n_tokens);
+    ngram2_t ngram2s[n_2grams];
+    gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
 
     fclose(input_file);
     fclose(logs_file);
