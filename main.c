@@ -212,6 +212,50 @@ void gen_2grams_from_tokens(token_t *tokens,
     }
 }
 
+void get_unique_tokens(token_t *toks,
+                       const int n_toks,
+                       token_t *uniqs,
+                       int *n_uniqs_ptr)
+{
+    int uniq_idx = 0;
+    for (int i = 0; i < n_toks; ++i)
+    {
+        token_t *dup = NULL;
+        for (int j = 0; j < i; ++j)
+        {
+            if (toks[i].ptr == toks[j].ptr)
+            {
+                dup = &toks[j];
+                break;
+            }
+        }
+
+        if (dup == NULL)
+        {
+            uniqs[uniq_idx] = toks[i];
+            ++uniq_idx;
+        }
+    }
+
+    int n_uniqs = uniq_idx;
+    fprintf(logs_file, "Got %d unique tokens\n", n_uniqs);
+
+    for (int i = 0; i < n_uniqs; ++i)
+    {
+        fprintf(logs_file, "Unique token [%d] \"", i);
+
+        for (int j = 0; j < uniqs[i].len; ++j)
+            fputc(uniqs[i].ptr[j], logs_file);
+
+        fprintf(logs_file,
+                "\" -> %p is %d characters long\n",
+                (void *)uniqs[i].ptr,
+                uniqs[i].len);
+    }
+
+    *n_uniqs_ptr = n_uniqs;
+}
+
 int main(int argc, char **argv)
 {
     char *input_path = argc > 1 ? argv[1] : "input.txt";
@@ -231,6 +275,10 @@ int main(int argc, char **argv)
     int n_2grams = count_2grams(n_tokens);
     ngram2_t ngram2s[n_2grams];
     gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
+
+    token_t uniq_toks[n_tokens];
+    int n_uniqs = 0;
+    get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
 
     fclose(input_file);
     fclose(logs_file);
