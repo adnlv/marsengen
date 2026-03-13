@@ -317,13 +317,13 @@ void generate(token_t *uniqs,
 {
     srand((unsigned)time(NULL));
 
-    const int n_sentences = 16;
+    const int n_sentences = 32;
+    const int n_words_per_sentence = n_uniqs > 0xFF ? 0xFF : n_uniqs;
 
     fprintf(logs_file, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
-        const int n_words_per_sentence = 16;
         token_t words[n_words_per_sentence];
         int words_len = 1;
 
