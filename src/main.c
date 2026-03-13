@@ -22,7 +22,7 @@ void open_input_file(const char *path)
     printf("Reading from file \"%s\"\n", path);
 }
 
-void open_log_file(const char *path)
+void open_logs_file(const char *path)
 {
     assert(path != NULL);
 
@@ -48,10 +48,9 @@ int get_input_file_len(void)
 
 void format_input_text(char *buf, int *len_ptr)
 {
-    int i = 0;
-    int j = 0;
+    int len = 0;
     bool is_prev_letter = false;
-    for (i = 0; i < *len_ptr; ++i)
+    for (int i = 0; i < *len_ptr; ++i)
     {
         int c = getc(input_file);
         if (c == EOF)
@@ -69,26 +68,25 @@ void format_input_text(char *buf, int *len_ptr)
                 ch += 32;
             }
 
-            buf[j] = ch;
+            buf[len] = ch;
             is_prev_letter = true;
-            ++j;
+            ++len;
         }
         else if (is_prev_letter)
         {
             is_prev_letter = false;
-            buf[j++] = DELIM;
+            buf[len++] = DELIM;
         }
     }
 
-    if (j > 0)
+    if (len > 0)
     {
-        buf[j - 1] = '\0';
+        buf[len - 1] = '\0';
     }
 
-    *len_ptr = j;
+    *len_ptr = len;
 
-    fprintf(logs_file, "Formatted text contains %d characters\n", j);
-    fprintf(logs_file, "Formatted text: %s\n", buf);
+    fprintf(logs_file, "Formatted text contains %d characters: %s\n", len, buf);
 }
 
 typedef struct
@@ -436,7 +434,7 @@ void generate(token_t *uniqs, const int n_uniqs, double *mat)
 int main(void)
 {
     open_input_file("input.txt");
-    open_log_file("output.txt");
+    open_logs_file("output.txt");
 
     int text_len = get_input_file_len();
     char *text = calloc(text_len, 1);
