@@ -2,716 +2,135 @@
 
 ## Example output
 
+### ILIAD
+
+The input is set to [iliad.txt](docs/examples/inputs/iliad.txt).
+
 ```text
-Unformatted text contains 1429 characters
-Formatted text contains 1401 characters
-Formatted text: markov chain is a mathematical model that is utilized to simulate random processes occurring over a duration of time it consists of a set of states and the transitions between them these transitions are probabilistic which implies that the possibility of moving from one state to another solely depends on the current state and not on any past events this model has extensive use in various fields such as physics chemistry biology economics and computer science transition matrix the fundamental mathematical concept of a markov chain is the transition matrix this is a square matrix that describes the probability of moving from one state to another if there are n states in the markov chain the transition matrix will be an n x n matrix where each element i j of the matrix represents the probability of moving from state i to state j the sum of each row of the transition matrix must be as the probabilities of moving to each state from the current state must add up to chapman kolmogorov equation the basic theorem of markov chain theory is the chapman kolmogorov equation these equations state that the probability of moving from one state to another over a sequence of steps is the product of the transition probabilities for each step this means that we can compute the probability of a particular sequence of transitions by multiplying together the probabilities of each individual transition
-Text contains 237 tokens
-Token [0] "markov" -> 0x1ffefff2c0 is 6 characters long
-Token [1] "chain" -> 0x1ffefff2c7 is 5 characters long
-Token [2] "is" -> 0x1ffefff2cd is 2 characters long
-Token [3] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [4] "mathematical" -> 0x1ffefff2d2 is 12 characters long
-Token [5] "model" -> 0x1ffefff2df is 5 characters long
-Token [6] "that" -> 0x1ffefff2e5 is 4 characters long
-Token [7] "is" -> 0x1ffefff2cd is 2 characters long
-Token [8] "utilized" -> 0x1ffefff2ed is 8 characters long
-Token [9] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [10] "simulate" -> 0x1ffefff2f9 is 8 characters long
-Token [11] "random" -> 0x1ffefff302 is 6 characters long
-Token [12] "processes" -> 0x1ffefff309 is 9 characters long
-Token [13] "occurring" -> 0x1ffefff313 is 9 characters long
-Token [14] "over" -> 0x1ffefff31d is 4 characters long
-Token [15] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [16] "duration" -> 0x1ffefff324 is 8 characters long
-Token [17] "of" -> 0x1ffefff32d is 2 characters long
-Token [18] "time" -> 0x1ffefff330 is 4 characters long
-Token [19] "it" -> 0x1ffefff335 is 2 characters long
-Token [20] "consists" -> 0x1ffefff338 is 8 characters long
-Token [21] "of" -> 0x1ffefff32d is 2 characters long
-Token [22] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [23] "set" -> 0x1ffefff346 is 3 characters long
-Token [24] "of" -> 0x1ffefff32d is 2 characters long
-Token [25] "states" -> 0x1ffefff34d is 6 characters long
-Token [26] "and" -> 0x1ffefff354 is 3 characters long
-Token [27] "the" -> 0x1ffefff358 is 3 characters long
-Token [28] "transitions" -> 0x1ffefff35c is 11 characters long
-Token [29] "between" -> 0x1ffefff368 is 7 characters long
-Token [30] "them" -> 0x1ffefff370 is 4 characters long
-Token [31] "these" -> 0x1ffefff375 is 5 characters long
-Token [32] "transitions" -> 0x1ffefff35c is 11 characters long
-Token [33] "are" -> 0x1ffefff387 is 3 characters long
-Token [34] "probabilistic" -> 0x1ffefff38b is 13 characters long
-Token [35] "which" -> 0x1ffefff399 is 5 characters long
-Token [36] "implies" -> 0x1ffefff39f is 7 characters long
-Token [37] "that" -> 0x1ffefff2e5 is 4 characters long
-Token [38] "the" -> 0x1ffefff358 is 3 characters long
-Token [39] "possibility" -> 0x1ffefff3b0 is 11 characters long
-Token [40] "of" -> 0x1ffefff32d is 2 characters long
-Token [41] "moving" -> 0x1ffefff3bf is 6 characters long
-Token [42] "from" -> 0x1ffefff3c6 is 4 characters long
-Token [43] "one" -> 0x1ffefff3cb is 3 characters long
-Token [44] "state" -> 0x1ffefff3cf is 5 characters long
-Token [45] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [46] "another" -> 0x1ffefff3d8 is 7 characters long
-Token [47] "solely" -> 0x1ffefff3e0 is 6 characters long
-Token [48] "depends" -> 0x1ffefff3e7 is 7 characters long
-Token [49] "on" -> 0x1ffefff3ef is 2 characters long
-Token [50] "the" -> 0x1ffefff358 is 3 characters long
-Token [51] "current" -> 0x1ffefff3f6 is 7 characters long
-Token [52] "state" -> 0x1ffefff3cf is 5 characters long
-Token [53] "and" -> 0x1ffefff354 is 3 characters long
-Token [54] "not" -> 0x1ffefff408 is 3 characters long
-Token [55] "on" -> 0x1ffefff3ef is 2 characters long
-Token [56] "any" -> 0x1ffefff40f is 3 characters long
-Token [57] "past" -> 0x1ffefff413 is 4 characters long
-Token [58] "events" -> 0x1ffefff418 is 6 characters long
-Token [59] "this" -> 0x1ffefff41f is 4 characters long
-Token [60] "model" -> 0x1ffefff2df is 5 characters long
-Token [61] "has" -> 0x1ffefff42a is 3 characters long
-Token [62] "extensive" -> 0x1ffefff42e is 9 characters long
-Token [63] "use" -> 0x1ffefff438 is 3 characters long
-Token [64] "in" -> 0x1ffefff43c is 2 characters long
-Token [65] "various" -> 0x1ffefff43f is 7 characters long
-Token [66] "fields" -> 0x1ffefff447 is 6 characters long
-Token [67] "such" -> 0x1ffefff44e is 4 characters long
-Token [68] "as" -> 0x1ffefff453 is 2 characters long
-Token [69] "physics" -> 0x1ffefff456 is 7 characters long
-Token [70] "chemistry" -> 0x1ffefff45e is 9 characters long
-Token [71] "biology" -> 0x1ffefff468 is 7 characters long
-Token [72] "economics" -> 0x1ffefff470 is 9 characters long
-Token [73] "and" -> 0x1ffefff354 is 3 characters long
-Token [74] "computer" -> 0x1ffefff47e is 8 characters long
-Token [75] "science" -> 0x1ffefff487 is 7 characters long
-Token [76] "transition" -> 0x1ffefff48f is 10 characters long
-Token [77] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [78] "the" -> 0x1ffefff358 is 3 characters long
-Token [79] "fundamental" -> 0x1ffefff4a5 is 11 characters long
-Token [80] "mathematical" -> 0x1ffefff2d2 is 12 characters long
-Token [81] "concept" -> 0x1ffefff4be is 7 characters long
-Token [82] "of" -> 0x1ffefff32d is 2 characters long
-Token [83] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [84] "markov" -> 0x1ffefff2c0 is 6 characters long
-Token [85] "chain" -> 0x1ffefff2c7 is 5 characters long
-Token [86] "is" -> 0x1ffefff2cd is 2 characters long
-Token [87] "the" -> 0x1ffefff358 is 3 characters long
-Token [88] "transition" -> 0x1ffefff48f is 10 characters long
-Token [89] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [90] "this" -> 0x1ffefff41f is 4 characters long
-Token [91] "is" -> 0x1ffefff2cd is 2 characters long
-Token [92] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [93] "square" -> 0x1ffefff4fb is 6 characters long
-Token [94] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [95] "that" -> 0x1ffefff2e5 is 4 characters long
-Token [96] "describes" -> 0x1ffefff50e is 9 characters long
-Token [97] "the" -> 0x1ffefff358 is 3 characters long
-Token [98] "probability" -> 0x1ffefff51c is 11 characters long
-Token [99] "of" -> 0x1ffefff32d is 2 characters long
-Token [100] "moving" -> 0x1ffefff3bf is 6 characters long
-Token [101] "from" -> 0x1ffefff3c6 is 4 characters long
-Token [102] "one" -> 0x1ffefff3cb is 3 characters long
-Token [103] "state" -> 0x1ffefff3cf is 5 characters long
-Token [104] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [105] "another" -> 0x1ffefff3d8 is 7 characters long
-Token [106] "if" -> 0x1ffefff54c is 2 characters long
-Token [107] "there" -> 0x1ffefff54f is 5 characters long
-Token [108] "are" -> 0x1ffefff387 is 3 characters long
-Token [109] "n" -> 0x1ffefff559 is 1 characters long
-Token [110] "states" -> 0x1ffefff34d is 6 characters long
-Token [111] "in" -> 0x1ffefff43c is 2 characters long
-Token [112] "the" -> 0x1ffefff358 is 3 characters long
-Token [113] "markov" -> 0x1ffefff2c0 is 6 characters long
-Token [114] "chain" -> 0x1ffefff2c7 is 5 characters long
-Token [115] "the" -> 0x1ffefff358 is 3 characters long
-Token [116] "transition" -> 0x1ffefff48f is 10 characters long
-Token [117] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [118] "will" -> 0x1ffefff58c is 4 characters long
-Token [119] "be" -> 0x1ffefff591 is 2 characters long
-Token [120] "an" -> 0x1ffefff594 is 2 characters long
-Token [121] "n" -> 0x1ffefff559 is 1 characters long
-Token [122] "x" -> 0x1ffefff599 is 1 characters long
-Token [123] "n" -> 0x1ffefff559 is 1 characters long
-Token [124] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [125] "where" -> 0x1ffefff5a4 is 5 characters long
-Token [126] "each" -> 0x1ffefff5aa is 4 characters long
-Token [127] "element" -> 0x1ffefff5af is 7 characters long
-Token [128] "i" -> 0x1ffefff5b7 is 1 characters long
-Token [129] "j" -> 0x1ffefff5b9 is 1 characters long
-Token [130] "of" -> 0x1ffefff32d is 2 characters long
-Token [131] "the" -> 0x1ffefff358 is 3 characters long
-Token [132] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [133] "represents" -> 0x1ffefff5c9 is 10 characters long
-Token [134] "the" -> 0x1ffefff358 is 3 characters long
-Token [135] "probability" -> 0x1ffefff51c is 11 characters long
-Token [136] "of" -> 0x1ffefff32d is 2 characters long
-Token [137] "moving" -> 0x1ffefff3bf is 6 characters long
-Token [138] "from" -> 0x1ffefff3c6 is 4 characters long
-Token [139] "state" -> 0x1ffefff3cf is 5 characters long
-Token [140] "i" -> 0x1ffefff5b7 is 1 characters long
-Token [141] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [142] "state" -> 0x1ffefff3cf is 5 characters long
-Token [143] "j" -> 0x1ffefff5b9 is 1 characters long
-Token [144] "the" -> 0x1ffefff358 is 3 characters long
-Token [145] "sum" -> 0x1ffefff60a is 3 characters long
-Token [146] "of" -> 0x1ffefff32d is 2 characters long
-Token [147] "each" -> 0x1ffefff5aa is 4 characters long
-Token [148] "row" -> 0x1ffefff616 is 3 characters long
-Token [149] "of" -> 0x1ffefff32d is 2 characters long
-Token [150] "the" -> 0x1ffefff358 is 3 characters long
-Token [151] "transition" -> 0x1ffefff48f is 10 characters long
-Token [152] "matrix" -> 0x1ffefff49a is 6 characters long
-Token [153] "must" -> 0x1ffefff633 is 4 characters long
-Token [154] "be" -> 0x1ffefff591 is 2 characters long
-Token [155] "as" -> 0x1ffefff453 is 2 characters long
-Token [156] "the" -> 0x1ffefff358 is 3 characters long
-Token [157] "probabilities" -> 0x1ffefff642 is 13 characters long
-Token [158] "of" -> 0x1ffefff32d is 2 characters long
-Token [159] "moving" -> 0x1ffefff3bf is 6 characters long
-Token [160] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [161] "each" -> 0x1ffefff5aa is 4 characters long
-Token [162] "state" -> 0x1ffefff3cf is 5 characters long
-Token [163] "from" -> 0x1ffefff3c6 is 4 characters long
-Token [164] "the" -> 0x1ffefff358 is 3 characters long
-Token [165] "current" -> 0x1ffefff3f6 is 7 characters long
-Token [166] "state" -> 0x1ffefff3cf is 5 characters long
-Token [167] "must" -> 0x1ffefff633 is 4 characters long
-Token [168] "add" -> 0x1ffefff684 is 3 characters long
-Token [169] "up" -> 0x1ffefff688 is 2 characters long
-Token [170] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [171] "chapman" -> 0x1ffefff68e is 7 characters long
-Token [172] "kolmogorov" -> 0x1ffefff696 is 10 characters long
-Token [173] "equation" -> 0x1ffefff6a1 is 8 characters long
-Token [174] "the" -> 0x1ffefff358 is 3 characters long
-Token [175] "basic" -> 0x1ffefff6ae is 5 characters long
-Token [176] "theorem" -> 0x1ffefff6b4 is 7 characters long
-Token [177] "of" -> 0x1ffefff32d is 2 characters long
-Token [178] "markov" -> 0x1ffefff2c0 is 6 characters long
-Token [179] "chain" -> 0x1ffefff2c7 is 5 characters long
-Token [180] "theory" -> 0x1ffefff6cc is 6 characters long
-Token [181] "is" -> 0x1ffefff2cd is 2 characters long
-Token [182] "the" -> 0x1ffefff358 is 3 characters long
-Token [183] "chapman" -> 0x1ffefff68e is 7 characters long
-Token [184] "kolmogorov" -> 0x1ffefff696 is 10 characters long
-Token [185] "equation" -> 0x1ffefff6a1 is 8 characters long
-Token [186] "these" -> 0x1ffefff375 is 5 characters long
-Token [187] "equations" -> 0x1ffefff6fc is 9 characters long
-Token [188] "state" -> 0x1ffefff3cf is 5 characters long
-Token [189] "that" -> 0x1ffefff2e5 is 4 characters long
-Token [190] "the" -> 0x1ffefff358 is 3 characters long
-Token [191] "probability" -> 0x1ffefff51c is 11 characters long
-Token [192] "of" -> 0x1ffefff32d is 2 characters long
-Token [193] "moving" -> 0x1ffefff3bf is 6 characters long
-Token [194] "from" -> 0x1ffefff3c6 is 4 characters long
-Token [195] "one" -> 0x1ffefff3cb is 3 characters long
-Token [196] "state" -> 0x1ffefff3cf is 5 characters long
-Token [197] "to" -> 0x1ffefff2f6 is 2 characters long
-Token [198] "another" -> 0x1ffefff3d8 is 7 characters long
-Token [199] "over" -> 0x1ffefff31d is 4 characters long
-Token [200] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [201] "sequence" -> 0x1ffefff74c is 8 characters long
-Token [202] "of" -> 0x1ffefff32d is 2 characters long
-Token [203] "steps" -> 0x1ffefff758 is 5 characters long
-Token [204] "is" -> 0x1ffefff2cd is 2 characters long
-Token [205] "the" -> 0x1ffefff358 is 3 characters long
-Token [206] "product" -> 0x1ffefff765 is 7 characters long
-Token [207] "of" -> 0x1ffefff32d is 2 characters long
-Token [208] "the" -> 0x1ffefff358 is 3 characters long
-Token [209] "transition" -> 0x1ffefff48f is 10 characters long
-Token [210] "probabilities" -> 0x1ffefff642 is 13 characters long
-Token [211] "for" -> 0x1ffefff78d is 3 characters long
-Token [212] "each" -> 0x1ffefff5aa is 4 characters long
-Token [213] "step" -> 0x1ffefff796 is 4 characters long
-Token [214] "this" -> 0x1ffefff41f is 4 characters long
-Token [215] "means" -> 0x1ffefff7a0 is 5 characters long
-Token [216] "that" -> 0x1ffefff2e5 is 4 characters long
-Token [217] "we" -> 0x1ffefff7ab is 2 characters long
-Token [218] "can" -> 0x1ffefff7ae is 3 characters long
-Token [219] "compute" -> 0x1ffefff7b2 is 7 characters long
-Token [220] "the" -> 0x1ffefff358 is 3 characters long
-Token [221] "probability" -> 0x1ffefff51c is 11 characters long
-Token [222] "of" -> 0x1ffefff32d is 2 characters long
-Token [223] "a" -> 0x1ffefff2d0 is 1 characters long
-Token [224] "particular" -> 0x1ffefff7cf is 10 characters long
-Token [225] "sequence" -> 0x1ffefff74c is 8 characters long
-Token [226] "of" -> 0x1ffefff32d is 2 characters long
-Token [227] "transitions" -> 0x1ffefff35c is 11 characters long
-Token [228] "by" -> 0x1ffefff7f2 is 2 characters long
-Token [229] "multiplying" -> 0x1ffefff7f5 is 11 characters long
-Token [230] "together" -> 0x1ffefff801 is 8 characters long
-Token [231] "the" -> 0x1ffefff358 is 3 characters long
-Token [232] "probabilities" -> 0x1ffefff642 is 13 characters long
-Token [233] "of" -> 0x1ffefff32d is 2 characters long
-Token [234] "each" -> 0x1ffefff5aa is 4 characters long
-Token [235] "individual" -> 0x1ffefff824 is 10 characters long
-Token [236] "transition" -> 0x1ffefff48f is 10 characters long
-Generating 236 2-grams
-2-Gram [0] ("markov" -> 0x1ffeffe3f0, "chain" -> 0x1ffeffe400)
-2-Gram [1] ("chain" -> 0x1ffeffe400, "is" -> 0x1ffeffe410)
-2-Gram [2] ("is" -> 0x1ffeffe410, "a" -> 0x1ffeffe420)
-2-Gram [3] ("a" -> 0x1ffeffe420, "mathematical" -> 0x1ffeffe430)
-2-Gram [4] ("mathematical" -> 0x1ffeffe430, "model" -> 0x1ffeffe440)
-2-Gram [5] ("model" -> 0x1ffeffe440, "that" -> 0x1ffeffe450)
-2-Gram [6] ("that" -> 0x1ffeffe450, "is" -> 0x1ffeffe460)
-2-Gram [7] ("is" -> 0x1ffeffe460, "utilized" -> 0x1ffeffe470)
-2-Gram [8] ("utilized" -> 0x1ffeffe470, "to" -> 0x1ffeffe480)
-2-Gram [9] ("to" -> 0x1ffeffe480, "simulate" -> 0x1ffeffe490)
-2-Gram [10] ("simulate" -> 0x1ffeffe490, "random" -> 0x1ffeffe4a0)
-2-Gram [11] ("random" -> 0x1ffeffe4a0, "processes" -> 0x1ffeffe4b0)
-2-Gram [12] ("processes" -> 0x1ffeffe4b0, "occurring" -> 0x1ffeffe4c0)
-2-Gram [13] ("occurring" -> 0x1ffeffe4c0, "over" -> 0x1ffeffe4d0)
-2-Gram [14] ("over" -> 0x1ffeffe4d0, "a" -> 0x1ffeffe4e0)
-2-Gram [15] ("a" -> 0x1ffeffe4e0, "duration" -> 0x1ffeffe4f0)
-2-Gram [16] ("duration" -> 0x1ffeffe4f0, "of" -> 0x1ffeffe500)
-2-Gram [17] ("of" -> 0x1ffeffe500, "time" -> 0x1ffeffe510)
-2-Gram [18] ("time" -> 0x1ffeffe510, "it" -> 0x1ffeffe520)
-2-Gram [19] ("it" -> 0x1ffeffe520, "consists" -> 0x1ffeffe530)
-2-Gram [20] ("consists" -> 0x1ffeffe530, "of" -> 0x1ffeffe540)
-2-Gram [21] ("of" -> 0x1ffeffe540, "a" -> 0x1ffeffe550)
-2-Gram [22] ("a" -> 0x1ffeffe550, "set" -> 0x1ffeffe560)
-2-Gram [23] ("set" -> 0x1ffeffe560, "of" -> 0x1ffeffe570)
-2-Gram [24] ("of" -> 0x1ffeffe570, "states" -> 0x1ffeffe580)
-2-Gram [25] ("states" -> 0x1ffeffe580, "and" -> 0x1ffeffe590)
-2-Gram [26] ("and" -> 0x1ffeffe590, "the" -> 0x1ffeffe5a0)
-2-Gram [27] ("the" -> 0x1ffeffe5a0, "transitions" -> 0x1ffeffe5b0)
-2-Gram [28] ("transitions" -> 0x1ffeffe5b0, "between" -> 0x1ffeffe5c0)
-2-Gram [29] ("between" -> 0x1ffeffe5c0, "them" -> 0x1ffeffe5d0)
-2-Gram [30] ("them" -> 0x1ffeffe5d0, "these" -> 0x1ffeffe5e0)
-2-Gram [31] ("these" -> 0x1ffeffe5e0, "transitions" -> 0x1ffeffe5f0)
-2-Gram [32] ("transitions" -> 0x1ffeffe5f0, "are" -> 0x1ffeffe600)
-2-Gram [33] ("are" -> 0x1ffeffe600, "probabilistic" -> 0x1ffeffe610)
-2-Gram [34] ("probabilistic" -> 0x1ffeffe610, "which" -> 0x1ffeffe620)
-2-Gram [35] ("which" -> 0x1ffeffe620, "implies" -> 0x1ffeffe630)
-2-Gram [36] ("implies" -> 0x1ffeffe630, "that" -> 0x1ffeffe640)
-2-Gram [37] ("that" -> 0x1ffeffe640, "the" -> 0x1ffeffe650)
-2-Gram [38] ("the" -> 0x1ffeffe650, "possibility" -> 0x1ffeffe660)
-2-Gram [39] ("possibility" -> 0x1ffeffe660, "of" -> 0x1ffeffe670)
-2-Gram [40] ("of" -> 0x1ffeffe670, "moving" -> 0x1ffeffe680)
-2-Gram [41] ("moving" -> 0x1ffeffe680, "from" -> 0x1ffeffe690)
-2-Gram [42] ("from" -> 0x1ffeffe690, "one" -> 0x1ffeffe6a0)
-2-Gram [43] ("one" -> 0x1ffeffe6a0, "state" -> 0x1ffeffe6b0)
-2-Gram [44] ("state" -> 0x1ffeffe6b0, "to" -> 0x1ffeffe6c0)
-2-Gram [45] ("to" -> 0x1ffeffe6c0, "another" -> 0x1ffeffe6d0)
-2-Gram [46] ("another" -> 0x1ffeffe6d0, "solely" -> 0x1ffeffe6e0)
-2-Gram [47] ("solely" -> 0x1ffeffe6e0, "depends" -> 0x1ffeffe6f0)
-2-Gram [48] ("depends" -> 0x1ffeffe6f0, "on" -> 0x1ffeffe700)
-2-Gram [49] ("on" -> 0x1ffeffe700, "the" -> 0x1ffeffe710)
-2-Gram [50] ("the" -> 0x1ffeffe710, "current" -> 0x1ffeffe720)
-2-Gram [51] ("current" -> 0x1ffeffe720, "state" -> 0x1ffeffe730)
-2-Gram [52] ("state" -> 0x1ffeffe730, "and" -> 0x1ffeffe740)
-2-Gram [53] ("and" -> 0x1ffeffe740, "not" -> 0x1ffeffe750)
-2-Gram [54] ("not" -> 0x1ffeffe750, "on" -> 0x1ffeffe760)
-2-Gram [55] ("on" -> 0x1ffeffe760, "any" -> 0x1ffeffe770)
-2-Gram [56] ("any" -> 0x1ffeffe770, "past" -> 0x1ffeffe780)
-2-Gram [57] ("past" -> 0x1ffeffe780, "events" -> 0x1ffeffe790)
-2-Gram [58] ("events" -> 0x1ffeffe790, "this" -> 0x1ffeffe7a0)
-2-Gram [59] ("this" -> 0x1ffeffe7a0, "model" -> 0x1ffeffe7b0)
-2-Gram [60] ("model" -> 0x1ffeffe7b0, "has" -> 0x1ffeffe7c0)
-2-Gram [61] ("has" -> 0x1ffeffe7c0, "extensive" -> 0x1ffeffe7d0)
-2-Gram [62] ("extensive" -> 0x1ffeffe7d0, "use" -> 0x1ffeffe7e0)
-2-Gram [63] ("use" -> 0x1ffeffe7e0, "in" -> 0x1ffeffe7f0)
-2-Gram [64] ("in" -> 0x1ffeffe7f0, "various" -> 0x1ffeffe800)
-2-Gram [65] ("various" -> 0x1ffeffe800, "fields" -> 0x1ffeffe810)
-2-Gram [66] ("fields" -> 0x1ffeffe810, "such" -> 0x1ffeffe820)
-2-Gram [67] ("such" -> 0x1ffeffe820, "as" -> 0x1ffeffe830)
-2-Gram [68] ("as" -> 0x1ffeffe830, "physics" -> 0x1ffeffe840)
-2-Gram [69] ("physics" -> 0x1ffeffe840, "chemistry" -> 0x1ffeffe850)
-2-Gram [70] ("chemistry" -> 0x1ffeffe850, "biology" -> 0x1ffeffe860)
-2-Gram [71] ("biology" -> 0x1ffeffe860, "economics" -> 0x1ffeffe870)
-2-Gram [72] ("economics" -> 0x1ffeffe870, "and" -> 0x1ffeffe880)
-2-Gram [73] ("and" -> 0x1ffeffe880, "computer" -> 0x1ffeffe890)
-2-Gram [74] ("computer" -> 0x1ffeffe890, "science" -> 0x1ffeffe8a0)
-2-Gram [75] ("science" -> 0x1ffeffe8a0, "transition" -> 0x1ffeffe8b0)
-2-Gram [76] ("transition" -> 0x1ffeffe8b0, "matrix" -> 0x1ffeffe8c0)
-2-Gram [77] ("matrix" -> 0x1ffeffe8c0, "the" -> 0x1ffeffe8d0)
-2-Gram [78] ("the" -> 0x1ffeffe8d0, "fundamental" -> 0x1ffeffe8e0)
-2-Gram [79] ("fundamental" -> 0x1ffeffe8e0, "mathematical" -> 0x1ffeffe8f0)
-2-Gram [80] ("mathematical" -> 0x1ffeffe8f0, "concept" -> 0x1ffeffe900)
-2-Gram [81] ("concept" -> 0x1ffeffe900, "of" -> 0x1ffeffe910)
-2-Gram [82] ("of" -> 0x1ffeffe910, "a" -> 0x1ffeffe920)
-2-Gram [83] ("a" -> 0x1ffeffe920, "markov" -> 0x1ffeffe930)
-2-Gram [84] ("markov" -> 0x1ffeffe930, "chain" -> 0x1ffeffe940)
-2-Gram [85] ("chain" -> 0x1ffeffe940, "is" -> 0x1ffeffe950)
-2-Gram [86] ("is" -> 0x1ffeffe950, "the" -> 0x1ffeffe960)
-2-Gram [87] ("the" -> 0x1ffeffe960, "transition" -> 0x1ffeffe970)
-2-Gram [88] ("transition" -> 0x1ffeffe970, "matrix" -> 0x1ffeffe980)
-2-Gram [89] ("matrix" -> 0x1ffeffe980, "this" -> 0x1ffeffe990)
-2-Gram [90] ("this" -> 0x1ffeffe990, "is" -> 0x1ffeffe9a0)
-2-Gram [91] ("is" -> 0x1ffeffe9a0, "a" -> 0x1ffeffe9b0)
-2-Gram [92] ("a" -> 0x1ffeffe9b0, "square" -> 0x1ffeffe9c0)
-2-Gram [93] ("square" -> 0x1ffeffe9c0, "matrix" -> 0x1ffeffe9d0)
-2-Gram [94] ("matrix" -> 0x1ffeffe9d0, "that" -> 0x1ffeffe9e0)
-2-Gram [95] ("that" -> 0x1ffeffe9e0, "describes" -> 0x1ffeffe9f0)
-2-Gram [96] ("describes" -> 0x1ffeffe9f0, "the" -> 0x1ffeffea00)
-2-Gram [97] ("the" -> 0x1ffeffea00, "probability" -> 0x1ffeffea10)
-2-Gram [98] ("probability" -> 0x1ffeffea10, "of" -> 0x1ffeffea20)
-2-Gram [99] ("of" -> 0x1ffeffea20, "moving" -> 0x1ffeffea30)
-2-Gram [100] ("moving" -> 0x1ffeffea30, "from" -> 0x1ffeffea40)
-2-Gram [101] ("from" -> 0x1ffeffea40, "one" -> 0x1ffeffea50)
-2-Gram [102] ("one" -> 0x1ffeffea50, "state" -> 0x1ffeffea60)
-2-Gram [103] ("state" -> 0x1ffeffea60, "to" -> 0x1ffeffea70)
-2-Gram [104] ("to" -> 0x1ffeffea70, "another" -> 0x1ffeffea80)
-2-Gram [105] ("another" -> 0x1ffeffea80, "if" -> 0x1ffeffea90)
-2-Gram [106] ("if" -> 0x1ffeffea90, "there" -> 0x1ffeffeaa0)
-2-Gram [107] ("there" -> 0x1ffeffeaa0, "are" -> 0x1ffeffeab0)
-2-Gram [108] ("are" -> 0x1ffeffeab0, "n" -> 0x1ffeffeac0)
-2-Gram [109] ("n" -> 0x1ffeffeac0, "states" -> 0x1ffeffead0)
-2-Gram [110] ("states" -> 0x1ffeffead0, "in" -> 0x1ffeffeae0)
-2-Gram [111] ("in" -> 0x1ffeffeae0, "the" -> 0x1ffeffeaf0)
-2-Gram [112] ("the" -> 0x1ffeffeaf0, "markov" -> 0x1ffeffeb00)
-2-Gram [113] ("markov" -> 0x1ffeffeb00, "chain" -> 0x1ffeffeb10)
-2-Gram [114] ("chain" -> 0x1ffeffeb10, "the" -> 0x1ffeffeb20)
-2-Gram [115] ("the" -> 0x1ffeffeb20, "transition" -> 0x1ffeffeb30)
-2-Gram [116] ("transition" -> 0x1ffeffeb30, "matrix" -> 0x1ffeffeb40)
-2-Gram [117] ("matrix" -> 0x1ffeffeb40, "will" -> 0x1ffeffeb50)
-2-Gram [118] ("will" -> 0x1ffeffeb50, "be" -> 0x1ffeffeb60)
-2-Gram [119] ("be" -> 0x1ffeffeb60, "an" -> 0x1ffeffeb70)
-2-Gram [120] ("an" -> 0x1ffeffeb70, "n" -> 0x1ffeffeb80)
-2-Gram [121] ("n" -> 0x1ffeffeb80, "x" -> 0x1ffeffeb90)
-2-Gram [122] ("x" -> 0x1ffeffeb90, "n" -> 0x1ffeffeba0)
-2-Gram [123] ("n" -> 0x1ffeffeba0, "matrix" -> 0x1ffeffebb0)
-2-Gram [124] ("matrix" -> 0x1ffeffebb0, "where" -> 0x1ffeffebc0)
-2-Gram [125] ("where" -> 0x1ffeffebc0, "each" -> 0x1ffeffebd0)
-2-Gram [126] ("each" -> 0x1ffeffebd0, "element" -> 0x1ffeffebe0)
-2-Gram [127] ("element" -> 0x1ffeffebe0, "i" -> 0x1ffeffebf0)
-2-Gram [128] ("i" -> 0x1ffeffebf0, "j" -> 0x1ffeffec00)
-2-Gram [129] ("j" -> 0x1ffeffec00, "of" -> 0x1ffeffec10)
-2-Gram [130] ("of" -> 0x1ffeffec10, "the" -> 0x1ffeffec20)
-2-Gram [131] ("the" -> 0x1ffeffec20, "matrix" -> 0x1ffeffec30)
-2-Gram [132] ("matrix" -> 0x1ffeffec30, "represents" -> 0x1ffeffec40)
-2-Gram [133] ("represents" -> 0x1ffeffec40, "the" -> 0x1ffeffec50)
-2-Gram [134] ("the" -> 0x1ffeffec50, "probability" -> 0x1ffeffec60)
-2-Gram [135] ("probability" -> 0x1ffeffec60, "of" -> 0x1ffeffec70)
-2-Gram [136] ("of" -> 0x1ffeffec70, "moving" -> 0x1ffeffec80)
-2-Gram [137] ("moving" -> 0x1ffeffec80, "from" -> 0x1ffeffec90)
-2-Gram [138] ("from" -> 0x1ffeffec90, "state" -> 0x1ffeffeca0)
-2-Gram [139] ("state" -> 0x1ffeffeca0, "i" -> 0x1ffeffecb0)
-2-Gram [140] ("i" -> 0x1ffeffecb0, "to" -> 0x1ffeffecc0)
-2-Gram [141] ("to" -> 0x1ffeffecc0, "state" -> 0x1ffeffecd0)
-2-Gram [142] ("state" -> 0x1ffeffecd0, "j" -> 0x1ffeffece0)
-2-Gram [143] ("j" -> 0x1ffeffece0, "the" -> 0x1ffeffecf0)
-2-Gram [144] ("the" -> 0x1ffeffecf0, "sum" -> 0x1ffeffed00)
-2-Gram [145] ("sum" -> 0x1ffeffed00, "of" -> 0x1ffeffed10)
-2-Gram [146] ("of" -> 0x1ffeffed10, "each" -> 0x1ffeffed20)
-2-Gram [147] ("each" -> 0x1ffeffed20, "row" -> 0x1ffeffed30)
-2-Gram [148] ("row" -> 0x1ffeffed30, "of" -> 0x1ffeffed40)
-2-Gram [149] ("of" -> 0x1ffeffed40, "the" -> 0x1ffeffed50)
-2-Gram [150] ("the" -> 0x1ffeffed50, "transition" -> 0x1ffeffed60)
-2-Gram [151] ("transition" -> 0x1ffeffed60, "matrix" -> 0x1ffeffed70)
-2-Gram [152] ("matrix" -> 0x1ffeffed70, "must" -> 0x1ffeffed80)
-2-Gram [153] ("must" -> 0x1ffeffed80, "be" -> 0x1ffeffed90)
-2-Gram [154] ("be" -> 0x1ffeffed90, "as" -> 0x1ffeffeda0)
-2-Gram [155] ("as" -> 0x1ffeffeda0, "the" -> 0x1ffeffedb0)
-2-Gram [156] ("the" -> 0x1ffeffedb0, "probabilities" -> 0x1ffeffedc0)
-2-Gram [157] ("probabilities" -> 0x1ffeffedc0, "of" -> 0x1ffeffedd0)
-2-Gram [158] ("of" -> 0x1ffeffedd0, "moving" -> 0x1ffeffede0)
-2-Gram [159] ("moving" -> 0x1ffeffede0, "to" -> 0x1ffeffedf0)
-2-Gram [160] ("to" -> 0x1ffeffedf0, "each" -> 0x1ffeffee00)
-2-Gram [161] ("each" -> 0x1ffeffee00, "state" -> 0x1ffeffee10)
-2-Gram [162] ("state" -> 0x1ffeffee10, "from" -> 0x1ffeffee20)
-2-Gram [163] ("from" -> 0x1ffeffee20, "the" -> 0x1ffeffee30)
-2-Gram [164] ("the" -> 0x1ffeffee30, "current" -> 0x1ffeffee40)
-2-Gram [165] ("current" -> 0x1ffeffee40, "state" -> 0x1ffeffee50)
-2-Gram [166] ("state" -> 0x1ffeffee50, "must" -> 0x1ffeffee60)
-2-Gram [167] ("must" -> 0x1ffeffee60, "add" -> 0x1ffeffee70)
-2-Gram [168] ("add" -> 0x1ffeffee70, "up" -> 0x1ffeffee80)
-2-Gram [169] ("up" -> 0x1ffeffee80, "to" -> 0x1ffeffee90)
-2-Gram [170] ("to" -> 0x1ffeffee90, "chapman" -> 0x1ffeffeea0)
-2-Gram [171] ("chapman" -> 0x1ffeffeea0, "kolmogorov" -> 0x1ffeffeeb0)
-2-Gram [172] ("kolmogorov" -> 0x1ffeffeeb0, "equation" -> 0x1ffeffeec0)
-2-Gram [173] ("equation" -> 0x1ffeffeec0, "the" -> 0x1ffeffeed0)
-2-Gram [174] ("the" -> 0x1ffeffeed0, "basic" -> 0x1ffeffeee0)
-2-Gram [175] ("basic" -> 0x1ffeffeee0, "theorem" -> 0x1ffeffeef0)
-2-Gram [176] ("theorem" -> 0x1ffeffeef0, "of" -> 0x1ffeffef00)
-2-Gram [177] ("of" -> 0x1ffeffef00, "markov" -> 0x1ffeffef10)
-2-Gram [178] ("markov" -> 0x1ffeffef10, "chain" -> 0x1ffeffef20)
-2-Gram [179] ("chain" -> 0x1ffeffef20, "theory" -> 0x1ffeffef30)
-2-Gram [180] ("theory" -> 0x1ffeffef30, "is" -> 0x1ffeffef40)
-2-Gram [181] ("is" -> 0x1ffeffef40, "the" -> 0x1ffeffef50)
-2-Gram [182] ("the" -> 0x1ffeffef50, "chapman" -> 0x1ffeffef60)
-2-Gram [183] ("chapman" -> 0x1ffeffef60, "kolmogorov" -> 0x1ffeffef70)
-2-Gram [184] ("kolmogorov" -> 0x1ffeffef70, "equation" -> 0x1ffeffef80)
-2-Gram [185] ("equation" -> 0x1ffeffef80, "these" -> 0x1ffeffef90)
-2-Gram [186] ("these" -> 0x1ffeffef90, "equations" -> 0x1ffeffefa0)
-2-Gram [187] ("equations" -> 0x1ffeffefa0, "state" -> 0x1ffeffefb0)
-2-Gram [188] ("state" -> 0x1ffeffefb0, "that" -> 0x1ffeffefc0)
-2-Gram [189] ("that" -> 0x1ffeffefc0, "the" -> 0x1ffeffefd0)
-2-Gram [190] ("the" -> 0x1ffeffefd0, "probability" -> 0x1ffeffefe0)
-2-Gram [191] ("probability" -> 0x1ffeffefe0, "of" -> 0x1ffeffeff0)
-2-Gram [192] ("of" -> 0x1ffeffeff0, "moving" -> 0x1ffefff000)
-2-Gram [193] ("moving" -> 0x1ffefff000, "from" -> 0x1ffefff010)
-2-Gram [194] ("from" -> 0x1ffefff010, "one" -> 0x1ffefff020)
-2-Gram [195] ("one" -> 0x1ffefff020, "state" -> 0x1ffefff030)
-2-Gram [196] ("state" -> 0x1ffefff030, "to" -> 0x1ffefff040)
-2-Gram [197] ("to" -> 0x1ffefff040, "another" -> 0x1ffefff050)
-2-Gram [198] ("another" -> 0x1ffefff050, "over" -> 0x1ffefff060)
-2-Gram [199] ("over" -> 0x1ffefff060, "a" -> 0x1ffefff070)
-2-Gram [200] ("a" -> 0x1ffefff070, "sequence" -> 0x1ffefff080)
-2-Gram [201] ("sequence" -> 0x1ffefff080, "of" -> 0x1ffefff090)
-2-Gram [202] ("of" -> 0x1ffefff090, "steps" -> 0x1ffefff0a0)
-2-Gram [203] ("steps" -> 0x1ffefff0a0, "is" -> 0x1ffefff0b0)
-2-Gram [204] ("is" -> 0x1ffefff0b0, "the" -> 0x1ffefff0c0)
-2-Gram [205] ("the" -> 0x1ffefff0c0, "product" -> 0x1ffefff0d0)
-2-Gram [206] ("product" -> 0x1ffefff0d0, "of" -> 0x1ffefff0e0)
-2-Gram [207] ("of" -> 0x1ffefff0e0, "the" -> 0x1ffefff0f0)
-2-Gram [208] ("the" -> 0x1ffefff0f0, "transition" -> 0x1ffefff100)
-2-Gram [209] ("transition" -> 0x1ffefff100, "probabilities" -> 0x1ffefff110)
-2-Gram [210] ("probabilities" -> 0x1ffefff110, "for" -> 0x1ffefff120)
-2-Gram [211] ("for" -> 0x1ffefff120, "each" -> 0x1ffefff130)
-2-Gram [212] ("each" -> 0x1ffefff130, "step" -> 0x1ffefff140)
-2-Gram [213] ("step" -> 0x1ffefff140, "this" -> 0x1ffefff150)
-2-Gram [214] ("this" -> 0x1ffefff150, "means" -> 0x1ffefff160)
-2-Gram [215] ("means" -> 0x1ffefff160, "that" -> 0x1ffefff170)
-2-Gram [216] ("that" -> 0x1ffefff170, "we" -> 0x1ffefff180)
-2-Gram [217] ("we" -> 0x1ffefff180, "can" -> 0x1ffefff190)
-2-Gram [218] ("can" -> 0x1ffefff190, "compute" -> 0x1ffefff1a0)
-2-Gram [219] ("compute" -> 0x1ffefff1a0, "the" -> 0x1ffefff1b0)
-2-Gram [220] ("the" -> 0x1ffefff1b0, "probability" -> 0x1ffefff1c0)
-2-Gram [221] ("probability" -> 0x1ffefff1c0, "of" -> 0x1ffefff1d0)
-2-Gram [222] ("of" -> 0x1ffefff1d0, "a" -> 0x1ffefff1e0)
-2-Gram [223] ("a" -> 0x1ffefff1e0, "particular" -> 0x1ffefff1f0)
-2-Gram [224] ("particular" -> 0x1ffefff1f0, "sequence" -> 0x1ffefff200)
-2-Gram [225] ("sequence" -> 0x1ffefff200, "of" -> 0x1ffefff210)
-2-Gram [226] ("of" -> 0x1ffefff210, "transitions" -> 0x1ffefff220)
-2-Gram [227] ("transitions" -> 0x1ffefff220, "by" -> 0x1ffefff230)
-2-Gram [228] ("by" -> 0x1ffefff230, "multiplying" -> 0x1ffefff240)
-2-Gram [229] ("multiplying" -> 0x1ffefff240, "together" -> 0x1ffefff250)
-2-Gram [230] ("together" -> 0x1ffefff250, "the" -> 0x1ffefff260)
-2-Gram [231] ("the" -> 0x1ffefff260, "probabilities" -> 0x1ffefff270)
-2-Gram [232] ("probabilities" -> 0x1ffefff270, "of" -> 0x1ffefff280)
-2-Gram [233] ("of" -> 0x1ffefff280, "each" -> 0x1ffefff290)
-2-Gram [234] ("each" -> 0x1ffefff290, "individual" -> 0x1ffefff2a0)
-2-Gram [235] ("individual" -> 0x1ffefff2a0, "transition" -> 0x1ffefff2b0)
-Got 107 unique tokens
-Unique token [0] "markov" -> 0x1ffefff2c0 is 6 characters long
-Unique token [1] "chain" -> 0x1ffefff2c7 is 5 characters long
-Unique token [2] "is" -> 0x1ffefff2cd is 2 characters long
-Unique token [3] "a" -> 0x1ffefff2d0 is 1 characters long
-Unique token [4] "mathematical" -> 0x1ffefff2d2 is 12 characters long
-Unique token [5] "model" -> 0x1ffefff2df is 5 characters long
-Unique token [6] "that" -> 0x1ffefff2e5 is 4 characters long
-Unique token [7] "utilized" -> 0x1ffefff2ed is 8 characters long
-Unique token [8] "to" -> 0x1ffefff2f6 is 2 characters long
-Unique token [9] "simulate" -> 0x1ffefff2f9 is 8 characters long
-Unique token [10] "random" -> 0x1ffefff302 is 6 characters long
-Unique token [11] "processes" -> 0x1ffefff309 is 9 characters long
-Unique token [12] "occurring" -> 0x1ffefff313 is 9 characters long
-Unique token [13] "over" -> 0x1ffefff31d is 4 characters long
-Unique token [14] "duration" -> 0x1ffefff324 is 8 characters long
-Unique token [15] "of" -> 0x1ffefff32d is 2 characters long
-Unique token [16] "time" -> 0x1ffefff330 is 4 characters long
-Unique token [17] "it" -> 0x1ffefff335 is 2 characters long
-Unique token [18] "consists" -> 0x1ffefff338 is 8 characters long
-Unique token [19] "set" -> 0x1ffefff346 is 3 characters long
-Unique token [20] "states" -> 0x1ffefff34d is 6 characters long
-Unique token [21] "and" -> 0x1ffefff354 is 3 characters long
-Unique token [22] "the" -> 0x1ffefff358 is 3 characters long
-Unique token [23] "transitions" -> 0x1ffefff35c is 11 characters long
-Unique token [24] "between" -> 0x1ffefff368 is 7 characters long
-Unique token [25] "them" -> 0x1ffefff370 is 4 characters long
-Unique token [26] "these" -> 0x1ffefff375 is 5 characters long
-Unique token [27] "are" -> 0x1ffefff387 is 3 characters long
-Unique token [28] "probabilistic" -> 0x1ffefff38b is 13 characters long
-Unique token [29] "which" -> 0x1ffefff399 is 5 characters long
-Unique token [30] "implies" -> 0x1ffefff39f is 7 characters long
-Unique token [31] "possibility" -> 0x1ffefff3b0 is 11 characters long
-Unique token [32] "moving" -> 0x1ffefff3bf is 6 characters long
-Unique token [33] "from" -> 0x1ffefff3c6 is 4 characters long
-Unique token [34] "one" -> 0x1ffefff3cb is 3 characters long
-Unique token [35] "state" -> 0x1ffefff3cf is 5 characters long
-Unique token [36] "another" -> 0x1ffefff3d8 is 7 characters long
-Unique token [37] "solely" -> 0x1ffefff3e0 is 6 characters long
-Unique token [38] "depends" -> 0x1ffefff3e7 is 7 characters long
-Unique token [39] "on" -> 0x1ffefff3ef is 2 characters long
-Unique token [40] "current" -> 0x1ffefff3f6 is 7 characters long
-Unique token [41] "not" -> 0x1ffefff408 is 3 characters long
-Unique token [42] "any" -> 0x1ffefff40f is 3 characters long
-Unique token [43] "past" -> 0x1ffefff413 is 4 characters long
-Unique token [44] "events" -> 0x1ffefff418 is 6 characters long
-Unique token [45] "this" -> 0x1ffefff41f is 4 characters long
-Unique token [46] "has" -> 0x1ffefff42a is 3 characters long
-Unique token [47] "extensive" -> 0x1ffefff42e is 9 characters long
-Unique token [48] "use" -> 0x1ffefff438 is 3 characters long
-Unique token [49] "in" -> 0x1ffefff43c is 2 characters long
-Unique token [50] "various" -> 0x1ffefff43f is 7 characters long
-Unique token [51] "fields" -> 0x1ffefff447 is 6 characters long
-Unique token [52] "such" -> 0x1ffefff44e is 4 characters long
-Unique token [53] "as" -> 0x1ffefff453 is 2 characters long
-Unique token [54] "physics" -> 0x1ffefff456 is 7 characters long
-Unique token [55] "chemistry" -> 0x1ffefff45e is 9 characters long
-Unique token [56] "biology" -> 0x1ffefff468 is 7 characters long
-Unique token [57] "economics" -> 0x1ffefff470 is 9 characters long
-Unique token [58] "computer" -> 0x1ffefff47e is 8 characters long
-Unique token [59] "science" -> 0x1ffefff487 is 7 characters long
-Unique token [60] "transition" -> 0x1ffefff48f is 10 characters long
-Unique token [61] "matrix" -> 0x1ffefff49a is 6 characters long
-Unique token [62] "fundamental" -> 0x1ffefff4a5 is 11 characters long
-Unique token [63] "concept" -> 0x1ffefff4be is 7 characters long
-Unique token [64] "square" -> 0x1ffefff4fb is 6 characters long
-Unique token [65] "describes" -> 0x1ffefff50e is 9 characters long
-Unique token [66] "probability" -> 0x1ffefff51c is 11 characters long
-Unique token [67] "if" -> 0x1ffefff54c is 2 characters long
-Unique token [68] "there" -> 0x1ffefff54f is 5 characters long
-Unique token [69] "n" -> 0x1ffefff559 is 1 characters long
-Unique token [70] "will" -> 0x1ffefff58c is 4 characters long
-Unique token [71] "be" -> 0x1ffefff591 is 2 characters long
-Unique token [72] "an" -> 0x1ffefff594 is 2 characters long
-Unique token [73] "x" -> 0x1ffefff599 is 1 characters long
-Unique token [74] "where" -> 0x1ffefff5a4 is 5 characters long
-Unique token [75] "each" -> 0x1ffefff5aa is 4 characters long
-Unique token [76] "element" -> 0x1ffefff5af is 7 characters long
-Unique token [77] "i" -> 0x1ffefff5b7 is 1 characters long
-Unique token [78] "j" -> 0x1ffefff5b9 is 1 characters long
-Unique token [79] "represents" -> 0x1ffefff5c9 is 10 characters long
-Unique token [80] "sum" -> 0x1ffefff60a is 3 characters long
-Unique token [81] "row" -> 0x1ffefff616 is 3 characters long
-Unique token [82] "must" -> 0x1ffefff633 is 4 characters long
-Unique token [83] "probabilities" -> 0x1ffefff642 is 13 characters long
-Unique token [84] "add" -> 0x1ffefff684 is 3 characters long
-Unique token [85] "up" -> 0x1ffefff688 is 2 characters long
-Unique token [86] "chapman" -> 0x1ffefff68e is 7 characters long
-Unique token [87] "kolmogorov" -> 0x1ffefff696 is 10 characters long
-Unique token [88] "equation" -> 0x1ffefff6a1 is 8 characters long
-Unique token [89] "basic" -> 0x1ffefff6ae is 5 characters long
-Unique token [90] "theorem" -> 0x1ffefff6b4 is 7 characters long
-Unique token [91] "theory" -> 0x1ffefff6cc is 6 characters long
-Unique token [92] "equations" -> 0x1ffefff6fc is 9 characters long
-Unique token [93] "sequence" -> 0x1ffefff74c is 8 characters long
-Unique token [94] "steps" -> 0x1ffefff758 is 5 characters long
-Unique token [95] "product" -> 0x1ffefff765 is 7 characters long
-Unique token [96] "for" -> 0x1ffefff78d is 3 characters long
-Unique token [97] "step" -> 0x1ffefff796 is 4 characters long
-Unique token [98] "means" -> 0x1ffefff7a0 is 5 characters long
-Unique token [99] "we" -> 0x1ffefff7ab is 2 characters long
-Unique token [100] "can" -> 0x1ffefff7ae is 3 characters long
-Unique token [101] "compute" -> 0x1ffefff7b2 is 7 characters long
-Unique token [102] "particular" -> 0x1ffefff7cf is 10 characters long
-Unique token [103] "by" -> 0x1ffefff7f2 is 2 characters long
-Unique token [104] "multiplying" -> 0x1ffefff7f5 is 11 characters long
-Unique token [105] "together" -> 0x1ffefff801 is 8 characters long
-Unique token [106] "individual" -> 0x1ffefff824 is 10 characters long
-Transition matrix [107 by 107]
-[0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.25,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.25,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.17,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.14,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.40,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.43,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.06,0.00,0.00,0.17,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.06,0.00,0.00,0.00,0.06,0.00,0.17,0.06,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.28,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.11,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.06,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.05,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.05,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.05,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.10,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.19,0.05,0.05,0.00,0.00,0.00,0.19,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.05,0.00,0.00,0.10,0.00,0.00,0.05,0.00,0.00,0.05,0.00,0.00,0.00,0.00,0.00,0.05,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.80,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.60,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.11,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.11,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.11,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.11,0.11,0.00,0.00,0.00,0.11,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.33,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.80,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.14,0.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.20]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.67,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-[0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00]
-Generating 16 sentences
-Sentence: "set of the fundamental mathematical concept of a square matrix where each individual transition probabilities for"
-Sentence: "events this model has extensive use in various fields such as the probability of transitions between"
-Sentence: "chain theory is a square matrix that the transition matrix must be an n states and"
-Sentence: "element i to simulate random processes occurring over a sequence of steps is a markov chain"
-Sentence: "sum of markov chain theory is a mathematical concept of moving from the basic theorem of"
-Sentence: "various fields such as physics chemistry biology economics and not on the chapman kolmogorov equation the"
-Sentence: "product of each element i to another over a mathematical concept of a mathematical concept of"
-Sentence: "product of the transition matrix this is utilized to each row of moving from state that"
-Sentence: "current state to another if there are probabilistic which implies that the probabilities of a square"
-Sentence: "individual transition probabilities for each individual transition matrix where each state to state that the sum"
-Sentence: "a sequence of each step this is the sum of the probability of transitions between them"
-Sentence: "equation these transitions are n matrix will be as physics chemistry biology economics and the probability"
-Sentence: "as physics chemistry biology economics and not on the basic theorem of the product of moving"
-Sentence: "simulate random processes occurring over a duration of a mathematical concept of the chapman kolmogorov equation"
-Sentence: "processes occurring over a duration of states in various fields such as the probability of a"
-Sentence: "will be an n matrix the probability of the transition matrix must be an n matrix"
+Unformatted text contains 1161376 characters
+Formatted text contains 1066163 characters: ...
+Text contains 198025 tokens
+...
+Got 12520 unique tokens
+...
+Generating 198024 2-grams
+...
+Sentence: "guilty deed a solace to say first alternately the thoughts oppress d the shock the slain and such a deceitful vision spoke and each eye of the golden talents for hector s lempriere eustathius after quoting a willing heavenly presence stand and put a scantling of the horrid war brave assist our native soil and fitted to fear saw achilles or narrative but selected to the armies had no longer hector s drear realms with fright trembling he gloried in its mouth see what i led and the blue eyed maid inspires our honours calm nor what he saw and with assistant toil a sigh inglorious flight else had renown d at his way advanced in the grecian ranks his daughter with occasional anomalies may but what ease away tis thetis calling venus is described in which seems to it and discontinue all your foaming rends the poet has jove assisting i scatter d and daughters in orlando furioso bk ii an arrow in the greeks and trembling all the youth for the mind from race he falls his persons or he toils two from danger shun the realms on the old epic poets both in the deity to contend at once formidable air and thy proposals scorns and by stealth to shed perfumes with so shone amidst yon forbidden we mortal men a warrior s on virg n first entranced in war and jove let us with jove shall drag off the athenians to the genial rites and now tis hector the hard decree"
+Sentence: "messenger of greece and i trust that near the channels came to fear impell d and obey ye grecians headlong sought her way through the permission to the people which once more like a great age and insults thou thy radiant as the full blown poppies overcharged with the emathian line and manners and in youth even thou art with smiles and all fix d forth such bold leaders of the bosom of the corpse of mind forsook the wind ye grew he look the work is most pestilences begin to work under meges for his art and stop no less their earnest prayer his aged arms her various iris for the weighty buckler o er him to your hopes the generous ardour kindles at the hollow sound the king the lycian king of the coldest warm d with desiring arms the god who flies from fair ar thyrea ornia s strand obedient flame then gather or at the mountain s name though all the main the greeks expect the grecian camp to the royal prize the project gutenberg electronic works nearly equal charms in the work which rises o chief transcends thy dart supported on one mother wail d each of the rocks re bellow to the funeral pile the sons of poetry to the lust of earth another offspring laid so brave tydides given not void of his orders to death and feeds his breast inspires this day whole circumference contains a mere romance the joints they above prevent the friends his boy"
+Sentence: "saddens all who beheld with heat o er the purpose hallam middle of their brave the hoary herald to mortal woe melts mankind beyond mankind to greece that his sad mother s superior vengeance for some sylvan pile then inspired him wretched mortals lost is deluded with a general he urged their sight nestor most smooth cone the athenian phalanx firm achaian bands what youths with tablets till those only triumphs of a happier hour these with all thy captive led iphiclus son smote his sleep s virgil grote vol i spy unwary foe then let me here we must absent lord of ocean marching stern tydides ajax rescue and prone sinks a share the spouting on both the morning the loveliest youth there arm the memory of antique goblet take the purchase just as in arms he and pher a little attention draw the king shall remain d in achilles hand reprieved the brave youths return from his soul comes not kings be his eyes shall begin and drives him in paragraph c apul de deo socrat s due repast to think evidently little pteleon stand in vain when now storm and final subsidence of him agenor s dread the plain this anchises eldest hope the same urn that vast heaps along the hero simois shore where old xanthus next young and almost a strong as that seek their fatal courage above his swimming eyes and unequal war pour d before the bards gifted with erring fury with lofty navy fears on high from"
+Sentence: "archer trusting to these from you wish d the great alcides copreus was determined is beset are aware as when wine while socus flies admiring chiefs of favouring pallas urged him he thinks antilochus his heat the conquests on the battle and shun him round the ground the cities by grote i pass d the lone fields resounded with shouts they only found menestheus areithous known and renews their one hero kindles all grim in his parents and the god with trojan breast ye fierce soul shivering at every greek shield nor eased and turns in him and others in war tlepolemus the bless d yield the trojan chiefs alight their fight they signified out in the chief his he could allow d with great heart confused and wing but if mine is next on thee dead tell o son of his maxims and regularly ordering the helmet black from leucadia the ranks wedged untimely slew then sat and from ilus tomb observed the dearest and the presence father s bleak realms around the steeds and lofty gnossus for king of superior and brook his fate divide them through the realms no god i left an antique gem book iii grote i hear and produces the morning break the skies the land before its ample shield of a place then believed no comfort yet one undistinguish d in fifty years and the nymphs there the day if jove by heaven to the forceful spear this manner in vain alas my tender care there hector asks"
+Sentence: "convocations the greek ships with his broad are the watch tower on the coursers and from other poems were too a ponderous javelin err d fen where their own palace at partial jove averse the world and meet the dust all my children besides characters of the channels of earth since by this ebook complying with their broad falchions flash d of hostile fires he spoke imperial dame althaea to man can the latter being the challenge hector still close to her lingering troops to thee vultures pope is not all a hunter cheers let those moral groundwork undoubtedly subsisted in vain in vengeance on his terror his side a subsistence compare tasso teneri sdegni e er the rising said thus while thus to the fierce alarms earth and turn their breasts with his eyes and drive the third person or thought the loud alarms return d unequal fight determined is the plated steel with his eyes each unjust most immediate aid but hector s fate if other retreats then first to argos wills obey the efforts of all famed myrmidons confusedly gay now there pierced the fight maintain what i obey these to our loved like lightning flew and unerring bow to bear the goddess from the due flight even the many a medium between the assault sustain thy hand she with a veil of greece indignant beast and on all her heroes and ulysses or a monarch all ye perish as to move or present where the towers and the guardless prey ulysses"
+Sentence: "conspicuous for they touch d the numerous carpets and thirtieth day continues throughout all his sad procession come then to form like deiphobus and furious acamas of the rushing to love and heaps of his brother deities from its direful plain the sire and rends his instruments of old man one heart detests him with towers of tin each leader threw the valiant sons whom the fleeting skies confused and there meets a later and they overlook or to the swift rage and panting chief nor yet long was taken off this deed death in their faces to convey st be the courts of wondrous works a selection of troy the same the plain the iliad is with the grecian name through the nations guides directs his swimming eyes deep trench the ponderous lance he sternly they been thought there of the heroic poem belongs to wait the radiant arms refulgent the royal tent there placed and the sons of them threw that yet compared to gain the power replies is unprotected situation and shot through the field and last ranged on the field ulysses wish that greece redeem d in the dust the fury of his tired slow and donations to the gods in fight squadrons bear across the terms of shouting train to shore enough of thy now withering on foot and now they should rear d along through heaps and priest to commend ph nix hand his native shore not been able to see brave neas at his aid next this arm"
+Sentence: "deceive what man of fate approach d while hector s race stand louring hosts and their last her next young heifers guiltless find the green forests lay thy groves the ways including but bold b alteration modification of athens stichius the troops relief to cut the night puts the war from ephyr s care the snowy summit flies and fix dominion of tydeus hippomedon c and greets the character of the fates thy lord that generous chief whose counsels take as many persons of alexander pope was slain dares the thirsty still shines bent his sceptre like some vast convulsions panting yet extends his courage appears from the trojan all their tents are growing acquainted him round girds him the trojan fires great a long the trojan wall to employ avenge the horse hair of misshapen head clothed and deluged plains thus the thundering voice a fortification before christ as his bosom beats his car with a level seas the name of gentle spirit divine employ s cyprian daughter s reverend nestor followed which are moderate and sheets and stands all the falcon flies triumphant spoils on either long feet the nations it may claim at his bosom glows with streaming eyes long procession bore of this though born yet the shooter s greece report to fate to the stedfast in cultivating the fires the brink in all recognized authority with unusual strength exceed the race they rally to inflame and arable for the weighty lance had raised against host unrivall d to that the"
+Sentence: "gorget rise stalks from pail to whom the circuit the conviction as the point against his eyes of blood shall glut the lycians bite the mountains now i am i disdainful eyes and betwixt the wretch accursed shall alas what fruit nature could the combat the authenticity and people from his voice the strange disaster some of the town but mix all his eye distressful beauty and darling now freed the finest fruit of the same pigrees mentioned to his hand even this newly formed and more by thetis from the skies and hemm d and sought for it those deputed to stern achilles rise so as on yet no stains the great yet charge survey d by the field suspend war the spacious earth before great sarpedon s walls till the deceased and flaming shield and thus meets the imprison d the greeks our royal race i see the fleet great merion mingled gore while conscious shame and next erymas succeed till vain was present too dear for that of a ram thus the tall ships while i omit as the asiatic greeks be it not as all fair starting from the sire o er the sentiment used such is the following speech their flight else than his claim with attentive trembled as the grecian warriors thirst for any writer or reveal d silent fields they rose and where calydon and cropt the floor when they are tax exempt from a strong flood of the embroider d abodes their lives thy friendship shall wage"
+Sentence: "measure cloy sleep descending on retreating artemis upbraids paris shall praise or religious care the effeminate version select ulysses thoughtful pausing ere i yield to ground a bull they examined both turn d with strong immortal arms to transgress his wound to whom the god of troy shall ignominious we feel secure and the sheath encased the scene for to the whole armies humbles and woes deep regret they fly then down to council is great achilles hand unaided ilion s wrath of glory sate to my feast nor seer whose love them raised for late his eye below his hand othryoneus so gay from all the lofty towers for the island and these shores rebound as the palm of man along the work infold twice sixty sail to wreak her but he rushes roars rebellow through yon bright morning glaucus and calculations are discoverable in danger views with endless honours on the war now round their lord she said to the pleasure of sounding arms the war be goddess swift round the chase thy will venus and speeches but none of the prince retreat behind his daring hand for the reeking gore to feel like mountain s valiant heir d friend s house of ocean rung now no laws of peleus lo the meditated blow he spoke oh had the foe so distinctly to follow where the fight this high the flood his rule the nerves combine the mid field its rhapsodic delivery and upon which outweighs all we throw while yet repelled by"
+Sentence: "meanness or pennyworth of battle is a noble foe straight the gallant brave the mountain s placed as the trojan press d away while the business of fragrant oil suspends the distress what little acuteness indeed pursued his bulky strength of clouds all her powers celestial trickle from the dying sound the sire the sister of this said to the gate him ascalaphus commenced the camp of war where er the phrase project gutenberg project gutenberg literary archive foundation royalty payments should submit he knew wanting yet would destroy this night when late fled the trunk and bids an empty air with equal but those conquering trojans to one language than to this foe so late i sent thee till he arrived at the war for warlike arm and tells where heaven nor prompts their blooming youths address d and such strength of jove and shook the gigantic ajax telamon those sons of man to the last the car retired to passion lost each equal lustre of incurring the weight press d then his youthful chief s distinguish d the pliant limbs they take the result of the wisest and with any great ajax fells not satisfied of men and ambition vain even ajax first design d swift to animate my country would have invited to shed and thickening their powers descending goddess as better oblige men and tethys which he came by their trampling feet of heaven that perfidious land even me ere i raised the beauteous maid he is traced his conduct in"
+Sentence: "exempt from the other greek when the winds the gifts his children such an excess of simplicity as the problem f indemnity you be borne from thy care fate his huge ponderous sword and thus to seneca or at hector s double wound and now paused a wood the polite arts the gods the graces wove now extends the dust he spoke and charioteer then toss the yellow hair s youth shall retire to gain unhappy warrior to him to hector slain and his eye ball and descriptions of those as he was near the eye at the gods to tell so plunged in achilles but before atrides born to strike their master s realms of the grave the dreadful rises to fall what paris brought the plenteous draught he tore so great iphidamas the race who must revenge revenge for these the power with full assembly placed and they and leaders of sad posterity nor shall learn to occur in combat conquer d lyrnessus borne patroclus in blood bathed in lydia formed on the glorious dangers of godlike hector falls if earth so flourish d with arms resounded with sense than the poles submiss retires menelaus given but is fated yet leaves the sun descending snows to patroclus lo to mine what too justly claim hear me most vehement spirit issued at the mariner surveys from larissa as night the slain he homer and almighty hand a teacher of the flying wound at this occasion to drench d he left hand by which they"
+Sentence: "domestic at ajax first rose naturally border on the bars and the crown d crest hung to dewy lawn when from the rest in all dissolved away the accepting unsolicited donations are toss d his spear even this race divine appear though i more heroes again loud shout from him sprung up the chiefs from the coursers by the scepticism has been led to phrygia on the shady height of troy dolon knows no more my heart that shaded by ajax laboured as being we are run and having spoke then sets fire it proving impossible to marshal armies not force or refund from the strong to the wise nestor addresses himself is a multiplicity of four or poplar that one promiscuous all the ships again as a thousand ships embark d half troy beheld and gilds thy might employ but fate or approve shall recompense the character is one action in the rich with many vests for this phenomenon if the victor leaps and rising spirits fled but good a prodigy on himself before his mother your troops to death i m aurel anton de la mott who with shame paradise lost to this answer tis more sedate and his hand the grateful and the busy day the gods his eye stretch your thought the last soon after sacred heralds stood but i bear while like these spoil that kindred all his light unfit an arch reflects her fragrant wines the absent were but troy the golden apple the coursers shunn d in the"
+Sentence: "erthrown if e er the stubborn nerves are ph bus stood check d then hector s selections p the board automedon your face and prayed that the ruins spread now to his arms those of the manner as when we see tatian quoted by flowing manes and head and as aurora daughter of your large a mother with fat b otian thebes and of considerate age and sword a bending shores and to all our loved but thou thus have been mentioned in gore to attempt to chase that holy fear withholds me further preservation of falcons for thetis were no less the brave restrain nor shook with length opening in identifying homer had crown thy feet he recedes yet while thus spake and to fight though wounded friend thy demand my weeping for the chiefs before his best becomes the whizzing spear at length as in the tongue relates the prize this are done i arm was worn with foamy jaws belch the coursers scour the rushing lion seeks the silken rein observing the most from his thought and light far echoing wide host forbid their wonted tribute seems to place but first praise be paid the skies fierce on the chief protesilas the terror and from his arrows stored may reckon some notice indicating that round his greeks and less than just there is a new spirit of war in paragraph f project gutenberg works vol ii p the smoking town by no rivalry it means his acres till yonder sun hence then"
+Sentence: "handsomely received the wretched we have maintained by day had not rising blaze the grecian peers and o god these visitors one house which relate the hymn to confine and outshined them gods assuage still his brazen voice a poet s soul to lycia s use thy watery fairies dance as soon might pass d rash youth of the plain he tries and air in spirits and order d her flight he twang d while near bold stalks the nightly joys he said and shrunk in his cot forsakes the summer comparatively recent scholars read so when human study and glory way on the greeks loud the friendship lost all thy demand and diomed have a sacred arrows fly he warms the greeks our present abridgement however and may yield the god redeem d in strength to suspend the trojan wall beheld him short pantings sobb d around in her strength you boast that with his race should humble vales they rush d beagle flies through the hero s height call forth the greeks that but also to certain recognized authority of these grateful greece victorious preys involves and each foe all his native land on every thing to combat the wrath assuage still at the mountain through the monarch s seed amisodarus who bids the bright arms could from whence distant walls trembling he regards as morning paints the shining sluices of jove in the yellow stream of patroclus the field thy deeds of sthenelus will come all the foundation royalty payments and falling"
+Sentence: "revert and thunder strike their dread front brows thus the brim temper d why angry the sacred earth the throng of troy for the children more excellent original text a waggon loaded navy bound and allusive to us hew d our eyes soon the brave but flies tugs again great atrides leads amidst the whirling lance the gods revere the phrygian state visit the throng the cause so not feel a foreign coast he braved the cretan javelin the deck the tempest and the medium and they fly or compilers of homer it is nothing that of all a triumph led a deed death on glory known meads and enrich d the hero most part us to pyle triumphant our phrygian fell before his footsteps to wrongs my fate and gods ye trojan with due honours to rise nor dared to ajax and the expecting crowds they spread with disdain shall drink a greater hero stay for more than the ships he slew back to strip the raging bathes with all the sc an intoned burden tune his breast forsook next thirty galleys with majestic eyes the camp of our fleets are employed in which these eyes yes i p that belongs to wed her with longing arms unaiding mourn their flow from different terms thereby signifying that of the king these proud of gold of his elbow strook she sees the reeking ground the general tenor of his b otia whither wanders thy soul out the race surpass d him must thy lips the"
+Sentence: "opheltius orus sunk oppress d the scene such horrid with emulation glows but fast by day beheld him sire sad attendants to any translator on the navy s all heaven ere hector late impervious space then to over an affection show how shall moulder on a wound with the neck and lifts the accursed shall deplore the sheaves of prophecy be his fall by art in thy mere english by thee or wander o er the chief replies some powerful doom not me to omit as yet two leaders at once the hoary hairs no distinct from times but it was crown s funerals weep all the bending father great ajax and refulgent mould composed an opportunity to question but mine if e or the fleet great a popular indignation helen bids the power with all his swift to proceed or breathe from earth is bent the trembling servile dull epigrams ascribed to allow mere fruit of them in fire doubtful day the same sad relics of grand pervading bond among the wrath unconquer d a greater number of hector sees the crossing belts depend upon their bottoms burn full of poetry in habit whereupon homer are often built their guardians of the terrors fill d the monarch s rage of human trust shall waft her father s son convened to writing and pass the embodied in impudence mankind appears the ship sustained an attempt made us to warmer ray and bathes with pure talents which follow them as he came to novelty but first"
+Sentence: "abused it was his fiery helm he decree let my country s head of the version posted on tydides flew and spoil from which one of the fruitfulness of the rushing troops on the thracian guide them by the dead they blow for chrysa and meditates the fields are cover paris there meets death he cries whoever lessens or perhaps any way supplied the injury and the running blaze to juno impotent of vulcan and this goblet massy gold the sky sails on the play the warrior lies the smoky ruin d to tame oh sight his haughty spoke why denounced or goats to wear instarr d such the flocks from our readers of human heart he slaughter aids among these wholesome counsels can have confess his valiant sons of her navy speeds now the earl of greece in his rays thick trojans your walls in the tribute of peace the sky beneath the scamander roll in phylac succeed and fleecy flocks neglected in evil dream minerva in voice of a great whole hosts and commands and anxiously enjoin d he lies a hero spoke and expects her as he was his nodding ilion closed and the flying shaft above so oft prevents the proud king distress this chief thou art conspire to do not located in the sounds the brother s monarch s request the following the father s will pronounced to their several of gods in little figures and the pronunciation of later epic poems into which are most noble in the blooming"
+Sentence: "opposed to night let venus race of sleep for the first creature of heracles the hollow ships whose reputation of ph bus warns the motive that strips the divine prostrate at an only boasts a name since heaven and to the solid timber and antenor stand with wisdom and heaven decreed to have forgotten the aid propitious once with sorrow grows but a god who with an ever guard these my way she stay his fury treads each side by grote vol xii book the fame and conquest in the lycian princes bend nor could please the epeian band of athenian would fain sentence spoke illustration otus and bury all grim pluto s helm and gross diseased terrestrial line without much loved companions place honour d the dusty course of man v p seq the crystal walls lie the council near him with gold two syllables so many evils well these not drawn up the best for to the dim eyes the spirit breathed of protection being the eighth brise s praise of all the woes but juno s virgil has done admitted no fears and at length of discretion hobbes has wrought not ajax after the lordly savage grinds his frown the light and made upon as when jove s army wonders at the plain beside the refined acuteness which never touch d along the guardianship of sway grant our father press d gifts i am i came rushing in his manly mind their hoofs are her associations full on the rage the inglorious"
+Sentence: "lessening thunder spoke atrides watchful head his actions if the sign of the dust his steeds lo the din and the whirling wheel to the greeks pursuant to whose nightly cares thy shade heart propp d her ramparts and skies the battle rose and gilds the relics what then swift spirits flow after through the imagined houses of doubt oppress d with the powerful influence over the numerous band or rather bright arms abroad and pallas pallas jove now to bring and see brave squire the batrachomyomachia or entity that disguise gives him in command not true the power which elapsed before our fortune of creon s holy hill no more vile dishonest wound so rich with a pope ton theon de l examiner je perdis mon fell eternal shame who farthest hurls her with smiles and loves these mars in every god the more rooted becomes the prize those critics never dying groans and bulwarks destined victims fed that other poems all due tydides swell to view d down great ulysses rose and shades of ears the hand shall perceive the spinal marrow flies at our tents and everlasting slumber d ere the shaft in little more strong and ignominious date july ebook is there came to have thy hasty snatches from his mad as by thy lord his mad with all the realms where the sword i of nations guides directs the golden tripod for the realms with sleep descending to the indignant through the ruling faculty and of gods who he left"
+Sentence: "pertinacious and mortal is whirl d promiscuous lust be thy tent meanwhile the blazing forehead in tears at once more in revenge it both to guard the gods and jove and heaven ere haughty soul preferr d in that in mists i fought for grace and oblivion it with awe the car they who was derived that vast mound roll along then discord hercules the strand all her weight and amazed all copies of war and streams inclose and to night rolls and this pelides points lie amidst the wall while anger of godlike hector singled from his dreadful day and vaults rebound then jove s high pieria s whole art and pher a prince receive this a friend an athenian synod sate and endurances of the routed ranks of jove the speed seven captives here we land i deem her sacred honours of the undertaking by minerva press d his eyes restore his tedious length of a goblet crown d me that wealth of sleep this day and maseta s sad fruit remains defend gods can tame but let ilion s embrace that you comply with youth and known in heaven only kind born his gis on but breathe from that thestorides from the fight each aching nerve refuse then fierce in form confess their metallic ornaments but i believe in order through the reins him they rode in sleep and heaven and our latent godhead said seem embattled plains below to poetry beyond the length inly groaning thus upbraids where the mystical legends"
+Sentence: "inch of jove himself included he bore nireus whom men steeds high arch d ocean s resounding with the great ajax rallies them in the realms of yore in a strong rafters which relate the rest whenever any way and heaving under ilion lost what man fated to beauteous honours wait the shrubs with curses loads from the flames be named without which he rose naturally procured him in the ground just array close the rock the plains o er the present itself a discontented shade but one vast expanse compose who first husband s fierce she o erwhelm s fury with the gods they dispose the doubtful scale of name for what wonders wrought thy manes and officers are so strong thus spake the secrets of woods and extract the king of labours of youth like one has yet remains we ask of the mighty ajax son of receipt of an epic poets and sacred source as gods the plain and weighty gauntlet wield the fates design d latona hastes to shed and rinaldo must at our arms with anyone anywhere in the battlements the dying flames in the din of age the book xi like mine be my generous bands and lies the process of replacement or grant thou boldest of a king now great neas here the poet s domes and wandering sailors labouring breath now subdued by pallas mount his closing eyes perhaps excel how far more he spoke from the town others the car till about project gutenberg electronic works"
+Sentence: "authorship of war tis given in them all the hero s head of thee such as well treated priam s fane she preserves than to both a tender leave our ignorance of the smart weak is wide then in rank d what god of argive bosom ruled now fear ah oppress d thus from the best take a weapon whizzes on that shone the watery name now to the starry pole there stand raised high shores resound blows like me agamemnon diomed relieves him rise and goddesses immortal base dryden s fane for nine days of every way o er the cabinet they formed by literature should we admire the fiercest shock of passion bear the monarch s sacred main with dauntless breast the field and wall while large orbs and they grace and the sounding shores the future for thy breast inspires our aid of leuke in war to mount ida s son no goddess of dead patroclus flew but went where you persuade his sire illustration hercules had he said he to the blue ambient mists i p compare quintus calaber lib i not safety must or sends a united states and all and cheer and eye the portion of atreus sons of the attack the lot of a mountain lions from so shields and mine to apollo tuned the spangled skies nor durst thou greatest importance to helms in doubts had their pleasure now if i made captive but long labours share of the water of having armed himself came proclaim my"
+Sentence: "ogilby chapman hobbes has done without understanding them blow nor feel a grave the greeks for all his friend i scorn the field o neptune to his eyes his arms succeed my past has not iron some virtue bears the plain to love the old hear a noble fire the bowstring twang d combat sought with generous is wounded by his shoulder with nectar temper their father not been spilt in life and twenty sail d thee milder arts the thickets bursts through yon navy blazing honours of hostile blood the glade and suppliant strengthen him both armies pass d fly and ajax on his car and razed the fear those of one of battles lifts her realm he begins to perseus brave a royal race of of some spy were twisting snakes that they bore when troy s brow they were recited substantially well as another field the deities he fed on trajan silius neatly translates homer hurries and like a comet burn d the invention that the death are wise ulysses wish to make a great day courage gives his belt hippomachus he dress d with these o er their poverty soon must their conquering son in dust thy inmost caves of heroes names of virgil in high will soon alas is struck through the dart lies who ruled the watery mountains toward the hasty foot alone for this agreement and placed with all dreadful light last not he tugg d haste to sight when this is supposed to us i will obey"
+Sentence: "write upon his word of homer s shores resound the project gutenberg are become a defect in felling the fowls and leave unpunish d the debate whether the spoils enjoy when two famed for ever dear as bees rolling sun s hand in vain you are almost too sore of greek vit hom p of peisistratus in the venerable dame xanthus yellow hair and the chiefs approach d along the man whose dread signal of the blood have other shaft infix d and the tomb where anemoria s retiring into the heap the wheels amid that round with collected in arms i speak those the warlike form divine appear trembling in what words to strike my care by fits the camp the dark through the vain they moor who mighty dead but shaped it may bear the prize defrauds my realms on those towers from venus flies by the trench some hostile camp of the rest seems to raise ours we bring nor lift its date ah say stand loth as the cloud a later date the war to retire but not a bull hides the case alternate watch d the powers address of rolling foaming horse hair those of verse the golden tripod or things are paid the chief his hospitable court not the mules and bending from a number o greeks he rises with cruel wounds but it found not so jove prepare to death attends you feel achilles stood the proud miletus came mars hovers o er with the night and the"
+Sentence: "disturb her ardent warriors yonder heroes kindle fires o er his fame but dauntless still the shield touching the field of jove s safety go wait the lofty pillars which have i hear how with heavenly fragrance shed like the rage defrauds my soul so watch of my hector as representing all his equal name by reproof he leaps and pass d from his pace he said and ilion bore the first atrides mark of poets by the propriety than his wary cretan shore his son his persons and purple the all steepe hills the specially authorised agents which homer there stood thus address d polydore how to be silent unmov d then jove s sacred main one that bear away sudden cloud is this pest he pursues her golden grain in the springing plain before their wives and haggard eyes the most pestilences begin with brazen rings but who shakes the barbed javelin pass impervious cross the monarch hear ye the fatal chance of mortal sight a strong and lines retired yet this unity in order round well observed by aged face fast as well known face in the object alone defend the warrior thus consigns it is the ground his hand the hapless heroes be used such actions if there contention and breathes a general wanting or a ponderous mace and on his diction the herald rolls on her own precepts grammarians are pointed summits pour your generous greek earrings book after night guards the head her decrees of the name eumedes son"
+Sentence: "fictions upon the grecians in close each nerve with close covert of days of the guilty of his bright morn her foundations round diffused celestial charms prefer the trojans see welcker epische cyclus p sqq full refund if the assembled armies closed and shuts the double source of grote vol i give their insignia and soft simars of sorrow grows and trembling lest in the race tis madness thus to join in the word she afterwards both sky lest roused as jove with every greek the death s rage unbounded be bold beautiful captives at the poems could in vain and meditates the greeks shall flies nor this phenomenon if thou at least know st thou and now to chase to fate hang before your tyrant feasting on this is traced through heaps of bold merion mingled force can no more loud as the figurative parallel passages where daring hearts and learn their poverty and justice plead in a guess by u s reply a dreadful day such thy words are upon his javelin of first damasus by the showery cloud compelling fate neas next bold eurypylus already felt so from if an ebook for combat thy hand soft arms and views with noxious kind destroy the land was dangerous if such ponderous javelin flung his ponderous hammer loads my age no goddess flies meteorous the spacious earth resound and persons and merion morys and sends by heaven nor once was honoured in order to him who dreads the friends defrauded of night let me"
+Sentence: "hinds and injured flood the gates they have maintained was the slain then he ought to the town now no more may claim a swain with vows in vain promise makes its aspirate or but recited and slowly rising then thus triumphing said and heaven s right a whirlwind toss d he has slain tell them here proud victor triumphs mourns the daughters of each argive bosom claim his tent each in vain no names of the burning sun illumined wall while i am satisfied i have attained a hero s high attesting sceptre starr d onward bending o thou pass to the trojan glory of chryse s throne to troy shall blast be acceptable to whom troy pours on me gods on the chief replies while the wind and the vales and drive the homeric age might by arnold the grecian now high in hopes the much to bless d in lieu of his high held a clear the tent and rush to view charged with studs around his whole is the halizonians pirous and manners of their aid fierce for aught disturb the gods and sought his eyes became regular poem was his sword or counsels all these o er the trojans follow d along and springs the perjured line now to the murderer lives effused around low hung on both away in works of blood and to gods in chios to or designedly choked with desire of days what effect shall receive alone the great achilles fleet the princes tell what a"
+Sentence: "love moschus id parodied ibid p not nor antedate thy graceful as thou thyself a neighbouring rills fair not have they run would seem warranted in ancient custom of agamemnon in his friend of placing together driven my fears some attention hear go then had not in battle man to claim repast unheeded while ulysses still survives his warm this deed he said wondrous birth have endeavoured at the charming daughters of war our latent godhead and raging with polyp tes arm d the winding valley fills with greece shall see ready banquet ends the daughter silver hairs defiled with envy him to move to the rites divine sarpedon tower stay your master let me lest through all his dreadful chief in merit the air this to his labouring through fields for the flash d in arms devoutly raised the spoils that quicksand upon outward forms uphold that day deprived of the ground a fee or stoop d bodies and to live as thou run if to the chiefs dispose with foamy seas resound bold eurypylus inflicts a foreign lands this mutual shame late divine as he said take back perceives and lowly bending down nothing which his misfortunes moved achilles circling fires his colour d carcase lies the train to me entrance in the rest a great apollo s request my sorrows i resign me lie slain disgorges on man as the trojans hither turn d dismay d the commands me next following remarks to their ships or safely stored up in the tent"
+Sentence: "earlier times is neas sinks or providing it round drops and fatten d the feeble race of letters they silent the sire and leaping from the greek sanctuaries there are working up to wound whom the spacious shield he fought with sweeping gown and the watery way if our presents the navy fall or some deny nor vows and the dead deface with the mother grace begun prince allied the new debate concerning the grecian train with exerted strength to his javelin tore his lance the scene the swarming populace the banded powers the grecian camp and awful and straining heaved him far glow d by pallas and inquired the navy and from the hero s vengeance to destroy the speedy measures are mix purer nectar streams soft desire remains consume the trampled centre to the flames our argives slain achilles the godlike hector seems to this system which thus reveal d along the famous ordinance of cilla the neck from the fields of conquest honour d and interpolations of fate which human force he stands and a sudden to ask or lean d the glory gain the broad lance to the odd and razed and their prayers were no dishonest wound more to die when your fates attend her infant frowardness the dropping peacefully into five years has been suffered by fits a desire she spake no camps to hurl d realms of stern boldness and great as the rein and pyramid shall thy shafts to vultures on his lance his fate to left"
+Sentence: "urges tis not thus to take back perceives the sun dropp d that seals the well pleased i saw and first amidst the three daughters of times ballads at hector s hand here the wall to loewe and springs towering strides his sense it best see resumed the killing hector at his prayer and with a man from above tis worthy such person at distance of yon fluttering bird of anguish struck the mound from his sentiments sincere true that telamon then cleansed from his breast now faints or comparatively few parallel to spoil d in the cliffs reclined float with praise combine the driving javelin sought mycen arms appears forced their side by homer himself to buy him all her hardy days in woods with watchful dogs devour then mix both dear relics grace ulysses returning with the foremost but fond arms for love which held his dart which has wing their character and many that there is more why roam thy active bound and alarms while the chief retired to the sky ador d and the weighty sword would render tear this day that combat ends the branching deer there was called orcus the embodied cranes wheel by some simple food and roast the catalogue the sea shore where it and her pensive herds lie higher beauty upon archery contend not exempt status of ghastly wound the rear his instruments surround their prey we know him menelaus and weakened it are seen his fate and they roll d and fate the time about"
+Sentence: "piecing together without thy conquest i hear and abhorr d haste till grasp d ere he sent by a chosen space a foe fix d fierce discord raging on and fill the great city rise the main along the hope the troops assent their summits thunder through grecian breast of her me paris wouldst thou whose dazzling prize to reach the storm not me and thus his grief stops to hurl them but jove high olympus and solemnity of the war he falls and his dangerous way all impotent of love duty some swoln river stops a careful eyes and moving speech unhappy boy afford proud victor s virgil had streak the fight from a passage describing the war ulysses returning with a mortal might stop no hour employ thy artful hands of unsuccessful pride her associations with loud cries ah forgotten and hung cursed thee first damasus by the scene is not in fierce on the songs of war so atrides speech the fleet maintain far famed for the treatise is also he vaunts these the boundless fury pours along then mighty jove the future times renewed life consuming woe mindless of priam sends forth the foremost steed in vain while thus spoke the age of political community of the needle and how my return was not with like men and may be taken is from hector alone late the father warn their heads and the troubled air and sought with piercing view but silent glee the limit no explanation from the magic girdle"
+Sentence: "hearty haste his courage not long ruin shall stand no dull epigrams ascribed to whole in thee with pity to the gods and employees expend considerable part of him silent night and this flight these other side the topography of air or who by her descend in vain those the pole and refinement oftener think one of days behold their freedom from vexation at the powers assist inspired to obey with youth and all the inviting helen and vow destruction of jove the same battles and thus bursting frequent and felt fair opuntia a certain no more should st thou prepar st thou first with equal years might to the grecian wall hector and fix d the good old a thousand griefs no more pardonable than men of jove and our aid by vote selected to glut the birds of andromache who stooping dexter eagle from which we draw forth in chrysa send eyes averted hector s son distress and found asteropaeus wore he has done we can but much loved consort s wrath or weigh his be tedious the flying bands heroes in every side we swore the skies to fame how his hand but when i restore but agamemnon neptune in the beginning rest then the emendations on the rosy lustre whitens on fire that very sensible of omen from their beauteous head my treasures are imperfect or match the power not drawn so far as much and lighten glimmering shields engaged apart in happy day already lost thy boundless eye with his"
+```
+
+Profiler report:
+
+```text
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total
+ time   seconds   seconds    calls  ms/call  ms/call  name
+ 46.15      0.06     0.06        1    60.00    90.00  build_adjacency_list
+ 23.08      0.09     0.03   396048     0.00     0.00  find_token_idx
+  7.69      0.10     0.01        1    10.00    10.00  generate
+  7.69      0.11     0.01        1    10.00    10.00  generate_bigrams_from_tokens
+  7.69      0.12     0.01        1    10.00    10.00  tokenize_input_text
+  7.69      0.13     0.01                             token_index_cmp
+  0.00      0.13     0.00        1     0.00     0.00  count_bigrams
+  0.00      0.13     0.00        1     0.00     0.00  count_tokens
+  0.00      0.13     0.00        1     0.00     0.00  format_input_text
+  0.00      0.13     0.00        1     0.00     0.00  get_input_file_len
+  0.00      0.13     0.00        1     0.00     0.00  open_input_file
+  0.00      0.13     0.00        1     0.00     0.00  open_logs_file
+
+   Call graph
+
+
+granularity: each sample hit covers 4 byte(s) for 7.69% of 0.13 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     92.3    0.00    0.12                 main [1]
+                0.06    0.03       1/1           build_adjacency_list [2]
+                0.01    0.00       1/1           tokenize_input_text [6]
+                0.01    0.00       1/1           generate_bigrams_from_tokens [5]
+                0.01    0.00       1/1           generate [4]
+                0.00    0.00       1/1           open_logs_file [13]
+                0.00    0.00       1/1           open_input_file [12]
+                0.00    0.00       1/1           get_input_file_len [11]
+                0.00    0.00       1/1           format_input_text [10]
+                0.00    0.00       1/1           count_tokens [9]
+                0.00    0.00       1/1           count_bigrams [8]
+-----------------------------------------------
+                0.06    0.03       1/1           main [1]
+[2]     69.2    0.06    0.03       1         build_adjacency_list [2]
+                0.03    0.00  396048/396048      find_token_idx [3]
+-----------------------------------------------
+                0.03    0.00  396048/396048      build_adjacency_list [2]
+[3]     23.1    0.03    0.00  396048         find_token_idx [3]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[4]      7.7    0.01    0.00       1         generate [4]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[5]      7.7    0.01    0.00       1         generate_bigrams_from_tokens [5]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[6]      7.7    0.01    0.00       1         tokenize_input_text [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      7.7    0.01    0.00                 token_index_cmp [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[8]      0.0    0.00    0.00       1         count_bigrams [8]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[9]      0.0    0.00    0.00       1         count_tokens [9]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[10]     0.0    0.00    0.00       1         format_input_text [10]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[11]     0.0    0.00    0.00       1         get_input_file_len [11]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[12]     0.0    0.00    0.00       1         open_input_file [12]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[13]     0.0    0.00    0.00       1         open_logs_file [13]
+-----------------------------------------------
+
+Index by function name
+
+   [2] build_adjacency_list   [10] format_input_text      [12] open_input_file
+   [8] count_bigrams           [4] generate               [13] open_logs_file
+   [9] count_tokens            [5] generate_bigrams_from_tokens [7] token_index_cmp
+   [3] find_token_idx         [11] get_input_file_len      [6] tokenize_input_text
 ```
