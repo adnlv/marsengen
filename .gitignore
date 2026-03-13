@@ -9,5 +9,6 @@
 
 input.txt
 output.txt
-profile_output.txt
-gmon.out
+
+*.out
+*.gprof
