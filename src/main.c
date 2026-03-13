@@ -133,12 +133,19 @@ int token_index_cmp(const void *a, const void *b)
     return a_tok->len - b_tok->len;
 }
 
-void tokenize_input_text(char *str, int str_len, token_t *tokens, int n_tokens)
+void tokenize_input_text(char *str,
+                         int str_len,
+                         token_t *tokens,
+                         int n_tokens,
+                         token_t *uniques,
+                         int *n_uniques_ptr)
 {
     assert(str != NULL);
     assert(str_len > 0);
     assert(tokens != NULL);
     assert(n_tokens > 0);
+    assert(uniques != NULL);
+    assert(n_uniques_ptr != NULL);
 
     int str_idx = 0;
     char *cur_ptr = str;
@@ -169,6 +176,8 @@ void tokenize_input_text(char *str, int str_len, token_t *tokens, int n_tokens)
     qsort(idxs, n_tokens, sizeof(int), token_index_cmp);
 
     char *canon = tokens[idxs[0]].ptr;
+    uniques[0] = tokens[idxs[0]];
+    int unique_idx = 1;
     for (int i = 1; i < n_tokens; ++i)
     {
         token_t *cur = &tokens[idxs[i]];
@@ -180,8 +189,11 @@ void tokenize_input_text(char *str, int str_len, token_t *tokens, int n_tokens)
         else
         {
             canon = cur->ptr;
+            uniques[unique_idx++] = *cur;
         }
     }
+
+    *n_uniques_ptr = unique_idx;
 
     free(idxs);
 
@@ -198,6 +210,23 @@ void tokenize_input_text(char *str, int str_len, token_t *tokens, int n_tokens)
                 "\" -> %p is %d characters long\n",
                 (void *)tokens[i].ptr,
                 tokens[i].len);
+    }
+
+    fprintf(logs_file, "Got %d unique tokens\n", *n_uniques_ptr);
+
+    for (int i = 0; i < *n_uniques_ptr; ++i)
+    {
+        fprintf(logs_file, "Unique token [%d] \"", i);
+
+        for (int j = 0; j < uniques[i].len; ++j)
+        {
+            fputc(uniques[i].ptr[j], logs_file);
+        }
+
+        fprintf(logs_file,
+                "\" -> %p is %d characters long\n",
+                (void *)uniques[i].ptr,
+                uniques[i].len);
     }
 }
 
@@ -244,52 +273,6 @@ void generate_bigrams_from_tokens(token_t *tokens,
 
         fprintf(logs_file, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
-}
-
-void get_unique_tokens(token_t *toks,
-                       const int n_toks,
-                       token_t *uniqs,
-                       int *n_uniqs_ptr)
-{
-    int uniq_idx = 0;
-    for (int i = 0; i < n_toks; ++i)
-    {
-        token_t *dup = NULL;
-        for (int j = 0; j < i; ++j)
-        {
-            if (toks[i].ptr == toks[j].ptr)
-            {
-                dup = &toks[j];
-                break;
-            }
-        }
-
-        if (dup == NULL)
-        {
-            uniqs[uniq_idx] = toks[i];
-            ++uniq_idx;
-        }
-    }
-
-    int n_uniqs = uniq_idx;
-    fprintf(logs_file, "Got %d unique tokens\n", n_uniqs);
-
-    for (int i = 0; i < n_uniqs; ++i)
-    {
-        fprintf(logs_file, "Unique token [%d] \"", i);
-
-        for (int j = 0; j < uniqs[i].len; ++j)
-        {
-            fputc(uniqs[i].ptr[j], logs_file);
-        }
-
-        fprintf(logs_file,
-                "\" -> %p is %d characters long\n",
-                (void *)uniqs[i].ptr,
-                uniqs[i].len);
-    }
-
-    *n_uniqs_ptr = n_uniqs;
 }
 
 void fill_transition_matrix(bigram_t *bigrams,
@@ -446,26 +429,35 @@ int main(void)
     int n_tokens = count_tokens(text, text_len);
     token_t *tokens = malloc(sizeof(token_t) * n_tokens);
     assert(tokens != NULL);
-    tokenize_input_text(text, text_len, tokens, n_tokens);
 
-    token_t *uniq_toks = malloc(sizeof(token_t) * n_tokens);
-    assert(uniq_toks != NULL);
-    int n_uniqs = 0;
-    get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
+    token_t *unique_tokens = malloc(sizeof(token_t) * n_tokens);
+    assert(unique_tokens != NULL);
+    int n_unique_tokens = 0;
+    tokenize_input_text(text,
+                        text_len,
+                        tokens,
+                        n_tokens,
+                        unique_tokens,
+                        &n_unique_tokens);
 
     int n_bigrams = count_bigrams(n_tokens);
     bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
     assert(bigrams != NULL);
     generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
 
-    double *trans_mat = calloc(n_uniqs * n_uniqs, sizeof(double));
+    double *trans_mat = calloc(n_unique_tokens * n_unique_tokens,
+                               sizeof(double));
     assert(trans_mat != NULL);
-    fill_transition_matrix(bigrams, n_bigrams, uniq_toks, n_uniqs, trans_mat);
+    fill_transition_matrix(bigrams,
+                           n_bigrams,
+                           unique_tokens,
+                           n_unique_tokens,
+                           trans_mat);
 
-    generate(uniq_toks, n_uniqs, trans_mat);
+    generate(unique_tokens, n_unique_tokens, trans_mat);
 
     free(trans_mat);
-    free(uniq_toks);
+    free(unique_tokens);
     free(bigrams);
     free(tokens);
     free(text);

@@ -2,7 +2,7 @@
 Language: Cpp
 BasedOnStyle: WebKit
 AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: true
 AlignArrayOfStructures: None
 AlignConsecutiveAssignments:
   Enabled: false
@@ -42,7 +42,7 @@ AlignOperands: DontAlign
 AlignTrailingComments:
   Kind: Never
   OverEmptyLines: 0
-AllowAllArgumentsOnNextLine: true
+AllowAllArgumentsOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowBreakBeforeNoexceptSpecifier: Never
 AllowShortBlocksOnASingleLine: Empty
@@ -162,7 +162,7 @@ ObjCBreakBeforeNestedBlockParam: true
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
 PackConstructorInitializers: BinPack
-PenaltyBreakAssignment: 2
+PenaltyBreakAssignment: 100
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 300
 PenaltyBreakFirstLessLess: 120
