@@ -275,67 +275,152 @@ void generate_bigrams_from_tokens(token_t *tokens,
     }
 }
 
-void fill_transition_matrix(bigram_t *bigrams,
-                            const int n_bigrams,
-                            token_t *uniqs,
-                            const int n_uniqs,
-                            double *mat)
+typedef struct
 {
-    for (int i = 0; i < n_uniqs; ++i)
+    int count;
+    int next_uniq_idx;
+} transition_t;
+
+typedef struct
+{
+    transition_t *items;
+    int len;
+    int cap;
+    int total_count;
+} word_transitions_t;
+
+typedef struct
+{
+    char *ptr;
+    int idx;
+} ptr_idx_t;
+
+int ptr_idx_cmp(const void *a, const void *b)
+{
+    const ptr_idx_t *a_ptr = (const ptr_idx_t *)a;
+    const ptr_idx_t *b_ptr = (const ptr_idx_t *)b;
+
+    if (a_ptr->ptr < b_ptr->ptr)
     {
-        char *fst = uniqs[i].ptr;
-        for (int j = 0; j < n_uniqs; ++j)
-        {
-            char *sec = uniqs[j].ptr;
-            int count = 0;
-            for (int k = 0; k < n_bigrams; ++k)
-            {
-                if (bigrams[k].fst->ptr == fst && bigrams[k].sec->ptr == sec)
-                {
-                    ++count;
-                }
-            }
+        return -1;
+    }
 
-            mat[j * n_uniqs + i] = (double)count;
+    if (a_ptr->ptr > b_ptr->ptr)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+int find_token_idx(ptr_idx_t *map, int n, char *ptr)
+{
+    int low = 0;
+    int high = n - 1;
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
+        if (map[mid].ptr == ptr)
+        {
+            return map[mid].idx;
         }
 
-        double sum = 0;
-        for (int j = 0; j < n_uniqs; ++j)
+        if (map[mid].ptr < ptr)
         {
-            sum += mat[j * n_uniqs + i];
+            low = mid + 1;
         }
-
-        if (sum != 0)
+        else
         {
-            for (int j = 0; j < n_uniqs; ++j)
-            {
-                mat[j * n_uniqs + i] /= sum;
-            }
+            high = mid - 1;
         }
     }
 
-    fprintf(logs_file, "Transition matrix [%d by %d]\n", n_uniqs, n_uniqs);
-    for (int i = 0; i < n_uniqs; ++i)
+    return -1;
+}
+
+void build_adjacency_list(bigram_t *bigrams,
+                          int n_bigrams,
+                          token_t *uniques,
+                          int n_uniques,
+                          word_transitions_t *transitions)
+{
+    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_uniques);
+    assert(map != NULL);
+
+    for (int i = 0; i < n_uniques; ++i)
     {
-        fputc('[', logs_file);
-        for (int j = 0; j < n_uniqs; ++j)
+        map[i].ptr = uniques[i].ptr;
+        map[i].idx = i;
+    }
+
+    qsort(map, n_uniques, sizeof(ptr_idx_t), ptr_idx_cmp);
+
+    for (int i = 0; i < n_uniques; ++i)
+    {
+        transitions[i].items = NULL;
+        transitions[i].len = 0;
+        transitions[i].cap = 0;
+        transitions[i].total_count = 0;
+    }
+
+    for (int k = 0; k < n_bigrams; ++k)
+    {
+        int src = find_token_idx(map, n_uniques, bigrams[k].fst->ptr);
+        int dst = find_token_idx(map, n_uniques, bigrams[k].sec->ptr);
+        assert(src != -1 && dst != -1);
+
+        word_transitions_t *wt = &transitions[src];
+        int found = -1;
+        for (int i = 0; i < wt->len; ++i)
         {
-            fprintf(logs_file, "%.2lf", mat[j * n_uniqs + i]);
-            if (j != n_uniqs - 1)
+            if (wt->items[i].next_uniq_idx == dst)
             {
-                fputc(',', logs_file);
+                found = i;
+                break;
             }
         }
-        fputs("]\n", logs_file);
+
+        if (found >= 0)
+        {
+            wt->items[found].count++;
+        }
+        else
+        {
+            if (wt->len == wt->cap)
+            {
+                wt->cap = wt->cap == 0 ? 4 : wt->cap * 2;
+                wt->items = realloc(wt->items, sizeof(transition_t) * wt->cap);
+                assert(wt->items != NULL);
+            }
+
+            wt->items[wt->len].next_uniq_idx = dst;
+            wt->items[wt->len].count = 1;
+            wt->len++;
+        }
+
+        ++wt->total_count;
+    }
+
+    free(map);
+
+    for (int i = 0; i < n_uniques; ++i)
+    {
+        fprintf(logs_file,
+                "Word [%d] has %d out of %d transitions\n",
+                i,
+                transitions[i].len,
+                transitions[i].total_count);
     }
 }
 
-void generate(token_t *uniqs, const int n_uniqs, double *mat)
+void generate_sentences(token_t *uniques,
+                        const int n_uniques,
+                        word_transitions_t *transitions)
 {
     srand((unsigned)time(NULL));
 
     const int n_sentences = 32;
-    const int n_words_per_sentence = n_uniqs < 0xFF ? n_uniqs : 0xFF;
+    const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
 
     fprintf(logs_file, "Generating %d sentences\n", n_sentences);
 
@@ -344,56 +429,34 @@ void generate(token_t *uniqs, const int n_uniqs, double *mat)
         token_t words[n_words_per_sentence];
         int words_len = 1;
 
-        int word_idx = rand() % n_uniqs;
-        words[0] = uniqs[word_idx];
+        int word_idx = rand() % n_uniques;
+        words[0] = uniques[word_idx];
 
         while (words_len < n_words_per_sentence)
         {
-            double sum = 0.0;
-            for (int i = 0; i < n_uniqs; ++i)
+            word_transitions_t *wt = &transitions[word_idx];
+            if (wt->len == 0)
             {
-                sum += mat[i * n_uniqs + word_idx];
-            }
-
-            if (sum <= 0.0)
-            {
-                word_idx = rand() % n_uniqs;
-                words[words_len++] = uniqs[word_idx];
+                word_idx = rand() % n_uniques;
+                words[words_len++] = uniques[word_idx];
                 continue;
             }
 
-            double r = ((double)rand() / ((double)RAND_MAX + 1.0)) * sum;
-            double cumulative = 0.0;
-            int chosen = -1;
-            for (int i = 0; i < n_uniqs; ++i)
+            int r = rand() % wt->total_count;
+            int cumulative = 0;
+            int chosen = wt->items[wt->len - 1].next_uniq_idx;
+            for (int i = 0; i < wt->len; ++i)
             {
-                cumulative += mat[i * n_uniqs + word_idx];
+                cumulative += wt->items[i].count;
                 if (r < cumulative)
                 {
-                    chosen = i;
+                    chosen = wt->items[i].next_uniq_idx;
                     break;
                 }
             }
 
-            if (chosen == -1)
-            {
-                for (int i = n_uniqs - 1; i >= 0; --i)
-                {
-                    if (mat[i * n_uniqs + word_idx] > 0.0)
-                    {
-                        chosen = i;
-                        break;
-                    }
-                }
-
-                if (chosen == -1)
-                {
-                    chosen = rand() % n_uniqs;
-                }
-            }
-
             word_idx = chosen;
-            words[words_len++] = uniqs[word_idx];
+            words[words_len++] = uniques[word_idx];
         }
 
         fputs("Sentence: \"", logs_file);
@@ -445,18 +508,17 @@ int main(void)
     assert(bigrams != NULL);
     generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
 
-    double *trans_mat = calloc(n_unique_tokens * n_unique_tokens,
-                               sizeof(double));
-    assert(trans_mat != NULL);
-    fill_transition_matrix(bigrams,
-                           n_bigrams,
-                           unique_tokens,
-                           n_unique_tokens,
-                           trans_mat);
+    word_transitions_t *transitions = calloc(n_unique_tokens,
+                                             sizeof(word_transitions_t));
+    assert(transitions != NULL);
+    build_adjacency_list(bigrams,
+                         n_bigrams,
+                         unique_tokens,
+                         n_unique_tokens,
+                         transitions);
 
-    generate(unique_tokens, n_unique_tokens, trans_mat);
+    generate_sentences(unique_tokens, n_unique_tokens, transitions);
 
-    free(trans_mat);
     free(unique_tokens);
     free(bigrams);
     free(tokens);
