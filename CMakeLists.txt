@@ -13,6 +13,10 @@ target_compile_options(marsengen PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>:/Od /Zi>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-O0 -g3>
     >
+
+    $<$<CONFIG:Release>:
+        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-O3 -g0>
+    >
 )
 
 target_link_options(marsengen PRIVATE $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-pg>)
