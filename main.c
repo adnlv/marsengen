@@ -431,11 +431,8 @@ void generate(token_t *uniqs, const int n_uniqs, double *mat)
 
 int main(int argc, char **argv)
 {
-    char *input_path = argc > 1 ? argv[1] : "input.txt";
-    open_input_file(input_path);
-
-    char *logs_path = argc > 2 ? argv[2] : "output.txt";
-    open_log_file(logs_path);
+    open_input_file("input.txt");
+    open_log_file("output.txt");
 
     int text_len = get_input_file_len();
     char *text = malloc(text_len);
