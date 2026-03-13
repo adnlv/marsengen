@@ -89,7 +89,7 @@ void format_input_text(char *buf, int *len_ptr)
     fprintf(logs_file, "Formatted text: %s\n", buf);
 }
 
-typedef struct token
+typedef struct
 {
     char *ptr;
     int len;
@@ -175,7 +175,7 @@ void tokenize_input_text(char *str,
     }
 }
 
-typedef struct ngram2
+typedef struct
 {
     token_t *fst;
     token_t *sec;
@@ -398,31 +398,43 @@ int main(int argc, char **argv)
     open_log_file(logs_path);
 
     int text_len = get_input_file_len();
-    char text[text_len];
+    char *text = malloc(text_len);
+    assert(text != NULL);
     format_input_text(text, &text_len);
 
+    fclose(input_file);
+
     int n_tokens = count_tokens(text, text_len);
-    token_t tokens[n_tokens];
+    token_t *tokens = malloc(sizeof(token_t) * n_tokens);
+    assert(tokens != NULL);
     tokenize_input_text(text, text_len, tokens, n_tokens);
 
     int n_2grams = count_2grams(n_tokens);
-    ngram2_t ngram2s[n_2grams];
+    ngram2_t *ngram2s = malloc(sizeof(ngram2_t) * n_2grams);
+    assert(ngram2s != NULL);
     gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
 
-    token_t uniq_toks[n_tokens];
+    token_t *uniq_toks = malloc(sizeof(token_t) * n_tokens);
+    assert(uniq_toks != NULL);
     int n_uniqs = 0;
     get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
 
-    double trans_mat[n_uniqs][n_uniqs];
+    double *trans_mat = malloc(sizeof(double) * (n_uniqs * n_uniqs));
+    assert(trans_mat != NULL);
     fill_transition_matrix(ngram2s,
                            n_2grams,
                            uniq_toks,
                            n_uniqs,
-                           (double *)trans_mat);
+                           trans_mat);
 
-    generate(uniq_toks, n_uniqs, (double *)trans_mat);
+    generate(uniq_toks, n_uniqs, trans_mat);
 
-    fclose(input_file);
+    free(trans_mat);
+    free(uniq_toks);
+    free(ngram2s);
+    free(tokens);
+    free(text);
+
     fclose(logs_file);
 
     return 0;
