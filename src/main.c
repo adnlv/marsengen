@@ -182,9 +182,9 @@ typedef struct
 {
     token_t *fst;
     token_t *sec;
-} ngram2_t;
+} bigram_t;
 
-int count_2grams(const int n_tokens)
+int count_bigrams(const int n_tokens)
 {
     const int n_2grams = n_tokens - 1;
 
@@ -193,33 +193,33 @@ int count_2grams(const int n_tokens)
     return n_2grams;
 }
 
-void gen_2grams_from_tokens(token_t *tokens,
-                            ngram2_t *ngram2s,
-                            const int n_2grams)
+void generate_bigrams_from_tokens(token_t *tokens,
+                                  bigram_t *bigrams,
+                                  const int n_bigrams)
 {
-    for (int i = 0; i < n_2grams; ++i)
+    for (int i = 0; i < n_bigrams; ++i)
     {
-        ngram2s[i].fst = &tokens[i];
-        ngram2s[i].sec = &tokens[i + 1];
+        bigrams[i].fst = &tokens[i];
+        bigrams[i].sec = &tokens[i + 1];
     }
 
-    for (int i = 0; i < n_2grams; ++i)
+    for (int i = 0; i < n_bigrams; ++i)
     {
         fprintf(logs_file, "2-Gram [%d] (\"", i);
 
-        for (int j = 0; j < ngram2s[i].fst->len; ++j)
+        for (int j = 0; j < bigrams[i].fst->len; ++j)
         {
-            fputc(ngram2s[i].fst->ptr[j], logs_file);
+            fputc(bigrams[i].fst->ptr[j], logs_file);
         }
 
-        fprintf(logs_file, "\" -> %p, \"", (void *)ngram2s[i].fst);
+        fprintf(logs_file, "\" -> %p, \"", (void *)bigrams[i].fst);
 
-        for (int j = 0; j < ngram2s[i].sec->len; ++j)
+        for (int j = 0; j < bigrams[i].sec->len; ++j)
         {
-            fputc(ngram2s[i].sec->ptr[j], logs_file);
+            fputc(bigrams[i].sec->ptr[j], logs_file);
         }
 
-        fprintf(logs_file, "\" -> %p)\n", (void *)ngram2s[i].sec);
+        fprintf(logs_file, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
 }
 
@@ -269,8 +269,8 @@ void get_unique_tokens(token_t *toks,
     *n_uniqs_ptr = n_uniqs;
 }
 
-void fill_transition_matrix(ngram2_t *ngram2s,
-                            const int n_2grams,
+void fill_transition_matrix(bigram_t *bigrams,
+                            const int n_bigrams,
                             token_t *uniqs,
                             const int n_uniqs,
                             double *mat)
@@ -282,9 +282,9 @@ void fill_transition_matrix(ngram2_t *ngram2s,
         {
             char *sec = uniqs[j].ptr;
             int count = 0;
-            for (int k = 0; k < n_2grams; ++k)
+            for (int k = 0; k < n_bigrams; ++k)
             {
-                if (ngram2s[k].fst->ptr == fst && ngram2s[k].sec->ptr == sec)
+                if (bigrams[k].fst->ptr == fst && bigrams[k].sec->ptr == sec)
                 {
                     ++count;
                 }
@@ -430,20 +430,20 @@ int main(void)
     int n_uniqs = 0;
     get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
 
-    int n_2grams = count_2grams(n_tokens);
-    ngram2_t *ngram2s = malloc(sizeof(ngram2_t) * n_2grams);
-    assert(ngram2s != NULL);
-    gen_2grams_from_tokens(tokens, ngram2s, n_2grams);
+    int n_bigrams = count_bigrams(n_tokens);
+    bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
+    assert(bigrams != NULL);
+    generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
 
     double *trans_mat = calloc(n_uniqs * n_uniqs, sizeof(double));
     assert(trans_mat != NULL);
-    fill_transition_matrix(ngram2s, n_2grams, uniq_toks, n_uniqs, trans_mat);
+    fill_transition_matrix(bigrams, n_bigrams, uniq_toks, n_uniqs, trans_mat);
 
     generate(uniq_toks, n_uniqs, trans_mat);
 
     free(trans_mat);
     free(uniq_toks);
-    free(ngram2s);
+    free(bigrams);
     free(tokens);
     free(text);
 
