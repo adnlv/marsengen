@@ -161,17 +161,10 @@ void tokenize_input_text(char *str,
         {
             token_t *t2 = &tokens[j];
 
-            if (t1->len != t2->len)
+            if (t1->len == t2->len && memcmp(t1->ptr, t2->ptr, t1->len) == 0)
             {
-                continue;
+                t2->ptr = t1->ptr;
             }
-
-            if (strncmp(t1->ptr, t2->ptr, t1->len) != 0)
-            {
-                continue;
-            }
-
-            t2->ptr = t1->ptr;
         }
     }
 
@@ -298,13 +291,14 @@ void fill_transition_matrix(ngram2_t *ngram2s,
 
     for (int i = 0; i < n_uniqs; ++i)
     {
+        char *fst = uniqs[i].ptr;
         for (int j = 0; j < n_uniqs; ++j)
         {
+            char *sec = uniqs[j].ptr;
             int count = 0;
             for (int k = 0; k < n_2grams; ++k)
             {
-                if (ngram2s[k].fst->ptr == uniqs[i].ptr
-                    && ngram2s[k].sec->ptr == uniqs[j].ptr)
+                if (ngram2s[k].fst->ptr == fst && ngram2s[k].sec->ptr == sec)
                 {
                     ++count;
                 }
