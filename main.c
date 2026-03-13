@@ -1,7 +1,7 @@
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <assert.h>
 #include <string.h>
 #include <time.h>
 
@@ -52,14 +52,18 @@ void format_input_text(char *buf, int *len_ptr)
     int j = 0;
     const int len = *len_ptr;
     for (; i < len; ++i)
+    {
         buf[i] = '\0';
+    }
 
     bool is_prev_letter = false;
     for (i = 0; i < len; ++i)
     {
         int c = getc(input_file);
         if (c == EOF)
+        {
             break;
+        }
 
         char ch = (char)c;
         bool is_lower = IS_LOWER(ch);
@@ -67,7 +71,9 @@ void format_input_text(char *buf, int *len_ptr)
         if (is_lower || is_upper)
         {
             if (is_upper)
+            {
                 ch += 32;
+            }
 
             buf[j] = ch;
             is_prev_letter = true;
@@ -81,7 +87,9 @@ void format_input_text(char *buf, int *len_ptr)
     }
 
     if (j > 0)
+    {
         buf[j - 1] = '\0';
+    }
 
     *len_ptr = j;
 
@@ -104,7 +112,9 @@ int count_tokens(const char *str, const int len)
     for (int i = 0; i < len; ++i)
     {
         if (str[i] == DELIM)
+        {
             ++n_tokens;
+        }
     }
 
     fprintf(logs_file, "Text contains %d tokens\n", n_tokens);
@@ -152,10 +162,14 @@ void tokenize_input_text(char *str,
             token_t *t2 = &tokens[j];
 
             if (t1->len != t2->len)
+            {
                 continue;
+            }
 
             if (strncmp(t1->ptr, t2->ptr, t1->len) != 0)
+            {
                 continue;
+            }
 
             t2->ptr = t1->ptr;
         }
@@ -166,7 +180,9 @@ void tokenize_input_text(char *str,
         fprintf(logs_file, "Token [%d] \"", i);
 
         for (int j = 0; j < tokens[i].len; ++j)
+        {
             fputc(tokens[i].ptr[j], logs_file);
+        }
 
         fprintf(logs_file,
                 "\" -> %p is %d characters long\n",
@@ -206,12 +222,16 @@ void gen_2grams_from_tokens(token_t *tokens,
         fprintf(logs_file, "2-Gram [%d] (\"", i);
 
         for (int j = 0; j < ngram2s[i].fst->len; ++j)
+        {
             fputc(ngram2s[i].fst->ptr[j], logs_file);
+        }
 
         fprintf(logs_file, "\" -> %p, \"", (void *)ngram2s[i].fst);
 
         for (int j = 0; j < ngram2s[i].sec->len; ++j)
+        {
             fputc(ngram2s[i].sec->ptr[j], logs_file);
+        }
 
         fprintf(logs_file, "\" -> %p)\n", (void *)ngram2s[i].sec);
     }
@@ -250,7 +270,9 @@ void get_unique_tokens(token_t *toks,
         fprintf(logs_file, "Unique token [%d] \"", i);
 
         for (int j = 0; j < uniqs[i].len; ++j)
+        {
             fputc(uniqs[i].ptr[j], logs_file);
+        }
 
         fprintf(logs_file,
                 "\" -> %p is %d characters long\n",
@@ -268,8 +290,12 @@ void fill_transition_matrix(ngram2_t *ngram2s,
                             double *mat)
 {
     for (int i = 0; i < n_uniqs; ++i)
+    {
         for (int j = 0; j < n_uniqs; ++j)
+        {
             mat[j * n_uniqs + i] = 0;
+        }
+    }
 
     for (int i = 0; i < n_uniqs; ++i)
     {
@@ -278,8 +304,8 @@ void fill_transition_matrix(ngram2_t *ngram2s,
             int count = 0;
             for (int k = 0; k < n_2grams; ++k)
             {
-                if (ngram2s[k].fst->ptr == uniqs[i].ptr &&
-                    ngram2s[k].sec->ptr == uniqs[j].ptr)
+                if (ngram2s[k].fst->ptr == uniqs[i].ptr
+                    && ngram2s[k].sec->ptr == uniqs[j].ptr)
                 {
                     ++count;
                 }
@@ -290,11 +316,17 @@ void fill_transition_matrix(ngram2_t *ngram2s,
 
         double sum = 0;
         for (int j = 0; j < n_uniqs; ++j)
+        {
             sum += mat[j * n_uniqs + i];
+        }
 
         if (sum != 0)
+        {
             for (int j = 0; j < n_uniqs; ++j)
+            {
                 mat[j * n_uniqs + i] /= sum;
+            }
+        }
     }
 
     fprintf(logs_file, "Transition matrix [%d by %d]\n", n_uniqs, n_uniqs);
@@ -305,15 +337,15 @@ void fill_transition_matrix(ngram2_t *ngram2s,
         {
             fprintf(logs_file, "%.2lf", mat[j * n_uniqs + i]);
             if (j != n_uniqs - 1)
+            {
                 fputc(',', logs_file);
+            }
         }
         fputs("]\n", logs_file);
     }
 }
 
-void generate(token_t *uniqs,
-              const int n_uniqs,
-              double *mat)
+void generate(token_t *uniqs, const int n_uniqs, double *mat)
 {
     srand((unsigned)time(NULL));
 
@@ -334,7 +366,9 @@ void generate(token_t *uniqs,
         {
             double sum = 0.0;
             for (int i = 0; i < n_uniqs; ++i)
+            {
                 sum += mat[i * n_uniqs + word_idx];
+            }
 
             if (sum <= 0.0)
             {
@@ -368,7 +402,9 @@ void generate(token_t *uniqs,
                 }
 
                 if (chosen == -1)
+                {
                     chosen = rand() % n_uniqs;
+                }
             }
 
             word_idx = chosen;
@@ -379,10 +415,14 @@ void generate(token_t *uniqs,
         for (int i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
+            {
                 fputc(words[i].ptr[j], logs_file);
+            }
 
             if (i != words_len - 1)
+            {
                 fputc(' ', logs_file);
+            }
         }
 
         fputs("\"\n", logs_file);
@@ -421,11 +461,7 @@ int main(int argc, char **argv)
 
     double *trans_mat = malloc(sizeof(double) * (n_uniqs * n_uniqs));
     assert(trans_mat != NULL);
-    fill_transition_matrix(ngram2s,
-                           n_2grams,
-                           uniq_toks,
-                           n_uniqs,
-                           trans_mat);
+    fill_transition_matrix(ngram2s, n_2grams, uniq_toks, n_uniqs, trans_mat);
 
     generate(uniq_toks, n_uniqs, trans_mat);
 
