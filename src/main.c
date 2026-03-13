@@ -116,10 +116,26 @@ int count_tokens(const char *str, const int len)
     return n_tokens;
 }
 
-void tokenize_input_text(char *str,
-                         const int str_len,
-                         token_t *tokens,
-                         const int n_tokens)
+static token_t *g_sort_tokens = NULL;
+
+int token_index_cmp(const void *a, const void *b)
+{
+    int a_idx = *(const int *)a;
+    int b_idx = *(const int *)b;
+    token_t *a_tok = &g_sort_tokens[a_idx];
+    token_t *b_tok = &g_sort_tokens[b_idx];
+
+    int min_len = a_tok->len < b_tok->len ? a_tok->len : b_tok->len;
+    int cmp = memcmp(a_tok->ptr, b_tok->ptr, min_len);
+    if (cmp != 0)
+    {
+        return cmp;
+    }
+
+    return a_tok->len - b_tok->len;
+}
+
+void tokenize_input_text(char *str, int str_len, token_t *tokens, int n_tokens)
 {
     assert(str != NULL);
     assert(str_len > 0);
@@ -144,23 +160,32 @@ void tokenize_input_text(char *str,
         ++str_idx;
     }
 
-    /**
-     * Optimize string comparisons by pointing to the first word occurrence.
-     * This allows to compare tokens by their strings memory addresses.
-     */
+    int *idxs = malloc(sizeof(int) * n_tokens);
+    assert(idxs != NULL);
     for (int i = 0; i < n_tokens; ++i)
     {
-        token_t *t1 = &tokens[i];
-        for (int j = 0; j < n_tokens; ++j)
-        {
-            token_t *t2 = &tokens[j];
+        idxs[i] = i;
+    }
 
-            if (t1->len == t2->len && memcmp(t1->ptr, t2->ptr, t1->len) == 0)
-            {
-                t2->ptr = t1->ptr;
-            }
+    g_sort_tokens = tokens;
+    qsort(idxs, n_tokens, sizeof(int), token_index_cmp);
+
+    char *canon = tokens[idxs[0]].ptr;
+    for (int i = 1; i < n_tokens; ++i)
+    {
+        token_t *cur = &tokens[idxs[i]];
+        token_t *prev = &tokens[idxs[i - 1]];
+        if (cur->len == prev->len && memcmp(cur->ptr, prev->ptr, cur->len) == 0)
+        {
+            cur->ptr = canon;
+        }
+        else
+        {
+            canon = cur->ptr;
         }
     }
+
+    free(idxs);
 
     for (int i = 0; i < n_tokens; ++i)
     {
