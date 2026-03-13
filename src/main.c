@@ -329,7 +329,7 @@ void generate(token_t *uniqs, const int n_uniqs, double *mat)
     srand((unsigned)time(NULL));
 
     const int n_sentences = 32;
-    const int n_words_per_sentence = n_uniqs > 0xFF ? 0xFF : n_uniqs;
+    const int n_words_per_sentence = n_uniqs < 0xFF ? n_uniqs : 0xFF;
 
     fprintf(logs_file, "Generating %d sentences\n", n_sentences);
 
