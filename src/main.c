@@ -50,14 +50,8 @@ void format_input_text(char *buf, int *len_ptr)
 {
     int i = 0;
     int j = 0;
-    const int len = *len_ptr;
-    for (; i < len; ++i)
-    {
-        buf[i] = '\0';
-    }
-
     bool is_prev_letter = false;
-    for (i = 0; i < len; ++i)
+    for (i = 0; i < *len_ptr; ++i)
     {
         int c = getc(input_file);
         if (c == EOF)
@@ -283,14 +277,6 @@ void fill_transition_matrix(ngram2_t *ngram2s,
 {
     for (int i = 0; i < n_uniqs; ++i)
     {
-        for (int j = 0; j < n_uniqs; ++j)
-        {
-            mat[j * n_uniqs + i] = 0;
-        }
-    }
-
-    for (int i = 0; i < n_uniqs; ++i)
-    {
         char *fst = uniqs[i].ptr;
         for (int j = 0; j < n_uniqs; ++j)
         {
@@ -428,7 +414,7 @@ int main(void)
     open_log_file("output.txt");
 
     int text_len = get_input_file_len();
-    char *text = malloc(text_len);
+    char *text = calloc(text_len, 1);
     assert(text != NULL);
     format_input_text(text, &text_len);
 
@@ -449,7 +435,7 @@ int main(void)
     assert(ngram2s != NULL);
     gen_2grams_from_tokens(tokens, ngram2s, n_2grams);
 
-    double *trans_mat = malloc(sizeof(double) * (n_uniqs * n_uniqs));
+    double *trans_mat = calloc(n_uniqs * n_uniqs, sizeof(double));
     assert(trans_mat != NULL);
     fill_transition_matrix(ngram2s, n_2grams, uniq_toks, n_uniqs, trans_mat);
 
