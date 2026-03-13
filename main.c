@@ -129,7 +129,7 @@ void tokenize_input_text(char *str,
     {
         tokens[i].ptr = cur_ptr;
 
-        while (*cur_ptr != DELIM && str_idx < str_len)
+        while (*cur_ptr != DELIM && *cur_ptr != '\0' && str_idx < str_len)
         {
             ++cur_ptr;
             ++str_idx;
