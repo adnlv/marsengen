@@ -409,15 +409,15 @@ int main(int argc, char **argv)
     assert(tokens != NULL);
     tokenize_input_text(text, text_len, tokens, n_tokens);
 
-    int n_2grams = count_2grams(n_tokens);
-    ngram2_t *ngram2s = malloc(sizeof(ngram2_t) * n_2grams);
-    assert(ngram2s != NULL);
-    gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
-
     token_t *uniq_toks = malloc(sizeof(token_t) * n_tokens);
     assert(uniq_toks != NULL);
     int n_uniqs = 0;
     get_unique_tokens(tokens, n_tokens, uniq_toks, &n_uniqs);
+
+    int n_2grams = count_2grams(n_tokens);
+    ngram2_t *ngram2s = malloc(sizeof(ngram2_t) * n_2grams);
+    assert(ngram2s != NULL);
+    gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
 
     double *trans_mat = malloc(sizeof(double) * (n_uniqs * n_uniqs));
     assert(trans_mat != NULL);
