@@ -207,7 +207,6 @@ int count_2grams(const int n_tokens)
 }
 
 void gen_2grams_from_tokens(token_t *tokens,
-                            const int n_tokens,
                             ngram2_t *ngram2s,
                             const int n_2grams)
 {
@@ -429,7 +428,7 @@ void generate(token_t *uniqs, const int n_uniqs, double *mat)
     }
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
     open_input_file("input.txt");
     open_log_file("output.txt");
@@ -454,7 +453,7 @@ int main(int argc, char **argv)
     int n_2grams = count_2grams(n_tokens);
     ngram2_t *ngram2s = malloc(sizeof(ngram2_t) * n_2grams);
     assert(ngram2s != NULL);
-    gen_2grams_from_tokens(tokens, n_tokens, ngram2s, n_2grams);
+    gen_2grams_from_tokens(tokens, ngram2s, n_2grams);
 
     double *trans_mat = malloc(sizeof(double) * (n_uniqs * n_uniqs));
     assert(trans_mat != NULL);
