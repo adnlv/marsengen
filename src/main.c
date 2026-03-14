@@ -95,7 +95,7 @@ typedef struct
     int len;
 } token_t;
 
-int count_tokens(const char *str, const int len)
+int count_tokens(const char *str, int len)
 {
     assert(str != NULL);
     assert(len > 0);
@@ -236,7 +236,7 @@ typedef struct
     token_t *sec;
 } bigram_t;
 
-int count_bigrams(const int n_tokens)
+int count_bigrams(int n_tokens)
 {
     const int n_2grams = n_tokens - 1;
 
@@ -247,7 +247,7 @@ int count_bigrams(const int n_tokens)
 
 void generate_bigrams_from_tokens(token_t *tokens,
                                   bigram_t *bigrams,
-                                  const int n_bigrams)
+                                  int n_bigrams)
 {
     for (int i = 0; i < n_bigrams; ++i)
     {
@@ -405,16 +405,17 @@ void build_adjacency_list(bigram_t *bigrams,
 
     for (int i = 0; i < n_uniques; ++i)
     {
+        word_transitions_t t = transitions[i];
         fprintf(logs_file,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
-                transitions[i].len,
-                transitions[i].total_count);
+                t.len,
+                t.total_count);
     }
 }
 
 void generate_sentences(token_t *uniques,
-                        const int n_uniques,
+                        int n_uniques,
                         word_transitions_t *transitions)
 {
     srand((unsigned)time(NULL));
