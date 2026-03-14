@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/bin/debug")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/bin/release")
 
-add_executable(marsengen src/main.c)
+add_executable(marsengen src/main.c src/memory.c)
 
 target_compile_options(marsengen PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:/W4>

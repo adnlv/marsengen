@@ -7,6 +7,13 @@
 #define MAGIC 0x4D52534E
 #define VERSION 0x0001
 
+typedef enum
+{
+    EMEM_NOMEM = 1,
+    EMEM_NOMAGIC,
+    EMEM_INCOMPAT
+} mem_error_t;
+
 /* Memory file header */
 typedef struct
 {
