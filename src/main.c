@@ -1,6 +1,7 @@
 #include "memory.h"
 #include <assert.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -484,7 +485,18 @@ int main(void)
     assert(mem_open(&mem_stream, &mem_header) == 0);
     mem_vocab_t vocab;
     assert(mem_read_vocab(mem_stream, &vocab) == 0);
+    mem_trans_t *trans_list = calloc(vocab.total, sizeof(mem_trans_t));
+    assert(trans_list != NULL);
+    for (uint32_t i = 0; i < vocab.total; ++i)
+    {
+        assert(mem_read_trans(mem_stream, &trans_list[i]) == 0);
+    }
     mem_free_vocab(&vocab);
+    for (uint32_t i = 0; i < vocab.total; ++i)
+    {
+        mem_free_trans(&trans_list[i]);
+    }
+    free(trans_list);
     mem_close(mem_stream);
 
     open_input_file("input.txt");

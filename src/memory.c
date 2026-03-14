@@ -104,3 +104,66 @@ void mem_free_vocab(mem_vocab_t *vocab_ptr)
 
     free(vocab_ptr->words);
 }
+
+int mem_read_trans(FILE *stream, mem_trans_t *trans_ptr)
+{
+    assert(stream != NULL);
+    assert(trans_ptr != NULL);
+
+    int count = fread(&trans_ptr->n_distinct,
+                      sizeof(trans_ptr->n_distinct),
+                      1,
+                      stream);
+    if (count != 1)
+    {
+        return EMEM_INCOMPAT;
+    }
+
+    count
+        = fread(&trans_ptr->total_obs, sizeof(trans_ptr->total_obs), 1, stream);
+    if (count != 1)
+    {
+        return EMEM_INCOMPAT;
+    }
+
+    if (trans_ptr->n_distinct == 0)
+    {
+        return 0;
+    }
+
+    trans_ptr->dests = calloc(trans_ptr->n_distinct, sizeof(mem_tdest_t));
+    if (trans_ptr->dests == NULL)
+    {
+        return -1;
+    }
+
+    for (uint32_t i = 0; i < trans_ptr->n_distinct; ++i)
+    {
+        mem_tdest_t *d = &trans_ptr->dests[i];
+
+        count = fread(&d->idx, sizeof(d->idx), 1, stream);
+        if (count != 1)
+        {
+            free(trans_ptr->dests);
+
+            return EMEM_INCOMPAT;
+        }
+
+        count = fread(&d->count, sizeof(d->count), 1, stream);
+        if (count != 1)
+        {
+            free(trans_ptr->dests);
+
+            return EMEM_INCOMPAT;
+        }
+    }
+
+    return 0;
+}
+
+void mem_free_trans(mem_trans_t *trans_ptr)
+{
+    assert(trans_ptr != NULL);
+
+    free(trans_ptr->dests);
+}
