@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.28)
 project(marsengen C)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/bin/debug")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/bin/release")
 
 add_executable(marsengen src/main.c)
 
