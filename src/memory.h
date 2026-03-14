@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define MAGIC 0x4D52534E
+#define MAGIC 0x4E53524D
 #define VERSION 0x0001
 
 typedef enum

@@ -1,3 +1,4 @@
+#include "memory.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -478,6 +479,14 @@ void generate_sentences(token_t *uniques,
 
 int main(void)
 {
+    FILE *mem_stream;
+    mem_header_t mem_header;
+    assert(mem_open(&mem_stream, &mem_header) == 0);
+    mem_vocab_t vocab;
+    assert(mem_read_vocab(mem_stream, &vocab) == 0);
+    mem_free_vocab(&vocab);
+    mem_close(mem_stream);
+
     open_input_file("input.txt");
     open_logs_file("output.txt");
 
