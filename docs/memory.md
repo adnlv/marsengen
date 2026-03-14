@@ -7,25 +7,26 @@ All multi-byte integers are little-endian.
 ### Header
 
 First 4 bytes are a magic number `MRSN` (`4D52534E`). Next 2 bytes are a format
-version. Next 4 bytes tell how many unique words there are.
+version.
 
 ```text
-4D52534E,0001,00000004
+4D52534E,0001
 ```
 
 ### Vocabulary
 
-Then goes the set of unique words. Each word is represented by its length
-(1 byte) followed by the set of characters of the given length.
+Then goes the set of unique words. First 4 bytes tell how many unique words
+there are. Each word is represented by its length (1 byte) followed by the set
+of characters of the given length.
 
 For example, 4 words: "n", "hi", "hello" and "transition" would look like this:
 
 ```text
-01,6E,02,6869,05,68656C6C6F,0A,7472616E736974696F6E
-                            |  |
-                            |  The word ("transition")
-                            |
-                            Its length (10)
+00000004,01,6E,02,6869,05,68656C6C6F,0A,7472616E736974696F6E
+                                     |  |
+                                     |  The word ("transition")
+                                     |
+                                     Its length (10)
 ```
 
 ### Transitions
