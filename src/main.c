@@ -133,12 +133,12 @@ int token_index_cmp(const void *a, const void *b)
     return a_tok->len - b_tok->len;
 }
 
-void tokenize_input_text(char *str,
-                         int str_len,
-                         token_t *tokens,
-                         int n_tokens,
-                         token_t *uniques,
-                         int *n_uniques_ptr)
+void tokenize_text(char *str,
+                   int str_len,
+                   token_t *tokens,
+                   int n_tokens,
+                   token_t *uniques,
+                   int *n_uniques_ptr)
 {
     assert(str != NULL);
     assert(str_len > 0);
@@ -245,9 +245,7 @@ int count_bigrams(int n_tokens)
     return n_2grams;
 }
 
-void generate_bigrams_from_tokens(token_t *tokens,
-                                  bigram_t *bigrams,
-                                  int n_bigrams)
+void generate_bigrams(token_t *tokens, bigram_t *bigrams, int n_bigrams)
 {
     for (int i = 0; i < n_bigrams; ++i)
     {
@@ -363,19 +361,19 @@ void build_adjacency_list(bigram_t *bigrams,
         transitions[i].total_count = 0;
     }
 
-    for (int k = 0; k < n_bigrams; ++k)
+    for (int i = 0; i < n_bigrams; ++i)
     {
-        int src = find_token_idx(map, n_uniques, bigrams[k].fst->ptr);
-        int dst = find_token_idx(map, n_uniques, bigrams[k].sec->ptr);
+        int src = find_token_idx(map, n_uniques, bigrams[i].fst->ptr);
+        int dst = find_token_idx(map, n_uniques, bigrams[i].sec->ptr);
         assert(src != -1 && dst != -1);
 
         word_transitions_t *wt = &transitions[src];
         int found = -1;
-        for (int i = 0; i < wt->len; ++i)
+        for (int j = 0; j < wt->len; ++j)
         {
-            if (wt->items[i].next_uniq_idx == dst)
+            if (wt->items[j].next_uniq_idx == dst)
             {
-                found = i;
+                found = j;
                 break;
             }
         }
@@ -497,17 +495,17 @@ int main(void)
     token_t *unique_tokens = malloc(sizeof(token_t) * n_tokens);
     assert(unique_tokens != NULL);
     int n_unique_tokens = 0;
-    tokenize_input_text(text,
-                        text_len,
-                        tokens,
-                        n_tokens,
-                        unique_tokens,
-                        &n_unique_tokens);
+    tokenize_text(text,
+                  text_len,
+                  tokens,
+                  n_tokens,
+                  unique_tokens,
+                  &n_unique_tokens);
 
     int n_bigrams = count_bigrams(n_tokens);
     bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
     assert(bigrams != NULL);
-    generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
+    generate_bigrams(tokens, bigrams, n_bigrams);
 
     word_transitions_t *transitions = calloc(n_unique_tokens,
                                              sizeof(word_transitions_t));
