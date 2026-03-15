@@ -59,4 +59,7 @@ typedef struct
 int mem_read_trans(FILE *stream, mem_trans_t *trans_ptr);
 void mem_free_trans(mem_trans_t *trans_ptr);
 
+/** @param trans array of word transitions */
+int mem_save(FILE *stream, mem_vocab_t *vocab, mem_trans_t *trans);
+
 #endif /* MEMORY_H_ */

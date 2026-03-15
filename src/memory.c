@@ -167,3 +167,72 @@ void mem_free_trans(mem_trans_t *trans_ptr)
 
     free(trans_ptr->dests);
 }
+
+int mem_save(FILE *stream, mem_vocab_t *vocab, mem_trans_t *trans)
+{
+    assert(stream != NULL);
+    assert(vocab != NULL);
+    assert(trans != NULL);
+
+    if (fseek(stream, 0, SEEK_SET) != 0)
+    {
+        return -1;
+    }
+
+    uint32_t magic = MAGIC;
+    if (fwrite(&magic, sizeof(magic), 1, stream) != 1)
+    {
+        return -1;
+    }
+
+    uint16_t version = VERSION;
+    if (fwrite(&version, sizeof(version), 1, stream) != 1)
+    {
+        return -1;
+    }
+
+    if (fwrite(&vocab->total, sizeof(vocab->total), 1, stream) != 1)
+    {
+        return -1;
+    }
+
+    for (uint32_t i = 0; i < vocab->total; ++i)
+    {
+        mem_word_t *word = &vocab->words[i];
+        if (fwrite(&word->len, sizeof(word->len), 1, stream) != 1)
+        {
+            return -1;
+        }
+
+        if (fwrite(word->str, sizeof(char), word->len, stream) != word->len)
+        {
+            return -1;
+        }
+    }
+
+    if (fwrite(&trans->n_distinct, sizeof(trans->n_distinct), 1, stream) != 1)
+    {
+        return -1;
+    }
+
+    if (fwrite(&trans->total_obs, sizeof(trans->total_obs), 1, stream) != 1)
+    {
+        return -1;
+    }
+
+    for (uint32_t i = 0; i < trans->n_distinct; ++i)
+    {
+        mem_tdest_t *dest = &trans->dests[i];
+        if (fwrite(&dest->idx, sizeof(dest->idx), 1, stream) != 1)
+        {
+            return -1;
+        }
+
+        if (fwrite(&dest->count, sizeof(dest->count), 1, stream) != 1)
+        {
+            return -1;
+        }
+    }
+
+    return 0;
+}

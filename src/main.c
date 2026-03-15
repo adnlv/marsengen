@@ -491,6 +491,7 @@ int main(void)
     {
         assert(mem_read_trans(mem_stream, &trans_list[i]) == 0);
     }
+    mem_save(mem_stream, &vocab, trans_list);
     mem_free_vocab(&vocab);
     for (uint32_t i = 0; i < vocab.total; ++i)
     {
