@@ -13,15 +13,19 @@
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
-static FILE *input_file = NULL;
+static FILE *corpus_stream = NULL;
 static FILE *logs_file = NULL;
 
-void open_input_file(char *path)
+void open_corpus_stream(char *path)
 {
-    input_file = fopen(path != NULL ? path : "corpus.txt", "r");
-    assert(input_file != NULL);
+    corpus_stream = fopen(path != NULL ? path : "corpus.txt", "r");
+    if (corpus_stream == NULL)
+    {
+        fprintf(stderr, "Error opening corpus: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
-    printf("Reading from file \"%s\"\n", path);
+    printf("Reading corpus \"%s\"\n", path);
 }
 
 void mkdir_if_not_exists(const char *path)
@@ -30,7 +34,7 @@ void mkdir_if_not_exists(const char *path)
     if (result == -1 && errno != EEXIST)
     {
         fprintf(stderr, "Error creating directory: %s\n", strerror(errno));
-        exit(result);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -66,27 +70,27 @@ void open_logs_file(char *path)
     }
 }
 
-int get_input_file_len(void)
+int get_corpus_len(void)
 {
-    assert(fseek(input_file, 0, SEEK_END) == 0);
+    assert(fseek(corpus_stream, 0, SEEK_END) == 0);
 
-    const int pos = ftell(input_file);
+    const long pos = ftell(corpus_stream);
 
     assert(pos != -1);
-    assert(fseek(input_file, 0, SEEK_SET) == 0);
+    assert(fseek(corpus_stream, 0, SEEK_SET) == 0);
 
-    fprintf(logs_file, "Unformatted text contains %d characters\n", pos);
+    fprintf(logs_file, "Unformatted text contains %ld characters\n", pos);
 
     return pos;
 }
 
-void format_input_text(char *buf, int *len_ptr)
+void format_corpus_text(char *buf, int *len_ptr)
 {
     int len = 0;
     bool is_prev_letter = false;
     for (int i = 0; i < *len_ptr; ++i)
     {
-        int c = getc(input_file);
+        int c = getc(corpus_stream);
         if (c == EOF)
         {
             break;
@@ -529,15 +533,15 @@ int main(int argc, char **argv)
         }
     }
 
-    open_input_file(corpus_path);
+    open_corpus_stream(corpus_path);
     open_logs_file(logs_path);
 
-    int text_len = get_input_file_len();
+    int text_len = get_corpus_len();
     char *text = calloc(text_len, 1);
     assert(text != NULL);
-    format_input_text(text, &text_len);
+    format_corpus_text(text, &text_len);
 
-    fclose(input_file);
+    fclose(corpus_stream);
 
     int n_tokens = count_tokens(text, text_len);
     token_t *tokens = malloc(sizeof(token_t) * n_tokens);
