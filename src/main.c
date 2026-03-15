@@ -1,9 +1,12 @@
 #include <assert.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <time.h>
 
 #define DELIM ' '
@@ -13,24 +16,54 @@
 static FILE *input_file = NULL;
 static FILE *logs_file = NULL;
 
-void open_input_file(const char *path)
+void open_input_file(char *path)
 {
-    assert(path != NULL);
-
-    input_file = fopen(path, "r");
+    input_file = fopen(path != NULL ? path : "corpus.txt", "r");
     assert(input_file != NULL);
 
     printf("Reading from file \"%s\"\n", path);
 }
 
-void open_logs_file(const char *path)
+void mkdir_if_not_exists(const char *path)
 {
-    assert(path != NULL);
+    int result = mkdir(path, 0755);
+    if (result == -1 && errno != EEXIST)
+    {
+        fprintf(stderr, "Error creating directory: %s\n", strerror(errno));
+        exit(result);
+    }
+}
 
-    logs_file = fopen(path, "w+");
+void open_logs_file(char *path)
+{
+    char *buf = path;
+    if (buf == NULL)
+    {
+        /* path length = directory path ("logs" - 4)
+         * + maximum timestamp length (20 for 64-bit machines)
+         * + file extension (".log" - 4)
+         * + null terminator (1)
+         */
+        const int len = 29;
+        const char dir[] = "logs";
+        const time_t secs = time(NULL);
+
+        buf = calloc(len, sizeof(char));
+        assert(buf != NULL);
+
+        mkdir_if_not_exists(dir);
+        snprintf(buf, len, "%s/%lu.log", dir, (unsigned long)secs);
+    }
+
+    logs_file = fopen(buf, "w+");
     assert(logs_file != NULL);
 
-    printf("Writing logs to file \"%s\"\n", path);
+    printf("Writing logs to file \"%s\"\n", buf);
+
+    if (path == NULL)
+    {
+        free(buf);
+    }
 }
 
 int get_input_file_len(void)
@@ -486,8 +519,6 @@ int main(int argc, char **argv)
         char *s = argv[i];
         bool has_next = i + 1 < argc;
 
-        printf("[%d]: %s\n", i, s);
-
         if ((strcmp(s, "-c") == 0 || strcmp(s, "--corpus") == 0) && has_next)
         {
             corpus_path = argv[++i];
@@ -498,8 +529,8 @@ int main(int argc, char **argv)
         }
     }
 
-    open_input_file(corpus_path != NULL ? corpus_path : "input.txt");
-    open_logs_file(logs_path != NULL ? logs_path : "output.txt");
+    open_input_file(corpus_path);
+    open_logs_file(logs_path);
 
     int text_len = get_input_file_len();
     char *text = calloc(text_len, 1);
