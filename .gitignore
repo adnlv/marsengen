@@ -14,5 +14,7 @@ CMakeUserPresets.json
 clang-tidy-fixes.patch
 
 *.out
+*.out.*
 *.gprof
+*.gprof.*
 CMakeLists.txt.user*
