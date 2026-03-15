@@ -14,7 +14,7 @@
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
 static FILE *corpus_stream = NULL;
-static FILE *logs_file = NULL;
+static FILE *out_stream = NULL;
 
 void open_corpus_stream(char *path)
 {
@@ -38,7 +38,7 @@ void mkdir_if_not_exists(const char *path)
     }
 }
 
-void open_logs_file(char *path)
+void open_out_stream(char *path)
 {
     char *buf = path;
     if (buf == NULL)
@@ -59,10 +59,10 @@ void open_logs_file(char *path)
         snprintf(buf, len, "%s/%lu.log", dir, (unsigned long)secs);
     }
 
-    logs_file = fopen(buf, "w+");
-    assert(logs_file != NULL);
+    out_stream = fopen(buf, "w+");
+    assert(out_stream != NULL);
 
-    printf("Writing logs to file \"%s\"\n", buf);
+    printf("Writing output to \"%s\"\n", buf);
 
     if (path == NULL)
     {
@@ -79,7 +79,7 @@ int get_corpus_len(void)
     assert(pos != -1);
     assert(fseek(corpus_stream, 0, SEEK_SET) == 0);
 
-    fprintf(logs_file, "Unformatted text contains %ld characters\n", pos);
+    fprintf(out_stream, "Unformatted text contains %ld characters\n", pos);
 
     return pos;
 }
@@ -124,7 +124,10 @@ void format_corpus_text(char *buf, int *len_ptr)
 
     *len_ptr = len;
 
-    fprintf(logs_file, "Formatted text contains %d characters: %s\n", len, buf);
+    fprintf(out_stream,
+            "Formatted text contains %d characters: %s\n",
+            len,
+            buf);
 }
 
 typedef struct
@@ -147,7 +150,7 @@ int count_tokens(const char *str, int len)
         }
     }
 
-    fprintf(logs_file, "Text contains %d tokens\n", n_tokens);
+    fprintf(out_stream, "Text contains %d tokens\n", n_tokens);
 
     return n_tokens;
 }
@@ -237,31 +240,31 @@ void tokenize_text(char *str,
 
     for (int i = 0; i < n_tokens; ++i)
     {
-        fprintf(logs_file, "Token [%d] \"", i);
+        fprintf(out_stream, "Token [%d] \"", i);
 
         for (int j = 0; j < tokens[i].len; ++j)
         {
-            fputc(tokens[i].ptr[j], logs_file);
+            fputc(tokens[i].ptr[j], out_stream);
         }
 
-        fprintf(logs_file,
+        fprintf(out_stream,
                 "\" -> %p is %d characters long\n",
                 (void *)tokens[i].ptr,
                 tokens[i].len);
     }
 
-    fprintf(logs_file, "Got %d unique tokens\n", *n_uniques_ptr);
+    fprintf(out_stream, "Got %d unique tokens\n", *n_uniques_ptr);
 
     for (int i = 0; i < *n_uniques_ptr; ++i)
     {
-        fprintf(logs_file, "Unique token [%d] \"", i);
+        fprintf(out_stream, "Unique token [%d] \"", i);
 
         for (int j = 0; j < uniques[i].len; ++j)
         {
-            fputc(uniques[i].ptr[j], logs_file);
+            fputc(uniques[i].ptr[j], out_stream);
         }
 
-        fprintf(logs_file,
+        fprintf(out_stream,
                 "\" -> %p is %d characters long\n",
                 (void *)uniques[i].ptr,
                 uniques[i].len);
@@ -278,7 +281,7 @@ int count_bigrams(int n_tokens)
 {
     const int n_2grams = n_tokens - 1;
 
-    fprintf(logs_file, "Generating %d 2-grams\n", n_2grams);
+    fprintf(out_stream, "Generating %d 2-grams\n", n_2grams);
 
     return n_2grams;
 }
@@ -293,21 +296,21 @@ void generate_bigrams(token_t *tokens, bigram_t *bigrams, int n_bigrams)
 
     for (int i = 0; i < n_bigrams; ++i)
     {
-        fprintf(logs_file, "2-Gram [%d] (\"", i);
+        fprintf(out_stream, "2-Gram [%d] (\"", i);
 
         for (int j = 0; j < bigrams[i].fst->len; ++j)
         {
-            fputc(bigrams[i].fst->ptr[j], logs_file);
+            fputc(bigrams[i].fst->ptr[j], out_stream);
         }
 
-        fprintf(logs_file, "\" -> %p, \"", (void *)bigrams[i].fst);
+        fprintf(out_stream, "\" -> %p, \"", (void *)bigrams[i].fst);
 
         for (int j = 0; j < bigrams[i].sec->len; ++j)
         {
-            fputc(bigrams[i].sec->ptr[j], logs_file);
+            fputc(bigrams[i].sec->ptr[j], out_stream);
         }
 
-        fprintf(logs_file, "\" -> %p)\n", (void *)bigrams[i].sec);
+        fprintf(out_stream, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
 }
 
@@ -442,7 +445,7 @@ void build_adjacency_list(bigram_t *bigrams,
     for (int i = 0; i < n_uniques; ++i)
     {
         word_transitions_t t = transitions[i];
-        fprintf(logs_file,
+        fprintf(out_stream,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
                 t.len,
@@ -459,7 +462,7 @@ void generate_sentences(token_t *uniques,
     const int n_sentences = 32;
     const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
 
-    fprintf(logs_file, "Generating %d sentences\n", n_sentences);
+    fprintf(out_stream, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
@@ -496,28 +499,28 @@ void generate_sentences(token_t *uniques,
             words[words_len++] = uniques[word_idx];
         }
 
-        fputs("Sentence: \"", logs_file);
+        fputs("Sentence: \"", out_stream);
         for (int i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
             {
-                fputc(words[i].ptr[j], logs_file);
+                fputc(words[i].ptr[j], out_stream);
             }
 
             if (i != words_len - 1)
             {
-                fputc(' ', logs_file);
+                fputc(' ', out_stream);
             }
         }
 
-        fputs("\"\n", logs_file);
+        fputs("\"\n", out_stream);
     }
 }
 
 int main(int argc, char **argv)
 {
     char *corpus_path = NULL;
-    char *logs_path = NULL;
+    char *out_path = NULL;
     for (int i = 1; i < argc; ++i)
     {
         char *s = argv[i];
@@ -529,12 +532,12 @@ int main(int argc, char **argv)
         }
         else if ((strcmp(s, "-l") == 0 || strcmp(s, "--log") == 0) && has_next)
         {
-            logs_path = argv[++i];
+            out_path = argv[++i];
         }
     }
 
     open_corpus_stream(corpus_path);
-    open_logs_file(logs_path);
+    open_out_stream(out_path);
 
     int text_len = get_corpus_len();
     char *text = calloc(text_len, 1);
@@ -578,7 +581,7 @@ int main(int argc, char **argv)
     free(tokens);
     free(text);
 
-    fclose(logs_file);
+    fclose(out_stream);
 
     return 0;
 }
