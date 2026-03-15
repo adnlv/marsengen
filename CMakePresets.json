@@ -1,0 +1,31 @@
+{
+    "version": 8,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 28
+    },
+    "configurePresets": [
+        {
+            "name": "Debug",
+            "displayName": "Debug",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "Release",
+            "displayName": "Release",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug",
+            "displayName": "Debug",
+            "configurePreset": "Debug"
+        },
+        {
+            "name": "Release",
+            "displayName": "Release",
+            "configurePreset": "Release"
+        }
+    ]
+}
