@@ -44,7 +44,7 @@ int64_t get_corpus_len(FILE *corpus_stream)
     return pos;
 }
 
-void read_corpus_stream(FILE *corpus_stream, char *buf, int *len_ptr)
+void read_corpus_stream(FILE *corpus_stream, char *buf, uint64_t *len_ptr)
 {
     int len = 0;
     bool is_prev_letter = false;
@@ -494,10 +494,35 @@ void generate_sentences(token_t *uniques,
     }
 }
 
+static void app_open_corpus(const char *path, corpus_t *corp_ptr)
+{
+    corp_ptr->stream = fopen_corpus(path);
+    if (corp_ptr->stream == NULL)
+    {
+        fprintf(stderr, "Error opening corpus stream: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    corp_ptr->len = get_corpus_len(corp_ptr->stream);
+    corp_ptr->buf = calloc(corp_ptr->len, 1);
+    if (corp_ptr->buf == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for corpus buffer: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    read_corpus_stream(corp_ptr->stream, corp_ptr->buf, &corp_ptr->len);
+    fclose(corp_ptr->stream);
+}
+
+static void app_free_corpus(corpus_t *corp) { free(corp->buf); }
+
 int main(int argc, char **argv)
 {
     char *output_path = NULL;
-    char *corpus_path = NULL;
+    char *corp_path = NULL;
     for (int i = 1; i < argc; ++i)
     {
         char *s = argv[i];
@@ -510,7 +535,7 @@ int main(int argc, char **argv)
         else if (has_next
                  && (strcmp(s, "-c") == 0 || strcmp(s, "--corpus") == 0))
         {
-            corpus_path = argv[++i];
+            corp_path = argv[++i];
         }
     }
 
@@ -521,27 +546,10 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    FILE *corpus_stream = fopen_corpus(corpus_path);
-    if (corpus_stream == NULL)
-    {
-        fprintf(stderr, "Error opening corpus stream: %s\n", strerror(errno));
-        exit(EXIT_FAILURE);
-    }
+    corpus_t corp;
+    app_open_corpus(corp_path, &corp);
 
-    int corpus_len = get_corpus_len(corpus_stream);
-    char *corpus_buf = calloc(corpus_len, 1);
-    if (corpus_buf == NULL)
-    {
-        fprintf(stderr,
-                "Error allocating memory for corpus buffer: %s\n",
-                strerror(errno));
-        exit(EXIT_FAILURE);
-    }
-
-    read_corpus_stream(corpus_stream, corpus_buf, &corpus_len);
-    fclose(corpus_stream);
-
-    int n_tokens = count_tokens(corpus_buf, corpus_len);
+    int n_tokens = count_tokens(corp_path, corp.len);
     token_t *tokens = calloc(n_tokens, sizeof(token_t));
     if (tokens == NULL)
     {
@@ -561,8 +569,8 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    tokenize_text(corpus_buf,
-                  corpus_len,
+    tokenize_text(corp.buf,
+                  corp.len,
                   tokens,
                   n_tokens,
                   unique_tokens,
@@ -598,10 +606,11 @@ int main(int argc, char **argv)
 
     generate_sentences(unique_tokens, n_unique_tokens, transitions);
 
+    app_free_corpus(&corp);
+
     free(unique_tokens);
     free(bigrams);
     free(tokens);
-    free(corpus_buf);
 
     fclose(output_stream);
 
