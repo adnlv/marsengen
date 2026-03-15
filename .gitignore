@@ -1,15 +1,18 @@
 /.vs/
 /.idea/
 /.vscode/
-
 /.cache/
 
 /bin/
-/build/
+/out/
+
+/build*/
 /cmake-build-*/
 
-input.txt
-output.txt
+.DS_Store
+CMakeUserPresets.json
+clang-tidy-fixes.patch
 
 *.out
 *.gprof
+CMakeLists.txt.user*
