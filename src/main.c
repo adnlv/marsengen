@@ -477,10 +477,29 @@ void generate_sentences(token_t *uniques,
     }
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    open_input_file("input.txt");
-    open_logs_file("output.txt");
+    char *corpus_path = NULL;
+    char *logs_path = NULL;
+    for (int i = 1; i < argc; ++i)
+    {
+        char *s = argv[i];
+        bool has_next = i + 1 < argc;
+
+        printf("[%d]: %s\n", i, s);
+
+        if ((strcmp(s, "-c") == 0 || strcmp(s, "--corpus") == 0) && has_next)
+        {
+            corpus_path = argv[++i];
+        }
+        else if ((strcmp(s, "-l") == 0 || strcmp(s, "--log") == 0) && has_next)
+        {
+            logs_path = argv[++i];
+        }
+    }
+
+    open_input_file(corpus_path != NULL ? corpus_path : "input.txt");
+    open_logs_file(logs_path != NULL ? logs_path : "output.txt");
 
     int text_len = get_input_file_len();
     char *text = calloc(text_len, 1);
