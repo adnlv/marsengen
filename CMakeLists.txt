@@ -4,7 +4,7 @@ project(marsengen LANGUAGES C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-add_executable(marsengen src/main.c src/memory.c)
+add_executable(marsengen src/main.c src/io.c src/memory.c)
 
 target_compile_options(marsengen
     PRIVATE

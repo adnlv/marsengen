@@ -1,3 +1,4 @@
+#include "io.h"
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -13,78 +14,37 @@
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
-static FILE *corpus_stream = NULL;
-static FILE *out_stream = NULL;
+static FILE *output_stream = NULL;
 
-void open_corpus_stream(char *path)
+int64_t get_corpus_len(FILE *corpus_stream)
 {
-    corpus_stream = fopen(path != NULL ? path : "corpus.txt", "r");
-    if (corpus_stream == NULL)
+    if (fseek(corpus_stream, 0, SEEK_END) != 0)
     {
-        fprintf(stderr, "Error opening corpus: %s\n", strerror(errno));
+        fprintf(stderr, "Error setting stream cursor: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
-    printf("Reading corpus \"%s\"\n", path);
-}
-
-void mkdir_if_not_exists(const char *path)
-{
-    int result = mkdir(path, 0755);
-    if (result == -1 && errno != EEXIST)
+    const int64_t pos = ftell(corpus_stream);
+    if (pos <= 0)
     {
-        fprintf(stderr, "Error creating directory: %s\n", strerror(errno));
+        fprintf(stderr,
+                "Error calculating stream length: %s\n",
+                strerror(errno));
         exit(EXIT_FAILURE);
     }
-}
 
-void open_out_stream(char *path)
-{
-    char *buf = path;
-    if (buf == NULL)
+    if (fseek(corpus_stream, 0, SEEK_SET) != 0)
     {
-        /* path length = directory path ("logs" - 4)
-         * + maximum timestamp length (20 for 64-bit machines)
-         * + file extension (".log" - 4)
-         * + null terminator (1)
-         */
-        const int len = 29;
-        const char dir[] = "logs";
-        const time_t secs = time(NULL);
-
-        buf = calloc(len, sizeof(char));
-        assert(buf != NULL);
-
-        mkdir_if_not_exists(dir);
-        snprintf(buf, len, "%s/%lu.log", dir, (unsigned long)secs);
+        fprintf(stderr, "Error setting stream cursor: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
     }
 
-    out_stream = fopen(buf, "w+");
-    assert(out_stream != NULL);
-
-    printf("Writing output to \"%s\"\n", buf);
-
-    if (path == NULL)
-    {
-        free(buf);
-    }
-}
-
-int get_corpus_len(void)
-{
-    assert(fseek(corpus_stream, 0, SEEK_END) == 0);
-
-    const long pos = ftell(corpus_stream);
-
-    assert(pos != -1);
-    assert(fseek(corpus_stream, 0, SEEK_SET) == 0);
-
-    fprintf(out_stream, "Unformatted text contains %ld characters\n", pos);
+    fprintf(output_stream, "Unformatted corpus contains %ld characters\n", pos);
 
     return pos;
 }
 
-void format_corpus_text(char *buf, int *len_ptr)
+void read_corpus_stream(FILE *corpus_stream, char *buf, int *len_ptr)
 {
     int len = 0;
     bool is_prev_letter = false;
@@ -124,8 +84,8 @@ void format_corpus_text(char *buf, int *len_ptr)
 
     *len_ptr = len;
 
-    fprintf(out_stream,
-            "Formatted text contains %d characters: %s\n",
+    fprintf(output_stream,
+            "Formatted corpus contains %d characters: %s\n",
             len,
             buf);
 }
@@ -138,9 +98,6 @@ typedef struct
 
 int count_tokens(const char *str, int len)
 {
-    assert(str != NULL);
-    assert(len > 0);
-
     int n_tokens = 1;
     for (int i = 0; i < len; ++i)
     {
@@ -150,7 +107,7 @@ int count_tokens(const char *str, int len)
         }
     }
 
-    fprintf(out_stream, "Text contains %d tokens\n", n_tokens);
+    fprintf(output_stream, "Corpus contains %d tokens\n", n_tokens);
 
     return n_tokens;
 }
@@ -181,13 +138,6 @@ void tokenize_text(char *str,
                    token_t *uniques,
                    int *n_uniques_ptr)
 {
-    assert(str != NULL);
-    assert(str_len > 0);
-    assert(tokens != NULL);
-    assert(n_tokens > 0);
-    assert(uniques != NULL);
-    assert(n_uniques_ptr != NULL);
-
     int str_idx = 0;
     char *cur_ptr = str;
     char *prev_ptr = cur_ptr;
@@ -207,7 +157,14 @@ void tokenize_text(char *str,
     }
 
     int *idxs = malloc(sizeof(int) * n_tokens);
-    assert(idxs != NULL);
+    if (idxs == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for token indexes: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
     for (int i = 0; i < n_tokens; ++i)
     {
         idxs[i] = i;
@@ -240,31 +197,33 @@ void tokenize_text(char *str,
 
     for (int i = 0; i < n_tokens; ++i)
     {
-        fprintf(out_stream, "Token [%d] \"", i);
+        fprintf(output_stream, "Token [%d] \"", i);
 
         for (int j = 0; j < tokens[i].len; ++j)
         {
-            fputc(tokens[i].ptr[j], out_stream);
+            fputc(tokens[i].ptr[j], output_stream);
         }
 
-        fprintf(out_stream,
+        fprintf(output_stream,
                 "\" -> %p is %d characters long\n",
                 (void *)tokens[i].ptr,
                 tokens[i].len);
     }
 
-    fprintf(out_stream, "Got %d unique tokens\n", *n_uniques_ptr);
+    fprintf(output_stream,
+            "corpus contains %d unique tokens\n",
+            *n_uniques_ptr);
 
     for (int i = 0; i < *n_uniques_ptr; ++i)
     {
-        fprintf(out_stream, "Unique token [%d] \"", i);
+        fprintf(output_stream, "Unique token [%d] \"", i);
 
         for (int j = 0; j < uniques[i].len; ++j)
         {
-            fputc(uniques[i].ptr[j], out_stream);
+            fputc(uniques[i].ptr[j], output_stream);
         }
 
-        fprintf(out_stream,
+        fprintf(output_stream,
                 "\" -> %p is %d characters long\n",
                 (void *)uniques[i].ptr,
                 uniques[i].len);
@@ -281,7 +240,7 @@ int count_bigrams(int n_tokens)
 {
     const int n_2grams = n_tokens - 1;
 
-    fprintf(out_stream, "Generating %d 2-grams\n", n_2grams);
+    fprintf(output_stream, "Generating %d 2-grams\n", n_2grams);
 
     return n_2grams;
 }
@@ -296,21 +255,21 @@ void generate_bigrams(token_t *tokens, bigram_t *bigrams, int n_bigrams)
 
     for (int i = 0; i < n_bigrams; ++i)
     {
-        fprintf(out_stream, "2-Gram [%d] (\"", i);
+        fprintf(output_stream, "2-Gram [%d] (\"", i);
 
         for (int j = 0; j < bigrams[i].fst->len; ++j)
         {
-            fputc(bigrams[i].fst->ptr[j], out_stream);
+            fputc(bigrams[i].fst->ptr[j], output_stream);
         }
 
-        fprintf(out_stream, "\" -> %p, \"", (void *)bigrams[i].fst);
+        fprintf(output_stream, "\" -> %p, \"", (void *)bigrams[i].fst);
 
         for (int j = 0; j < bigrams[i].sec->len; ++j)
         {
-            fputc(bigrams[i].sec->ptr[j], out_stream);
+            fputc(bigrams[i].sec->ptr[j], output_stream);
         }
 
-        fprintf(out_stream, "\" -> %p)\n", (void *)bigrams[i].sec);
+        fprintf(output_stream, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
 }
 
@@ -384,7 +343,13 @@ void build_adjacency_list(bigram_t *bigrams,
                           word_transitions_t *transitions)
 {
     ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_uniques);
-    assert(map != NULL);
+    if (map == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for indexes map: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
     for (int i = 0; i < n_uniques; ++i)
     {
@@ -406,7 +371,12 @@ void build_adjacency_list(bigram_t *bigrams,
     {
         int src = find_token_idx(map, n_uniques, bigrams[i].fst->ptr);
         int dst = find_token_idx(map, n_uniques, bigrams[i].sec->ptr);
-        assert(src != -1 && dst != -1);
+        if (src == -1 && dst == -1)
+        {
+            fprintf(stderr,
+                    "Either source or destination token must be found\n");
+            exit(EXIT_FAILURE);
+        }
 
         word_transitions_t *wt = &transitions[src];
         int found = -1;
@@ -429,7 +399,14 @@ void build_adjacency_list(bigram_t *bigrams,
             {
                 wt->cap = wt->cap == 0 ? 4 : wt->cap * 2;
                 wt->items = realloc(wt->items, sizeof(transition_t) * wt->cap);
-                assert(wt->items != NULL);
+                if (wt->items == NULL)
+                {
+                    fprintf(
+                        stderr,
+                        "Error reallocating memory for word transitions: %s\n",
+                        strerror(errno));
+                    exit(EXIT_FAILURE);
+                }
             }
 
             wt->items[wt->len].next_uniq_idx = dst;
@@ -445,7 +422,7 @@ void build_adjacency_list(bigram_t *bigrams,
     for (int i = 0; i < n_uniques; ++i)
     {
         word_transitions_t t = transitions[i];
-        fprintf(out_stream,
+        fprintf(output_stream,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
                 t.len,
@@ -462,7 +439,7 @@ void generate_sentences(token_t *uniques,
     const int n_sentences = 32;
     const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
 
-    fprintf(out_stream, "Generating %d sentences\n", n_sentences);
+    fprintf(output_stream, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
@@ -499,62 +476,93 @@ void generate_sentences(token_t *uniques,
             words[words_len++] = uniques[word_idx];
         }
 
-        fputs("Sentence: \"", out_stream);
+        fputs("Sentence: \"", output_stream);
         for (int i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
             {
-                fputc(words[i].ptr[j], out_stream);
+                fputc(words[i].ptr[j], output_stream);
             }
 
             if (i != words_len - 1)
             {
-                fputc(' ', out_stream);
+                fputc(' ', output_stream);
             }
         }
 
-        fputs("\"\n", out_stream);
+        fputs("\"\n", output_stream);
     }
 }
 
 int main(int argc, char **argv)
 {
+    char *output_path = NULL;
     char *corpus_path = NULL;
-    char *out_path = NULL;
     for (int i = 1; i < argc; ++i)
     {
         char *s = argv[i];
         bool has_next = i + 1 < argc;
 
-        if ((strcmp(s, "-c") == 0 || strcmp(s, "--corpus") == 0) && has_next)
+        if (has_next && (strcmp(s, "-l") == 0 || strcmp(s, "--log") == 0))
+        {
+            output_path = argv[++i];
+        }
+        else if (has_next
+                 && (strcmp(s, "-c") == 0 || strcmp(s, "--corpus") == 0))
         {
             corpus_path = argv[++i];
         }
-        else if ((strcmp(s, "-l") == 0 || strcmp(s, "--log") == 0) && has_next)
-        {
-            out_path = argv[++i];
-        }
     }
 
-    open_corpus_stream(corpus_path);
-    open_out_stream(out_path);
+    output_stream = fopen_output(output_path);
+    if (output_stream == NULL)
+    {
+        fprintf(stderr, "Error opening output stream: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
-    int text_len = get_corpus_len();
-    char *text = calloc(text_len, 1);
-    assert(text != NULL);
-    format_corpus_text(text, &text_len);
+    FILE *corpus_stream = fopen_corpus(corpus_path);
+    if (corpus_stream == NULL)
+    {
+        fprintf(stderr, "Error opening corpus stream: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
+    int corpus_len = get_corpus_len(corpus_stream);
+    char *corpus_buf = calloc(corpus_len, 1);
+    if (corpus_buf == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for corpus buffer: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    read_corpus_stream(corpus_stream, corpus_buf, &corpus_len);
     fclose(corpus_stream);
 
-    int n_tokens = count_tokens(text, text_len);
-    token_t *tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(tokens != NULL);
+    int n_tokens = count_tokens(corpus_buf, corpus_len);
+    token_t *tokens = calloc(n_tokens, sizeof(token_t));
+    if (tokens == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for tokens: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
-    token_t *unique_tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(unique_tokens != NULL);
     int n_unique_tokens = 0;
-    tokenize_text(text,
-                  text_len,
+    token_t *unique_tokens = calloc(n_tokens, sizeof(token_t));
+    if (tokens == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for unique tokens: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    tokenize_text(corpus_buf,
+                  corpus_len,
                   tokens,
                   n_tokens,
                   unique_tokens,
@@ -562,12 +570,26 @@ int main(int argc, char **argv)
 
     int n_bigrams = count_bigrams(n_tokens);
     bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
-    assert(bigrams != NULL);
+    if (bigrams == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for bigrams: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
     generate_bigrams(tokens, bigrams, n_bigrams);
 
     word_transitions_t *transitions = calloc(n_unique_tokens,
                                              sizeof(word_transitions_t));
-    assert(transitions != NULL);
+    if (bigrams == NULL)
+    {
+        fprintf(stderr,
+                "Error allocating memory for transitions: %s\n",
+                strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
     build_adjacency_list(bigrams,
                          n_bigrams,
                          unique_tokens,
@@ -579,9 +601,9 @@ int main(int argc, char **argv)
     free(unique_tokens);
     free(bigrams);
     free(tokens);
-    free(text);
+    free(corpus_buf);
 
-    fclose(out_stream);
+    fclose(output_stream);
 
     return 0;
 }
