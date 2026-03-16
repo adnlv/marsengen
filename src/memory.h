@@ -53,6 +53,7 @@ typedef struct
 {
     uint32_t n_distinct; /* number of distinct next-words */
     uint32_t total_obs; /* total observation count */
+    uint32_t cap; /* capacity for dynamic allocation */
     mem_tdest_t *dests;
 } mem_trans_t;
 

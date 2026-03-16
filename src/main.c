@@ -311,14 +311,6 @@ void generate_bigrams(mem_word_t *words, bigram_t *bigrams, int n_bigrams)
 
 typedef struct
 {
-    mem_tdest_t *items;
-    int len;
-    int cap;
-    int total_count;
-} word_transitions_t;
-
-typedef struct
-{
     char *ptr;
     int idx;
 } ptr_idx_t;
@@ -370,7 +362,7 @@ void build_adjacency_list(bigram_t *bigrams,
                           int n_bigrams,
                           mem_word_t *unique_words,
                           int n_unique_words,
-                          word_transitions_t *transitions)
+                          mem_trans_t *transitions)
 {
     ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_unique_words);
     assert(map != NULL);
@@ -385,10 +377,10 @@ void build_adjacency_list(bigram_t *bigrams,
 
     for (int i = 0; i < n_unique_words; ++i)
     {
-        transitions[i].items = NULL;
-        transitions[i].len = 0;
+        transitions[i].dests = NULL;
+        transitions[i].n_distinct = 0;
         transitions[i].cap = 0;
-        transitions[i].total_count = 0;
+        transitions[i].total_obs = 0;
     }
 
     for (int i = 0; i < n_bigrams; ++i)
@@ -397,11 +389,11 @@ void build_adjacency_list(bigram_t *bigrams,
         int dst = find_word_idx(map, n_unique_words, bigrams[i].sec->str);
         assert(src != -1 && dst != -1);
 
-        word_transitions_t *wt = &transitions[src];
+        mem_trans_t *wt = &transitions[src];
         int found = -1;
-        for (int j = 0; j < wt->len; ++j)
+        for (uint32_t j = 0; j < wt->n_distinct; ++j)
         {
-            if (wt->items[j].idx == (uint32_t)dst)
+            if (wt->dests[j].idx == (uint32_t)dst)
             {
                 found = j;
                 break;
@@ -410,41 +402,41 @@ void build_adjacency_list(bigram_t *bigrams,
 
         if (found >= 0)
         {
-            wt->items[found].count++;
+            wt->dests[found].count++;
         }
         else
         {
-            if (wt->len == wt->cap)
+            if (wt->n_distinct == wt->cap)
             {
                 wt->cap = wt->cap == 0 ? 4 : wt->cap * 2;
-                wt->items = realloc(wt->items, sizeof(mem_tdest_t) * wt->cap);
-                assert(wt->items != NULL);
+                wt->dests = realloc(wt->dests, sizeof(mem_tdest_t) * wt->cap);
+                assert(wt->dests != NULL);
             }
 
-            wt->items[wt->len].idx = dst;
-            wt->items[wt->len].count = 1;
-            wt->len++;
+            wt->dests[wt->n_distinct].idx = dst;
+            wt->dests[wt->n_distinct].count = 1;
+            wt->n_distinct++;
         }
 
-        ++wt->total_count;
+        ++wt->total_obs;
     }
 
     free(map);
 
     for (int i = 0; i < n_unique_words; ++i)
     {
-        word_transitions_t t = transitions[i];
+        mem_trans_t t = transitions[i];
         fprintf(out_stream,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
-                t.len,
-                t.total_count);
+                t.n_distinct,
+                t.total_obs);
     }
 }
 
 void generate_sentences(mem_word_t *unique_words,
                         int n_unique_words,
-                        word_transitions_t *transitions)
+                        mem_trans_t *transitions)
 {
     srand((unsigned)time(NULL));
 
@@ -464,23 +456,24 @@ void generate_sentences(mem_word_t *unique_words,
 
         while (words_len < n_words_per_sentence)
         {
-            word_transitions_t *wt = &transitions[word_idx];
-            if (wt->len == 0)
+            mem_trans_t *wt = &transitions[word_idx];
+            if (wt->n_distinct == 0)
             {
                 word_idx = rand() % n_unique_words;
                 words[words_len++] = unique_words[word_idx];
                 continue;
             }
 
-            int r = rand() % wt->total_count;
+            int r = rand() % wt->total_obs;
             int cumulative = 0;
-            int chosen = wt->items[wt->len - 1].idx;
-            for (int i = 0; i < wt->len; ++i)
+            int chosen = wt->dests[wt->n_distinct - 1].idx;
+            for (uint32_t i = 0; i < wt->n_distinct; ++i)
             {
-                cumulative += wt->items[i].count;
+                mem_tdest_t dest = wt->dests[i];
+                cumulative += dest.count;
                 if (r < cumulative)
                 {
-                    chosen = wt->items[i].idx;
+                    chosen = dest.idx;
                     break;
                 }
             }
@@ -555,8 +548,7 @@ int main(int argc, char **argv)
     assert(bigrams != NULL);
     generate_bigrams(words, bigrams, n_bigrams);
 
-    word_transitions_t *transitions = calloc(n_unique_words,
-                                             sizeof(word_transitions_t));
+    mem_trans_t *transitions = calloc(n_unique_words, sizeof(mem_trans_t));
     assert(transitions != NULL);
     build_adjacency_list(bigrams,
                          n_bigrams,
