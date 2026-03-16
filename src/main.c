@@ -311,13 +311,7 @@ void generate_bigrams(mem_word_t *words, bigram_t *bigrams, int n_bigrams)
 
 typedef struct
 {
-    int count;
-    int next_uniq_idx;
-} transition_t;
-
-typedef struct
-{
-    transition_t *items;
+    mem_tdest_t *items;
     int len;
     int cap;
     int total_count;
@@ -407,7 +401,7 @@ void build_adjacency_list(bigram_t *bigrams,
         int found = -1;
         for (int j = 0; j < wt->len; ++j)
         {
-            if (wt->items[j].next_uniq_idx == dst)
+            if (wt->items[j].idx == (uint32_t)dst)
             {
                 found = j;
                 break;
@@ -423,11 +417,11 @@ void build_adjacency_list(bigram_t *bigrams,
             if (wt->len == wt->cap)
             {
                 wt->cap = wt->cap == 0 ? 4 : wt->cap * 2;
-                wt->items = realloc(wt->items, sizeof(transition_t) * wt->cap);
+                wt->items = realloc(wt->items, sizeof(mem_tdest_t) * wt->cap);
                 assert(wt->items != NULL);
             }
 
-            wt->items[wt->len].next_uniq_idx = dst;
+            wt->items[wt->len].idx = dst;
             wt->items[wt->len].count = 1;
             wt->len++;
         }
@@ -480,13 +474,13 @@ void generate_sentences(mem_word_t *unique_words,
 
             int r = rand() % wt->total_count;
             int cumulative = 0;
-            int chosen = wt->items[wt->len - 1].next_uniq_idx;
+            int chosen = wt->items[wt->len - 1].idx;
             for (int i = 0; i < wt->len; ++i)
             {
                 cumulative += wt->items[i].count;
                 if (r < cumulative)
                 {
-                    chosen = wt->items[i].next_uniq_idx;
+                    chosen = wt->items[i].idx;
                     break;
                 }
             }
