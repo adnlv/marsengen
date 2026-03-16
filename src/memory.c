@@ -1,6 +1,7 @@
 #include "memory.h"
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -170,7 +171,18 @@ void mem_free_trans(mem_trans_t *trans_ptr)
 
 int mem_save(FILE *stream, mem_vocab_t *vocab, mem_trans_t *trans)
 {
-    assert(stream != NULL);
+    bool opened_manually = false;
+    if (stream == NULL)
+    {
+        stream = fopen("memory.mem", "w+b");
+        if (stream == NULL)
+        {
+            return -1;
+        }
+
+        opened_manually = true;
+    }
+
     assert(vocab != NULL);
     assert(trans != NULL);
 
@@ -232,6 +244,11 @@ int mem_save(FILE *stream, mem_vocab_t *vocab, mem_trans_t *trans)
         {
             return -1;
         }
+    }
+
+    if (opened_manually)
+    {
+        fclose(stream);
     }
 
     return 0;

@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <time.h>
 
 #define DELIM ' '
@@ -317,8 +316,8 @@ typedef struct
 
 int ptr_idx_cmp(const void *a, const void *b)
 {
-    const ptr_idx_t *a_ptr = (const ptr_idx_t *)a;
-    const ptr_idx_t *b_ptr = (const ptr_idx_t *)b;
+    const ptr_idx_t *a_ptr = a;
+    const ptr_idx_t *b_ptr = b;
 
     if (a_ptr->ptr < b_ptr->ptr)
     {
@@ -333,13 +332,13 @@ int ptr_idx_cmp(const void *a, const void *b)
     return 0;
 }
 
-int find_word_idx(ptr_idx_t *map, int n, char *ptr)
+int find_word_idx(const ptr_idx_t *map, const int n, const char *ptr)
 {
     int low = 0;
     int high = n - 1;
     while (low <= high)
     {
-        int mid = low + (high - low) / 2;
+        const int mid = low + (high - low) / 2;
         if (map[mid].ptr == ptr)
         {
             return map[mid].idx;
@@ -358,24 +357,23 @@ int find_word_idx(ptr_idx_t *map, int n, char *ptr)
     return -1;
 }
 
-void build_adjacency_list(bigram_t *bigrams,
-                          int n_bigrams,
-                          mem_word_t *unique_words,
-                          int n_unique_words,
+void build_adjacency_list(const bigram_t *bigrams,
+                          const int n_bigrams,
+                          const mem_vocab_t *vocab,
                           mem_trans_t *transitions)
 {
-    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_unique_words);
+    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * vocab->total);
     assert(map != NULL);
 
-    for (int i = 0; i < n_unique_words; ++i)
+    for (uint32_t i = 0; i < vocab->total; ++i)
     {
-        map[i].ptr = unique_words[i].str;
-        map[i].idx = i;
+        map[i].ptr = vocab->words[i].str;
+        map[i].idx = (int)i;
     }
 
-    qsort(map, n_unique_words, sizeof(ptr_idx_t), ptr_idx_cmp);
+    qsort(map, vocab->total, sizeof(ptr_idx_t), ptr_idx_cmp);
 
-    for (int i = 0; i < n_unique_words; ++i)
+    for (uint32_t i = 0; i < vocab->total; ++i)
     {
         transitions[i].dests = NULL;
         transitions[i].n_distinct = 0;
@@ -385,12 +383,16 @@ void build_adjacency_list(bigram_t *bigrams,
 
     for (int i = 0; i < n_bigrams; ++i)
     {
-        int src = find_word_idx(map, n_unique_words, bigrams[i].fst->str);
-        int dst = find_word_idx(map, n_unique_words, bigrams[i].sec->str);
+        const int src = find_word_idx(map,
+                                      (int)vocab->total,
+                                      bigrams[i].fst->str);
+        const int dst = find_word_idx(map,
+                                      (int)vocab->total,
+                                      bigrams[i].sec->str);
         assert(src != -1 && dst != -1);
 
         mem_trans_t *wt = &transitions[src];
-        int found = -1;
+        int64_t found = -1;
         for (uint32_t j = 0; j < wt->n_distinct; ++j)
         {
             if (wt->dests[j].idx == (uint32_t)dst)
@@ -423,9 +425,9 @@ void build_adjacency_list(bigram_t *bigrams,
 
     free(map);
 
-    for (int i = 0; i < n_unique_words; ++i)
+    for (uint32_t i = 0; i < vocab->total; ++i)
     {
-        mem_trans_t t = transitions[i];
+        const mem_trans_t t = transitions[i];
         fprintf(out_stream,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
@@ -434,42 +436,41 @@ void build_adjacency_list(bigram_t *bigrams,
     }
 }
 
-void generate_sentences(mem_word_t *unique_words,
-                        int n_unique_words,
-                        mem_trans_t *transitions)
+void generate_sentences(const mem_vocab_t *vocab,
+                        const mem_trans_t *transitions)
 {
     srand((unsigned)time(NULL));
 
     const int n_sentences = 32;
-    const int n_words_per_sentence = n_unique_words < 0xFF ? n_unique_words
-                                                           : 0xFF;
+    const uint32_t n_words_per_sentence = vocab->total < 0xFF ? vocab->total
+                                                              : 0xFF;
 
     fprintf(out_stream, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
         mem_word_t words[n_words_per_sentence];
-        int words_len = 1;
+        uint32_t words_len = 1;
 
-        int word_idx = rand() % n_unique_words;
-        words[0] = unique_words[word_idx];
+        uint32_t word_idx = rand() % vocab->total;
+        words[0] = vocab->words[word_idx];
 
         while (words_len < n_words_per_sentence)
         {
-            mem_trans_t *wt = &transitions[word_idx];
+            const mem_trans_t *wt = &transitions[word_idx];
             if (wt->n_distinct == 0)
             {
-                word_idx = rand() % n_unique_words;
-                words[words_len++] = unique_words[word_idx];
+                word_idx = rand() % vocab->total;
+                words[words_len++] = vocab->words[word_idx];
                 continue;
             }
 
-            int r = rand() % wt->total_obs;
-            int cumulative = 0;
-            int chosen = wt->dests[wt->n_distinct - 1].idx;
+            const uint32_t r = rand() % wt->total_obs;
+            uint32_t cumulative = 0;
+            uint32_t chosen = wt->dests[wt->n_distinct - 1].idx;
             for (uint32_t i = 0; i < wt->n_distinct; ++i)
             {
-                mem_tdest_t dest = wt->dests[i];
+                const mem_tdest_t dest = wt->dests[i];
                 cumulative += dest.count;
                 if (r < cumulative)
                 {
@@ -479,11 +480,11 @@ void generate_sentences(mem_word_t *unique_words,
             }
 
             word_idx = chosen;
-            words[words_len++] = unique_words[word_idx];
+            words[words_len++] = vocab->words[word_idx];
         }
 
         fputs("Sentence: \"", out_stream);
-        for (int i = 0; i < words_len; ++i)
+        for (uint32_t i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
             {
@@ -513,7 +514,7 @@ int main(int argc, char **argv)
         {
             corpus_path = argv[++i];
         }
-        else if ((strcmp(s, "-l") == 0 || strcmp(s, "--log") == 0) && has_next)
+        else if ((strcmp(s, "-o") == 0 || strcmp(s, "--out") == 0) && has_next)
         {
             out_path = argv[++i];
         }
@@ -533,32 +534,31 @@ int main(int argc, char **argv)
     mem_word_t *words = malloc(sizeof(*words) * n_words);
     assert(words != NULL);
 
-    mem_word_t *unique_words = malloc(sizeof(*words) * n_words);
-    assert(unique_words != NULL);
-    int n_unique_words = 0;
+    mem_vocab_t vocab;
+    vocab.words = malloc(sizeof(*words) * n_words);
+    assert(vocab.words != NULL);
+    vocab.total = 0;
     parse_text_words(text,
                      text_len,
                      words,
                      n_words,
-                     unique_words,
-                     &n_unique_words);
+                     vocab.words,
+                     (int *)&vocab.total);
 
     int n_bigrams = count_bigrams(n_words);
     bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
     assert(bigrams != NULL);
     generate_bigrams(words, bigrams, n_bigrams);
 
-    mem_trans_t *transitions = calloc(n_unique_words, sizeof(mem_trans_t));
+    mem_trans_t *transitions = calloc(vocab.total, sizeof(mem_trans_t));
     assert(transitions != NULL);
-    build_adjacency_list(bigrams,
-                         n_bigrams,
-                         unique_words,
-                         n_unique_words,
-                         transitions);
+    build_adjacency_list(bigrams, n_bigrams, &vocab, transitions);
 
-    generate_sentences(unique_words, n_unique_words, transitions);
+    generate_sentences(&vocab, transitions);
 
-    free(unique_words);
+    mem_save(NULL, &vocab, transitions);
+
+    free(vocab.words);
     free(bigrams);
     free(words);
     free(text);
