@@ -1,31 +1,17 @@
 {
     "version": 8,
-    "cmakeMinimumRequired": {
-        "major": 3,
-        "minor": 28
-    },
     "configurePresets": [
         {
-            "name": "Debug",
-            "displayName": "Debug",
-            "binaryDir": "${sourceDir}/build/${presetName}"
-        },
-        {
-            "name": "Release",
-            "displayName": "Release",
-            "binaryDir": "${sourceDir}/build/${presetName}"
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "Debug",
-            "displayName": "Debug",
-            "configurePreset": "Debug"
-        },
-        {
-            "name": "Release",
-            "displayName": "Release",
-            "configurePreset": "Release"
+            "name": "Debug Clang x86_64-pc-linux-gnu",
+            "displayName": "Debug Clang x86_64-pc-linux-gnu",
+            "description": "Using compilers: C = /usr/bin/clang",
+            "binaryDir": "${sourceDir}/build/debug",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/debug",
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
         }
     ]
 }
