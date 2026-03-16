@@ -1,3 +1,4 @@
+#include "memory.h"
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -130,70 +131,64 @@ void format_corpus_text(char *buf, int *len_ptr)
             buf);
 }
 
-typedef struct
-{
-    char *ptr;
-    int len;
-} token_t;
-
-int count_tokens(const char *str, int len)
+int count_words(const char *str, int len)
 {
     assert(str != NULL);
     assert(len > 0);
 
-    int n_tokens = 1;
+    int n_words = 1;
     for (int i = 0; i < len; ++i)
     {
         if (str[i] == DELIM)
         {
-            ++n_tokens;
+            ++n_words;
         }
     }
 
-    fprintf(out_stream, "Text contains %d tokens\n", n_tokens);
+    fprintf(out_stream, "Text contains %d words\n", n_words);
 
-    return n_tokens;
+    return n_words;
 }
 
-static token_t *g_sort_tokens = NULL;
+static mem_word_t *g_sort_words = NULL;
 
-int token_index_cmp(const void *a, const void *b)
+int word_index_cmp(const void *a, const void *b)
 {
     int a_idx = *(const int *)a;
     int b_idx = *(const int *)b;
-    token_t *a_tok = &g_sort_tokens[a_idx];
-    token_t *b_tok = &g_sort_tokens[b_idx];
+    mem_word_t *a_word = &g_sort_words[a_idx];
+    mem_word_t *b_word = &g_sort_words[b_idx];
 
-    int min_len = a_tok->len < b_tok->len ? a_tok->len : b_tok->len;
-    int cmp = memcmp(a_tok->ptr, b_tok->ptr, min_len);
+    int min_len = a_word->len < b_word->len ? a_word->len : b_word->len;
+    int cmp = memcmp(a_word->str, b_word->str, min_len);
     if (cmp != 0)
     {
         return cmp;
     }
 
-    return a_tok->len - b_tok->len;
+    return a_word->len - b_word->len;
 }
 
-void tokenize_text(char *str,
-                   int str_len,
-                   token_t *tokens,
-                   int n_tokens,
-                   token_t *uniques,
-                   int *n_uniques_ptr)
+void parse_text_words(char *str,
+                      int str_len,
+                      mem_word_t *words,
+                      int n_words,
+                      mem_word_t *unique_words,
+                      int *n_unique_words_ptr)
 {
     assert(str != NULL);
     assert(str_len > 0);
-    assert(tokens != NULL);
-    assert(n_tokens > 0);
-    assert(uniques != NULL);
-    assert(n_uniques_ptr != NULL);
+    assert(words != NULL);
+    assert(n_words > 0);
+    assert(unique_words != NULL);
+    assert(n_unique_words_ptr != NULL);
 
     int str_idx = 0;
     char *cur_ptr = str;
     char *prev_ptr = cur_ptr;
-    for (int i = 0; i < n_tokens; ++i)
+    for (int i = 0; i < n_words; ++i)
     {
-        tokens[i].ptr = cur_ptr;
+        words[i].str = cur_ptr;
 
         while (*cur_ptr != DELIM && *cur_ptr != '\0' && str_idx < str_len)
         {
@@ -201,97 +196,97 @@ void tokenize_text(char *str,
             ++str_idx;
         }
 
-        tokens[i].len = cur_ptr - prev_ptr;
+        words[i].len = cur_ptr - prev_ptr;
         prev_ptr = ++cur_ptr;
         ++str_idx;
     }
 
-    int *idxs = malloc(sizeof(int) * n_tokens);
+    int *idxs = malloc(sizeof(int) * n_words);
     assert(idxs != NULL);
-    for (int i = 0; i < n_tokens; ++i)
+    for (int i = 0; i < n_words; ++i)
     {
         idxs[i] = i;
     }
 
-    g_sort_tokens = tokens;
-    qsort(idxs, n_tokens, sizeof(int), token_index_cmp);
+    g_sort_words = words;
+    qsort(idxs, n_words, sizeof(int), word_index_cmp);
 
-    char *canon = tokens[idxs[0]].ptr;
-    uniques[0] = tokens[idxs[0]];
+    char *canon = words[idxs[0]].str;
+    unique_words[0] = words[idxs[0]];
     int unique_idx = 1;
-    for (int i = 1; i < n_tokens; ++i)
+    for (int i = 1; i < n_words; ++i)
     {
-        token_t *cur = &tokens[idxs[i]];
-        token_t *prev = &tokens[idxs[i - 1]];
-        if (cur->len == prev->len && memcmp(cur->ptr, prev->ptr, cur->len) == 0)
+        mem_word_t *cur = &words[idxs[i]];
+        mem_word_t *prev = &words[idxs[i - 1]];
+        if (cur->len == prev->len && memcmp(cur->str, prev->str, cur->len) == 0)
         {
-            cur->ptr = canon;
+            cur->str = canon;
         }
         else
         {
-            canon = cur->ptr;
-            uniques[unique_idx++] = *cur;
+            canon = cur->str;
+            unique_words[unique_idx++] = *cur;
         }
     }
 
-    *n_uniques_ptr = unique_idx;
+    *n_unique_words_ptr = unique_idx;
 
     free(idxs);
 
-    for (int i = 0; i < n_tokens; ++i)
+    for (int i = 0; i < n_words; ++i)
     {
-        fprintf(out_stream, "Token [%d] \"", i);
+        fprintf(out_stream, "Word [%d] \"", i);
 
-        for (int j = 0; j < tokens[i].len; ++j)
+        for (int j = 0; j < words[i].len; ++j)
         {
-            fputc(tokens[i].ptr[j], out_stream);
+            fputc(words[i].str[j], out_stream);
         }
 
         fprintf(out_stream,
                 "\" -> %p is %d characters long\n",
-                (void *)tokens[i].ptr,
-                tokens[i].len);
+                (void *)words[i].str,
+                words[i].len);
     }
 
-    fprintf(out_stream, "Got %d unique tokens\n", *n_uniques_ptr);
+    fprintf(out_stream, "Got %d unique words\n", *n_unique_words_ptr);
 
-    for (int i = 0; i < *n_uniques_ptr; ++i)
+    for (int i = 0; i < *n_unique_words_ptr; ++i)
     {
-        fprintf(out_stream, "Unique token [%d] \"", i);
+        fprintf(out_stream, "Unique word [%d] \"", i);
 
-        for (int j = 0; j < uniques[i].len; ++j)
+        for (int j = 0; j < unique_words[i].len; ++j)
         {
-            fputc(uniques[i].ptr[j], out_stream);
+            fputc(unique_words[i].str[j], out_stream);
         }
 
         fprintf(out_stream,
                 "\" -> %p is %d characters long\n",
-                (void *)uniques[i].ptr,
-                uniques[i].len);
+                (void *)unique_words[i].str,
+                unique_words[i].len);
     }
 }
 
 typedef struct
 {
-    token_t *fst;
-    token_t *sec;
+    mem_word_t *fst;
+    mem_word_t *sec;
 } bigram_t;
 
-int count_bigrams(int n_tokens)
+int count_bigrams(int n_words)
 {
-    const int n_2grams = n_tokens - 1;
+    const int n_2grams = n_words - 1;
 
     fprintf(out_stream, "Generating %d 2-grams\n", n_2grams);
 
     return n_2grams;
 }
 
-void generate_bigrams(token_t *tokens, bigram_t *bigrams, int n_bigrams)
+void generate_bigrams(mem_word_t *words, bigram_t *bigrams, int n_bigrams)
 {
     for (int i = 0; i < n_bigrams; ++i)
     {
-        bigrams[i].fst = &tokens[i];
-        bigrams[i].sec = &tokens[i + 1];
+        bigrams[i].fst = &words[i];
+        bigrams[i].sec = &words[i + 1];
     }
 
     for (int i = 0; i < n_bigrams; ++i)
@@ -300,14 +295,14 @@ void generate_bigrams(token_t *tokens, bigram_t *bigrams, int n_bigrams)
 
         for (int j = 0; j < bigrams[i].fst->len; ++j)
         {
-            fputc(bigrams[i].fst->ptr[j], out_stream);
+            fputc(bigrams[i].fst->str[j], out_stream);
         }
 
         fprintf(out_stream, "\" -> %p, \"", (void *)bigrams[i].fst);
 
         for (int j = 0; j < bigrams[i].sec->len; ++j)
         {
-            fputc(bigrams[i].sec->ptr[j], out_stream);
+            fputc(bigrams[i].sec->str[j], out_stream);
         }
 
         fprintf(out_stream, "\" -> %p)\n", (void *)bigrams[i].sec);
@@ -352,7 +347,7 @@ int ptr_idx_cmp(const void *a, const void *b)
     return 0;
 }
 
-int find_token_idx(ptr_idx_t *map, int n, char *ptr)
+int find_word_idx(ptr_idx_t *map, int n, char *ptr)
 {
     int low = 0;
     int high = n - 1;
@@ -379,22 +374,22 @@ int find_token_idx(ptr_idx_t *map, int n, char *ptr)
 
 void build_adjacency_list(bigram_t *bigrams,
                           int n_bigrams,
-                          token_t *uniques,
-                          int n_uniques,
+                          mem_word_t *unique_words,
+                          int n_unique_words,
                           word_transitions_t *transitions)
 {
-    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_uniques);
+    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_unique_words);
     assert(map != NULL);
 
-    for (int i = 0; i < n_uniques; ++i)
+    for (int i = 0; i < n_unique_words; ++i)
     {
-        map[i].ptr = uniques[i].ptr;
+        map[i].ptr = unique_words[i].str;
         map[i].idx = i;
     }
 
-    qsort(map, n_uniques, sizeof(ptr_idx_t), ptr_idx_cmp);
+    qsort(map, n_unique_words, sizeof(ptr_idx_t), ptr_idx_cmp);
 
-    for (int i = 0; i < n_uniques; ++i)
+    for (int i = 0; i < n_unique_words; ++i)
     {
         transitions[i].items = NULL;
         transitions[i].len = 0;
@@ -404,8 +399,8 @@ void build_adjacency_list(bigram_t *bigrams,
 
     for (int i = 0; i < n_bigrams; ++i)
     {
-        int src = find_token_idx(map, n_uniques, bigrams[i].fst->ptr);
-        int dst = find_token_idx(map, n_uniques, bigrams[i].sec->ptr);
+        int src = find_word_idx(map, n_unique_words, bigrams[i].fst->str);
+        int dst = find_word_idx(map, n_unique_words, bigrams[i].sec->str);
         assert(src != -1 && dst != -1);
 
         word_transitions_t *wt = &transitions[src];
@@ -442,7 +437,7 @@ void build_adjacency_list(bigram_t *bigrams,
 
     free(map);
 
-    for (int i = 0; i < n_uniques; ++i)
+    for (int i = 0; i < n_unique_words; ++i)
     {
         word_transitions_t t = transitions[i];
         fprintf(out_stream,
@@ -453,32 +448,33 @@ void build_adjacency_list(bigram_t *bigrams,
     }
 }
 
-void generate_sentences(token_t *uniques,
-                        int n_uniques,
+void generate_sentences(mem_word_t *unique_words,
+                        int n_unique_words,
                         word_transitions_t *transitions)
 {
     srand((unsigned)time(NULL));
 
     const int n_sentences = 32;
-    const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
+    const int n_words_per_sentence = n_unique_words < 0xFF ? n_unique_words
+                                                           : 0xFF;
 
     fprintf(out_stream, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
-        token_t words[n_words_per_sentence];
+        mem_word_t words[n_words_per_sentence];
         int words_len = 1;
 
-        int word_idx = rand() % n_uniques;
-        words[0] = uniques[word_idx];
+        int word_idx = rand() % n_unique_words;
+        words[0] = unique_words[word_idx];
 
         while (words_len < n_words_per_sentence)
         {
             word_transitions_t *wt = &transitions[word_idx];
             if (wt->len == 0)
             {
-                word_idx = rand() % n_uniques;
-                words[words_len++] = uniques[word_idx];
+                word_idx = rand() % n_unique_words;
+                words[words_len++] = unique_words[word_idx];
                 continue;
             }
 
@@ -496,7 +492,7 @@ void generate_sentences(token_t *uniques,
             }
 
             word_idx = chosen;
-            words[words_len++] = uniques[word_idx];
+            words[words_len++] = unique_words[word_idx];
         }
 
         fputs("Sentence: \"", out_stream);
@@ -504,7 +500,7 @@ void generate_sentences(token_t *uniques,
         {
             for (int j = 0; j < words[i].len; ++j)
             {
-                fputc(words[i].ptr[j], out_stream);
+                fputc(words[i].str[j], out_stream);
             }
 
             if (i != words_len - 1)
@@ -546,39 +542,39 @@ int main(int argc, char **argv)
 
     fclose(corpus_stream);
 
-    int n_tokens = count_tokens(text, text_len);
-    token_t *tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(tokens != NULL);
+    int n_words = count_words(text, text_len);
+    mem_word_t *words = malloc(sizeof(*words) * n_words);
+    assert(words != NULL);
 
-    token_t *unique_tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(unique_tokens != NULL);
-    int n_unique_tokens = 0;
-    tokenize_text(text,
-                  text_len,
-                  tokens,
-                  n_tokens,
-                  unique_tokens,
-                  &n_unique_tokens);
+    mem_word_t *unique_words = malloc(sizeof(*words) * n_words);
+    assert(unique_words != NULL);
+    int n_unique_words = 0;
+    parse_text_words(text,
+                     text_len,
+                     words,
+                     n_words,
+                     unique_words,
+                     &n_unique_words);
 
-    int n_bigrams = count_bigrams(n_tokens);
+    int n_bigrams = count_bigrams(n_words);
     bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
     assert(bigrams != NULL);
-    generate_bigrams(tokens, bigrams, n_bigrams);
+    generate_bigrams(words, bigrams, n_bigrams);
 
-    word_transitions_t *transitions = calloc(n_unique_tokens,
+    word_transitions_t *transitions = calloc(n_unique_words,
                                              sizeof(word_transitions_t));
     assert(transitions != NULL);
     build_adjacency_list(bigrams,
                          n_bigrams,
-                         unique_tokens,
-                         n_unique_tokens,
+                         unique_words,
+                         n_unique_words,
                          transitions);
 
-    generate_sentences(unique_tokens, n_unique_tokens, transitions);
+    generate_sentences(unique_words, n_unique_words, transitions);
 
-    free(unique_tokens);
+    free(unique_words);
     free(bigrams);
-    free(tokens);
+    free(words);
     free(text);
 
     fclose(out_stream);
