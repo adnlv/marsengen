@@ -1,5 +1,30 @@
 # Markov Chain Sentence Generator
 
+## Usage
+
+### Building
+
+```bash
+cmake -B build
+cmake --build build
+```
+
+### Running
+
+```bash
+# Run with default files (corpus: input.txt, output: output.txt)
+./build/marsengen
+
+# Specify a custom corpus file
+./build/marsengen -c docs/examples/inputs/iliad.txt
+
+# Specify both corpus and custom output destination
+./build/marsengen --corpus docs/examples/inputs/iliad.txt --output iliad_output.txt
+
+# Show usage and available options
+./build/marsengen --help
+```
+
 ## Example output
 
 ### ILIAD
