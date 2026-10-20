@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -13,44 +12,71 @@
 static FILE *corpus_file = NULL;
 static FILE *log_file = NULL;
 
-void open_corpus_file(const char *path)
+bool open_corpus_file(const char *path)
 {
-    assert(path != NULL);
+    if (path == NULL)
+    {
+        fprintf(stderr, "Error: Corpus file path is NULL\n");
+        return false;
+    }
 
     corpus_file = fopen(path, "r");
     if (corpus_file == NULL)
     {
         fprintf(stderr, "Error: Failed to open corpus file \"%s\": %s\n", path, strerror(errno));
-        exit(EXIT_FAILURE);
+        return false;
     }
 
     printf("Reading corpus from file \"%s\"\n", path);
+    return true;
 }
 
-void open_log_file(const char *path)
+bool open_log_file(const char *path)
 {
-    assert(path != NULL);
+    if (path == NULL)
+    {
+        fprintf(stderr, "Error: Output file path is NULL\n");
+        return false;
+    }
 
     log_file = fopen(path, "w+");
     if (log_file == NULL)
     {
         fprintf(stderr, "Error: Failed to open output file \"%s\": %s\n", path, strerror(errno));
-        exit(EXIT_FAILURE);
+        return false;
     }
 
     printf("Writing logs to file \"%s\"\n", path);
+    return true;
 }
 
-int get_corpus_file_len(void)
+long get_corpus_file_len(void)
 {
-    assert(fseek(corpus_file, 0, SEEK_END) == 0);
+    if (corpus_file == NULL)
+    {
+        return -1;
+    }
 
-    const int pos = ftell(corpus_file);
+    if (fseek(corpus_file, 0, SEEK_END) != 0)
+    {
+        fprintf(stderr, "Error: Failed to seek to end of corpus file: %s\n", strerror(errno));
+        return -1;
+    }
 
-    assert(pos != -1);
-    assert(fseek(corpus_file, 0, SEEK_SET) == 0);
+    const long pos = ftell(corpus_file);
+    if (pos < 0)
+    {
+        fprintf(stderr, "Error: Failed to determine corpus file length: %s\n", strerror(errno));
+        return -1;
+    }
 
-    fprintf(log_file, "Unformatted text contains %d characters\n", pos);
+    if (fseek(corpus_file, 0, SEEK_SET) != 0)
+    {
+        fprintf(stderr, "Error: Failed to rewind corpus file: %s\n", strerror(errno));
+        return -1;
+    }
+
+    fprintf(log_file, "Unformatted text contains %ld characters\n", pos);
 
     return pos;
 }
@@ -90,7 +116,19 @@ void format_corpus_text(char *buf, int *len_ptr)
 
     if (len > 0)
     {
-        buf[len - 1] = '\0';
+        if (buf[len - 1] == DELIM)
+        {
+            buf[len - 1] = '\0';
+            --len;
+        }
+        else
+        {
+            buf[len] = '\0';
+        }
+    }
+    else
+    {
+        buf[0] = '\0';
     }
 
     *len_ptr = len;
@@ -106,8 +144,10 @@ typedef struct
 
 int count_tokens(const char *str, const int len)
 {
-    assert(str != NULL);
-    assert(len > 0);
+    if (str == NULL || len <= 0)
+    {
+        return 0;
+    }
 
     int n_tokens = 1;
     for (int i = 0; i < len; ++i)
@@ -142,19 +182,18 @@ int token_index_cmp(const void *a, const void *b)
     return a_tok->len - b_tok->len;
 }
 
-void tokenize_input_text(char *str,
+bool tokenize_input_text(char *str,
                          int str_len,
                          token_t *tokens,
                          int n_tokens,
                          token_t *uniques,
                          int *n_uniques_ptr)
 {
-    assert(str != NULL);
-    assert(str_len > 0);
-    assert(tokens != NULL);
-    assert(n_tokens > 0);
-    assert(uniques != NULL);
-    assert(n_uniques_ptr != NULL);
+    if (str == NULL || str_len <= 0 || tokens == NULL || n_tokens <= 0 ||
+        uniques == NULL || n_uniques_ptr == NULL)
+    {
+        return false;
+    }
 
     int str_idx = 0;
     char *cur_ptr = str;
@@ -169,13 +208,18 @@ void tokenize_input_text(char *str,
             ++str_idx;
         }
 
-        tokens[i].len = cur_ptr - prev_ptr;
+        tokens[i].len = (int)(cur_ptr - prev_ptr);
         prev_ptr = ++cur_ptr;
         ++str_idx;
     }
 
     int *idxs = malloc(sizeof(int) * n_tokens);
-    assert(idxs != NULL);
+    if (idxs == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for token sorting indices\n");
+        return false;
+    }
+
     for (int i = 0; i < n_tokens; ++i)
     {
         idxs[i] = i;
@@ -237,6 +281,8 @@ void tokenize_input_text(char *str,
                 (void *)uniques[i].ptr,
                 uniques[i].len);
     }
+
+    return true;
 }
 
 typedef struct
@@ -247,7 +293,7 @@ typedef struct
 
 int count_bigrams(const int n_tokens)
 {
-    const int n_2grams = n_tokens - 1;
+    const int n_2grams = n_tokens > 1 ? n_tokens - 1 : 0;
 
     fprintf(log_file, "Generating %d 2-grams\n", n_2grams);
 
@@ -347,22 +393,16 @@ int find_token_idx(ptr_idx_t *map, int n, char *ptr)
     return -1;
 }
 
-void build_adjacency_list(bigram_t *bigrams,
+bool build_adjacency_list(bigram_t *bigrams,
                           int n_bigrams,
                           token_t *uniques,
                           int n_uniques,
                           word_transitions_t *transitions)
 {
-    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_uniques);
-    assert(map != NULL);
-
-    for (int i = 0; i < n_uniques; ++i)
+    if (n_uniques <= 0 || transitions == NULL)
     {
-        map[i].ptr = uniques[i].ptr;
-        map[i].idx = i;
+        return false;
     }
-
-    qsort(map, n_uniques, sizeof(ptr_idx_t), ptr_idx_cmp);
 
     for (int i = 0; i < n_uniques; ++i)
     {
@@ -372,11 +412,34 @@ void build_adjacency_list(bigram_t *bigrams,
         transitions[i].total_count = 0;
     }
 
+    if (n_bigrams <= 0)
+    {
+        return true;
+    }
+
+    ptr_idx_t *map = malloc(sizeof(ptr_idx_t) * n_uniques);
+    if (map == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for token pointer map\n");
+        return false;
+    }
+
+    for (int i = 0; i < n_uniques; ++i)
+    {
+        map[i].ptr = uniques[i].ptr;
+        map[i].idx = i;
+    }
+
+    qsort(map, n_uniques, sizeof(ptr_idx_t), ptr_idx_cmp);
+
     for (int k = 0; k < n_bigrams; ++k)
     {
         int src = find_token_idx(map, n_uniques, bigrams[k].fst->ptr);
         int dst = find_token_idx(map, n_uniques, bigrams[k].sec->ptr);
-        assert(src != -1 && dst != -1);
+        if (src == -1 || dst == -1)
+        {
+            continue;
+        }
 
         word_transitions_t *wt = &transitions[src];
         int found = -1;
@@ -397,9 +460,16 @@ void build_adjacency_list(bigram_t *bigrams,
         {
             if (wt->len == wt->cap)
             {
-                wt->cap = wt->cap == 0 ? 4 : wt->cap * 2;
-                wt->items = realloc(wt->items, sizeof(transition_t) * wt->cap);
-                assert(wt->items != NULL);
+                int new_cap = wt->cap == 0 ? 4 : wt->cap * 2;
+                transition_t *new_items = realloc(wt->items, sizeof(transition_t) * new_cap);
+                if (new_items == NULL)
+                {
+                    fprintf(stderr, "Error: Failed to reallocate memory for transitions\n");
+                    free(map);
+                    return false;
+                }
+                wt->items = new_items;
+                wt->cap = new_cap;
             }
 
             wt->items[wt->len].next_uniq_idx = dst;
@@ -420,6 +490,8 @@ void build_adjacency_list(bigram_t *bigrams,
                 transitions[i].len,
                 transitions[i].total_count);
     }
+
+    return true;
 }
 
 void free_transitions(word_transitions_t *transitions, const int n_uniques)
@@ -441,6 +513,11 @@ void generate_sentences(token_t *uniques,
                         const int n_uniques,
                         word_transitions_t *transitions)
 {
+    if (uniques == NULL || n_uniques <= 0 || transitions == NULL)
+    {
+        return;
+    }
+
     srand((unsigned)time(NULL));
 
     const int n_sentences = 32;
@@ -572,53 +649,148 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    open_corpus_file(opts.corpus_path);
-    open_log_file(opts.output_path);
+    if (!open_corpus_file(opts.corpus_path))
+    {
+        return EXIT_FAILURE;
+    }
 
-    int text_len = get_corpus_file_len();
-    char *text = calloc(text_len, 1);
-    assert(text != NULL);
+    if (!open_log_file(opts.output_path))
+    {
+        fclose(corpus_file);
+        return EXIT_FAILURE;
+    }
+
+    long file_len = get_corpus_file_len();
+    if (file_len < 0)
+    {
+        fprintf(stderr, "Error: Failed to determine corpus file size\n");
+        fclose(corpus_file);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
+    if (file_len == 0)
+    {
+        fprintf(stderr, "Error: Corpus file is empty\n");
+        fclose(corpus_file);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
+    int text_len = (int)file_len;
+    char *text = calloc((size_t)text_len + 1, 1);
+    if (text == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for corpus text\n");
+        fclose(corpus_file);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
     format_corpus_text(text, &text_len);
-
     fclose(corpus_file);
 
-    int n_tokens = count_tokens(text, text_len);
-    token_t *tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(tokens != NULL);
+    if (text_len <= 0)
+    {
+        fprintf(stderr, "Error: Corpus contains no valid word tokens\n");
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
 
+    int n_tokens = count_tokens(text, text_len);
+    if (n_tokens <= 0)
+    {
+        fprintf(stderr, "Error: Failed to parse tokens from corpus\n");
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
+    token_t *tokens = malloc(sizeof(token_t) * n_tokens);
     token_t *unique_tokens = malloc(sizeof(token_t) * n_tokens);
-    assert(unique_tokens != NULL);
+    if (tokens == NULL || unique_tokens == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for tokens\n");
+        free(tokens);
+        free(unique_tokens);
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
     int n_unique_tokens = 0;
-    tokenize_input_text(text,
-                        text_len,
-                        tokens,
-                        n_tokens,
-                        unique_tokens,
-                        &n_unique_tokens);
+    if (!tokenize_input_text(text,
+                            text_len,
+                            tokens,
+                            n_tokens,
+                            unique_tokens,
+                            &n_unique_tokens))
+    {
+        fprintf(stderr, "Error: Tokenization failed\n");
+        free(unique_tokens);
+        free(tokens);
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
 
     int n_bigrams = count_bigrams(n_tokens);
-    bigram_t *bigrams = malloc(sizeof(bigram_t) * n_bigrams);
-    assert(bigrams != NULL);
-    generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
+    bigram_t *bigrams = NULL;
+    if (n_bigrams > 0)
+    {
+        bigrams = malloc(sizeof(bigram_t) * n_bigrams);
+        if (bigrams == NULL)
+        {
+            fprintf(stderr, "Error: Failed to allocate memory for bigrams\n");
+            free(unique_tokens);
+            free(tokens);
+            free(text);
+            fclose(log_file);
+            return EXIT_FAILURE;
+        }
+
+        generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
+    }
 
     word_transitions_t *transitions = calloc(n_unique_tokens,
                                              sizeof(word_transitions_t));
-    assert(transitions != NULL);
-    build_adjacency_list(bigrams,
-                         n_bigrams,
-                         unique_tokens,
-                         n_unique_tokens,
-                         transitions);
+    if (transitions == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for transitions\n");
+        free(bigrams);
+        free(unique_tokens);
+        free(tokens);
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
+
+    if (!build_adjacency_list(bigrams,
+                             n_bigrams,
+                             unique_tokens,
+                             n_unique_tokens,
+                             transitions))
+    {
+        fprintf(stderr, "Error: Failed to build adjacency list\n");
+        free_transitions(transitions, n_unique_tokens);
+        free(bigrams);
+        free(unique_tokens);
+        free(tokens);
+        free(text);
+        fclose(log_file);
+        return EXIT_FAILURE;
+    }
 
     generate_sentences(unique_tokens, n_unique_tokens, transitions);
 
     free_transitions(transitions, n_unique_tokens);
-    free(unique_tokens);
     free(bigrams);
+    free(unique_tokens);
     free(tokens);
     free(text);
 
     fclose(log_file);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
