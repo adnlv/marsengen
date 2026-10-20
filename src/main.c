@@ -10,7 +10,7 @@
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
 static FILE *input_file = NULL;
-static FILE *logs_file = NULL;
+static FILE *log_file = NULL;
 
 void open_input_file(const char *path)
 {
@@ -22,12 +22,12 @@ void open_input_file(const char *path)
     printf("Reading from file \"%s\"\n", path);
 }
 
-void open_logs_file(const char *path)
+void open_log_file(const char *path)
 {
     assert(path != NULL);
 
-    logs_file = fopen(path, "w+");
-    assert(logs_file != NULL);
+    log_file = fopen(path, "w+");
+    assert(log_file != NULL);
 
     printf("Writing logs to file \"%s\"\n", path);
 }
@@ -41,7 +41,7 @@ int get_input_file_len(void)
     assert(pos != -1);
     assert(fseek(input_file, 0, SEEK_SET) == 0);
 
-    fprintf(logs_file, "Unformatted text contains %d characters\n", pos);
+    fprintf(log_file, "Unformatted text contains %d characters\n", pos);
 
     return pos;
 }
@@ -86,7 +86,7 @@ void format_input_text(char *buf, int *len_ptr)
 
     *len_ptr = len;
 
-    fprintf(logs_file, "Formatted text contains %d characters: %s\n", len, buf);
+    fprintf(log_file, "Formatted text contains %d characters: %s\n", len, buf);
 }
 
 typedef struct
@@ -109,7 +109,7 @@ int count_tokens(const char *str, const int len)
         }
     }
 
-    fprintf(logs_file, "Text contains %d tokens\n", n_tokens);
+    fprintf(log_file, "Text contains %d tokens\n", n_tokens);
 
     return n_tokens;
 }
@@ -199,31 +199,31 @@ void tokenize_input_text(char *str,
 
     for (int i = 0; i < n_tokens; ++i)
     {
-        fprintf(logs_file, "Token [%d] \"", i);
+        fprintf(log_file, "Token [%d] \"", i);
 
         for (int j = 0; j < tokens[i].len; ++j)
         {
-            fputc(tokens[i].ptr[j], logs_file);
+            fputc(tokens[i].ptr[j], log_file);
         }
 
-        fprintf(logs_file,
+        fprintf(log_file,
                 "\" -> %p is %d characters long\n",
                 (void *)tokens[i].ptr,
                 tokens[i].len);
     }
 
-    fprintf(logs_file, "Got %d unique tokens\n", *n_uniques_ptr);
+    fprintf(log_file, "Got %d unique tokens\n", *n_uniques_ptr);
 
     for (int i = 0; i < *n_uniques_ptr; ++i)
     {
-        fprintf(logs_file, "Unique token [%d] \"", i);
+        fprintf(log_file, "Unique token [%d] \"", i);
 
         for (int j = 0; j < uniques[i].len; ++j)
         {
-            fputc(uniques[i].ptr[j], logs_file);
+            fputc(uniques[i].ptr[j], log_file);
         }
 
-        fprintf(logs_file,
+        fprintf(log_file,
                 "\" -> %p is %d characters long\n",
                 (void *)uniques[i].ptr,
                 uniques[i].len);
@@ -240,7 +240,7 @@ int count_bigrams(const int n_tokens)
 {
     const int n_2grams = n_tokens - 1;
 
-    fprintf(logs_file, "Generating %d 2-grams\n", n_2grams);
+    fprintf(log_file, "Generating %d 2-grams\n", n_2grams);
 
     return n_2grams;
 }
@@ -257,21 +257,21 @@ void generate_bigrams_from_tokens(token_t *tokens,
 
     for (int i = 0; i < n_bigrams; ++i)
     {
-        fprintf(logs_file, "2-Gram [%d] (\"", i);
+        fprintf(log_file, "2-Gram [%d] (\"", i);
 
         for (int j = 0; j < bigrams[i].fst->len; ++j)
         {
-            fputc(bigrams[i].fst->ptr[j], logs_file);
+            fputc(bigrams[i].fst->ptr[j], log_file);
         }
 
-        fprintf(logs_file, "\" -> %p, \"", (void *)bigrams[i].fst);
+        fprintf(log_file, "\" -> %p, \"", (void *)bigrams[i].fst);
 
         for (int j = 0; j < bigrams[i].sec->len; ++j)
         {
-            fputc(bigrams[i].sec->ptr[j], logs_file);
+            fputc(bigrams[i].sec->ptr[j], log_file);
         }
 
-        fprintf(logs_file, "\" -> %p)\n", (void *)bigrams[i].sec);
+        fprintf(log_file, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
 }
 
@@ -405,7 +405,7 @@ void build_adjacency_list(bigram_t *bigrams,
 
     for (int i = 0; i < n_uniques; ++i)
     {
-        fprintf(logs_file,
+        fprintf(log_file,
                 "Word [%d] has %d out of %d transitions\n",
                 i,
                 transitions[i].len,
@@ -422,7 +422,7 @@ void generate_sentences(token_t *uniques,
     const int n_sentences = 32;
     const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
 
-    fprintf(logs_file, "Generating %d sentences\n", n_sentences);
+    fprintf(log_file, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
@@ -459,28 +459,28 @@ void generate_sentences(token_t *uniques,
             words[words_len++] = uniques[word_idx];
         }
 
-        fputs("Sentence: \"", logs_file);
+        fputs("Sentence: \"", log_file);
         for (int i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
             {
-                fputc(words[i].ptr[j], logs_file);
+                fputc(words[i].ptr[j], log_file);
             }
 
             if (i != words_len - 1)
             {
-                fputc(' ', logs_file);
+                fputc(' ', log_file);
             }
         }
 
-        fputs("\"\n", logs_file);
+        fputs("\"\n", log_file);
     }
 }
 
 int main(void)
 {
     open_input_file("input.txt");
-    open_logs_file("output.txt");
+    open_log_file("output.txt");
 
     int text_len = get_input_file_len();
     char *text = calloc(text_len, 1);
@@ -524,7 +524,7 @@ int main(void)
     free(tokens);
     free(text);
 
-    fclose(logs_file);
+    fclose(log_file);
 
     return 0;
 }
