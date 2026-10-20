@@ -155,23 +155,19 @@ int count_tokens(const char *str, const int len)
     return n_tokens;
 }
 
-static token_t *g_sort_tokens = NULL;
-
-int token_index_cmp(const void *a, const void *b)
+int token_ptr_cmp(const void *a, const void *b)
 {
-    int a_idx = *(const int *)a;
-    int b_idx = *(const int *)b;
-    token_t *a_tok = &g_sort_tokens[a_idx];
-    token_t *b_tok = &g_sort_tokens[b_idx];
+    const token_t *tok_a = *(const token_t * const *)a;
+    const token_t *tok_b = *(const token_t * const *)b;
 
-    int min_len = a_tok->len < b_tok->len ? a_tok->len : b_tok->len;
-    int cmp = memcmp(a_tok->ptr, b_tok->ptr, min_len);
+    int min_len = tok_a->len < tok_b->len ? tok_a->len : tok_b->len;
+    int cmp = memcmp(tok_a->ptr, tok_b->ptr, (size_t)min_len);
     if (cmp != 0)
     {
         return cmp;
     }
 
-    return a_tok->len - b_tok->len;
+    return tok_a->len - tok_b->len;
 }
 
 bool tokenize_input_text(char *str,
@@ -205,29 +201,28 @@ bool tokenize_input_text(char *str,
         ++str_idx;
     }
 
-    int *idxs = malloc(sizeof(int) * n_tokens);
-    if (idxs == NULL)
+    token_t **ptrs = malloc(sizeof(token_t *) * (size_t)n_tokens);
+    if (ptrs == NULL)
     {
-        fprintf(stderr, "Error: Failed to allocate memory for token sorting indices\n");
+        fprintf(stderr, "Error: Failed to allocate memory for token sorting pointers\n");
         return false;
     }
 
     for (int i = 0; i < n_tokens; ++i)
     {
-        idxs[i] = i;
+        ptrs[i] = &tokens[i];
     }
 
-    g_sort_tokens = tokens;
-    qsort(idxs, n_tokens, sizeof(int), token_index_cmp);
+    qsort(ptrs, (size_t)n_tokens, sizeof(token_t *), token_ptr_cmp);
 
-    char *canon = tokens[idxs[0]].ptr;
-    uniques[0] = tokens[idxs[0]];
+    char *canon = ptrs[0]->ptr;
+    uniques[0] = *ptrs[0];
     int unique_idx = 1;
     for (int i = 1; i < n_tokens; ++i)
     {
-        token_t *cur = &tokens[idxs[i]];
-        token_t *prev = &tokens[idxs[i - 1]];
-        if (cur->len == prev->len && memcmp(cur->ptr, prev->ptr, cur->len) == 0)
+        token_t *cur = ptrs[i];
+        token_t *prev = ptrs[i - 1];
+        if (cur->len == prev->len && memcmp(cur->ptr, prev->ptr, (size_t)cur->len) == 0)
         {
             cur->ptr = canon;
         }
@@ -240,7 +235,7 @@ bool tokenize_input_text(char *str,
 
     *n_uniques_ptr = unique_idx;
 
-    free(idxs);
+    free(ptrs);
 
     return true;
 }
