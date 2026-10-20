@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +18,11 @@ void open_input_file(const char *path)
     assert(path != NULL);
 
     input_file = fopen(path, "r");
-    assert(input_file != NULL);
+    if (input_file == NULL)
+    {
+        fprintf(stderr, "Error: Failed to open input file \"%s\": %s\n", path, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
     printf("Reading from file \"%s\"\n", path);
 }
@@ -27,7 +32,11 @@ void open_log_file(const char *path)
     assert(path != NULL);
 
     log_file = fopen(path, "w+");
-    assert(log_file != NULL);
+    if (log_file == NULL)
+    {
+        fprintf(stderr, "Error: Failed to open output file \"%s\": %s\n", path, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
     printf("Writing logs to file \"%s\"\n", path);
 }
@@ -477,10 +486,79 @@ void generate_sentences(token_t *uniques,
     }
 }
 
-int main(void)
+typedef struct
 {
-    open_input_file("input.txt");
-    open_log_file("output.txt");
+    const char *corpus_path;
+    const char *output_path;
+} cli_options_t;
+
+static void print_usage(const char *prog_name)
+{
+    printf("Usage: %s [OPTIONS]\n\n", prog_name);
+    printf("Markov chain sentence generator.\n\n");
+    printf("Options:\n");
+    printf("  -c, --corpus <path>   Input text corpus file (default: input.txt)\n");
+    printf("  -i, --input  <path>   Alias for -c, --corpus\n");
+    printf("  -o, --output <path>   Output file for logs and sentences (default: output.txt)\n");
+    printf("  -l, --log    <path>   Alias for -o, --output\n");
+    printf("  -h, --help            Display this help message and exit\n");
+}
+
+static bool parse_args(int argc, char **argv, cli_options_t *opts)
+{
+    opts->corpus_path = "input.txt";
+    opts->output_path = "output.txt";
+
+    for (int i = 1; i < argc; ++i)
+    {
+        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
+        {
+            print_usage(argv[0]);
+            exit(EXIT_SUCCESS);
+        }
+        else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--corpus") == 0 ||
+                 strcmp(argv[i], "-i") == 0 || strcmp(argv[i], "--input") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Error: Option '%s' requires a file path.\n\n", argv[i]);
+                print_usage(argv[0]);
+                return false;
+            }
+            opts->corpus_path = argv[++i];
+        }
+        else if (strcmp(argv[i], "-o") == 0 || strcmp(argv[i], "--output") == 0 ||
+                 strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--log") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Error: Option '%s' requires a file path.\n\n", argv[i]);
+                print_usage(argv[0]);
+                return false;
+            }
+            opts->output_path = argv[++i];
+        }
+        else
+        {
+            fprintf(stderr, "Error: Unrecognized option '%s'.\n\n", argv[i]);
+            print_usage(argv[0]);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main(int argc, char **argv)
+{
+    cli_options_t opts;
+    if (!parse_args(argc, argv, &opts))
+    {
+        return EXIT_FAILURE;
+    }
+
+    open_input_file(opts.corpus_path);
+    open_log_file(opts.output_path);
 
     int text_len = get_input_file_len();
     char *text = calloc(text_len, 1);
