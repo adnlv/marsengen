@@ -422,6 +422,21 @@ void build_adjacency_list(bigram_t *bigrams,
     }
 }
 
+void free_transitions(word_transitions_t *transitions, const int n_uniques)
+{
+    if (transitions == NULL)
+    {
+        return;
+    }
+
+    for (int i = 0; i < n_uniques; ++i)
+    {
+        free(transitions[i].items);
+    }
+
+    free(transitions);
+}
+
 void generate_sentences(token_t *uniques,
                         const int n_uniques,
                         word_transitions_t *transitions)
@@ -597,6 +612,7 @@ int main(int argc, char **argv)
 
     generate_sentences(unique_tokens, n_unique_tokens, transitions);
 
+    free_transitions(transitions, n_unique_tokens);
     free(unique_tokens);
     free(bigrams);
     free(tokens);
