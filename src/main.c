@@ -10,21 +10,21 @@
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
-static FILE *input_file = NULL;
+static FILE *corpus_file = NULL;
 static FILE *log_file = NULL;
 
-void open_input_file(const char *path)
+void open_corpus_file(const char *path)
 {
     assert(path != NULL);
 
-    input_file = fopen(path, "r");
-    if (input_file == NULL)
+    corpus_file = fopen(path, "r");
+    if (corpus_file == NULL)
     {
-        fprintf(stderr, "Error: Failed to open input file \"%s\": %s\n", path, strerror(errno));
+        fprintf(stderr, "Error: Failed to open corpus file \"%s\": %s\n", path, strerror(errno));
         exit(EXIT_FAILURE);
     }
 
-    printf("Reading from file \"%s\"\n", path);
+    printf("Reading corpus from file \"%s\"\n", path);
 }
 
 void open_log_file(const char *path)
@@ -41,27 +41,27 @@ void open_log_file(const char *path)
     printf("Writing logs to file \"%s\"\n", path);
 }
 
-int get_input_file_len(void)
+int get_corpus_file_len(void)
 {
-    assert(fseek(input_file, 0, SEEK_END) == 0);
+    assert(fseek(corpus_file, 0, SEEK_END) == 0);
 
-    const int pos = ftell(input_file);
+    const int pos = ftell(corpus_file);
 
     assert(pos != -1);
-    assert(fseek(input_file, 0, SEEK_SET) == 0);
+    assert(fseek(corpus_file, 0, SEEK_SET) == 0);
 
     fprintf(log_file, "Unformatted text contains %d characters\n", pos);
 
     return pos;
 }
 
-void format_input_text(char *buf, int *len_ptr)
+void format_corpus_text(char *buf, int *len_ptr)
 {
     int len = 0;
     bool is_prev_letter = false;
     for (int i = 0; i < *len_ptr; ++i)
     {
-        int c = getc(input_file);
+        int c = getc(corpus_file);
         if (c == EOF)
         {
             break;
@@ -557,15 +557,15 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    open_input_file(opts.corpus_path);
+    open_corpus_file(opts.corpus_path);
     open_log_file(opts.output_path);
 
-    int text_len = get_input_file_len();
+    int text_len = get_corpus_file_len();
     char *text = calloc(text_len, 1);
     assert(text != NULL);
-    format_input_text(text, &text_len);
+    format_corpus_text(text, &text_len);
 
-    fclose(input_file);
+    fclose(corpus_file);
 
     int n_tokens = count_tokens(text, text_len);
     token_t *tokens = malloc(sizeof(token_t) * n_tokens);
