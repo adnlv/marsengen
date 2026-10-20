@@ -13,79 +13,74 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    FILE *corpus_file = open_corpus_file(opts.corpus_path);
+    FILE *corpus_file = NULL;
+    FILE *output_file = NULL;
+    char *text = NULL;
+    token_t *tokens = NULL;
+    token_t *unique_tokens = NULL;
+    bigram_t *bigrams = NULL;
+    word_transitions_t *transitions = NULL;
+    int n_unique_tokens = 0;
+    int exit_status = EXIT_FAILURE;
+
+    corpus_file = open_corpus_file(opts.corpus_path);
     if (corpus_file == NULL)
     {
         return EXIT_FAILURE;
     }
 
-    FILE *output_file = open_output_file(opts.output_path);
+    output_file = open_output_file(opts.output_path);
     if (output_file == NULL)
     {
-        fclose(corpus_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     long file_len = get_corpus_file_len(corpus_file);
     if (file_len < 0)
     {
         fprintf(stderr, "Error: Failed to determine corpus file size\n");
-        fclose(corpus_file);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     if (file_len == 0)
     {
         fprintf(stderr, "Error: Corpus file is empty\n");
-        fclose(corpus_file);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     int text_len = (int)file_len;
-    char *text = calloc((size_t)text_len + 1, 1);
+    text = calloc((size_t)text_len + 1, 1);
     if (text == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate memory for corpus text\n");
-        fclose(corpus_file);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     format_corpus_text(corpus_file, text, &text_len);
     fclose(corpus_file);
+    corpus_file = NULL;
 
     if (text_len <= 0)
     {
         fprintf(stderr, "Error: Corpus contains no valid word tokens\n");
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     int n_tokens = count_tokens(text, text_len);
     if (n_tokens <= 0)
     {
         fprintf(stderr, "Error: Failed to parse tokens from corpus\n");
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
-    token_t *tokens = malloc(sizeof(token_t) * (size_t)n_tokens);
-    token_t *unique_tokens = malloc(sizeof(token_t) * (size_t)n_tokens);
+    tokens = malloc(sizeof(token_t) * (size_t)n_tokens);
+    unique_tokens = malloc(sizeof(token_t) * (size_t)n_tokens);
     if (tokens == NULL || unique_tokens == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate memory for tokens\n");
-        free(tokens);
-        free(unique_tokens);
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
-    int n_unique_tokens = 0;
     if (!tokenize_input_text(text,
                             text_len,
                             tokens,
@@ -94,42 +89,27 @@ int main(int argc, char **argv)
                             &n_unique_tokens))
     {
         fprintf(stderr, "Error: Tokenization failed\n");
-        free(unique_tokens);
-        free(tokens);
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     int n_bigrams = count_bigrams(n_tokens);
-    bigram_t *bigrams = NULL;
     if (n_bigrams > 0)
     {
         bigrams = malloc(sizeof(bigram_t) * (size_t)n_bigrams);
         if (bigrams == NULL)
         {
             fprintf(stderr, "Error: Failed to allocate memory for bigrams\n");
-            free(unique_tokens);
-            free(tokens);
-            free(text);
-            fclose(output_file);
-            return EXIT_FAILURE;
+            goto cleanup;
         }
 
         generate_bigrams_from_tokens(tokens, bigrams, n_bigrams);
     }
 
-    word_transitions_t *transitions = calloc((size_t)n_unique_tokens,
-                                             sizeof(word_transitions_t));
+    transitions = calloc((size_t)n_unique_tokens, sizeof(word_transitions_t));
     if (transitions == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate memory for transitions\n");
-        free(bigrams);
-        free(unique_tokens);
-        free(tokens);
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     if (!build_adjacency_list(bigrams,
@@ -139,13 +119,7 @@ int main(int argc, char **argv)
                              transitions))
     {
         fprintf(stderr, "Error: Failed to build adjacency list\n");
-        free_transitions(transitions, n_unique_tokens);
-        free(bigrams);
-        free(unique_tokens);
-        free(tokens);
-        free(text);
-        fclose(output_file);
-        return EXIT_FAILURE;
+        goto cleanup;
     }
 
     if (opts.verbose)
@@ -163,13 +137,26 @@ int main(int argc, char **argv)
         printf("Generated %d sentences to \"%s\"\n", opts.n_sentences, opts.output_path);
     }
 
-    free_transitions(transitions, n_unique_tokens);
+    exit_status = EXIT_SUCCESS;
+
+cleanup:
+    if (transitions != NULL)
+    {
+        free_transitions(transitions, n_unique_tokens);
+    }
     free(bigrams);
     free(unique_tokens);
     free(tokens);
     free(text);
 
-    fclose(output_file);
+    if (output_file != NULL)
+    {
+        fclose(output_file);
+    }
+    if (corpus_file != NULL)
+    {
+        fclose(corpus_file);
+    }
 
-    return EXIT_SUCCESS;
+    return exit_status;
 }
