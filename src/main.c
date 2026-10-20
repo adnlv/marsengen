@@ -10,7 +10,7 @@
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
 static FILE *corpus_file = NULL;
-static FILE *log_file = NULL;
+static FILE *output_file = NULL;
 
 bool open_corpus_file(const char *path)
 {
@@ -27,11 +27,10 @@ bool open_corpus_file(const char *path)
         return false;
     }
 
-    printf("Reading corpus from file \"%s\"\n", path);
     return true;
 }
 
-bool open_log_file(const char *path)
+bool open_output_file(const char *path)
 {
     if (path == NULL)
     {
@@ -39,14 +38,13 @@ bool open_log_file(const char *path)
         return false;
     }
 
-    log_file = fopen(path, "w+");
-    if (log_file == NULL)
+    output_file = fopen(path, "w+");
+    if (output_file == NULL)
     {
         fprintf(stderr, "Error: Failed to open output file \"%s\": %s\n", path, strerror(errno));
         return false;
     }
 
-    printf("Writing logs to file \"%s\"\n", path);
     return true;
 }
 
@@ -75,8 +73,6 @@ long get_corpus_file_len(void)
         fprintf(stderr, "Error: Failed to rewind corpus file: %s\n", strerror(errno));
         return -1;
     }
-
-    fprintf(log_file, "Unformatted text contains %ld characters\n", pos);
 
     return pos;
 }
@@ -132,8 +128,6 @@ void format_corpus_text(char *buf, int *len_ptr)
     }
 
     *len_ptr = len;
-
-    fprintf(log_file, "Formatted text contains %d characters: %s\n", len, buf);
 }
 
 typedef struct
@@ -157,8 +151,6 @@ int count_tokens(const char *str, const int len)
             ++n_tokens;
         }
     }
-
-    fprintf(log_file, "Text contains %d tokens\n", n_tokens);
 
     return n_tokens;
 }
@@ -250,38 +242,6 @@ bool tokenize_input_text(char *str,
 
     free(idxs);
 
-    for (int i = 0; i < n_tokens; ++i)
-    {
-        fprintf(log_file, "Token [%d] \"", i);
-
-        for (int j = 0; j < tokens[i].len; ++j)
-        {
-            fputc(tokens[i].ptr[j], log_file);
-        }
-
-        fprintf(log_file,
-                "\" -> %p is %d characters long\n",
-                (void *)tokens[i].ptr,
-                tokens[i].len);
-    }
-
-    fprintf(log_file, "Got %d unique tokens\n", *n_uniques_ptr);
-
-    for (int i = 0; i < *n_uniques_ptr; ++i)
-    {
-        fprintf(log_file, "Unique token [%d] \"", i);
-
-        for (int j = 0; j < uniques[i].len; ++j)
-        {
-            fputc(uniques[i].ptr[j], log_file);
-        }
-
-        fprintf(log_file,
-                "\" -> %p is %d characters long\n",
-                (void *)uniques[i].ptr,
-                uniques[i].len);
-    }
-
     return true;
 }
 
@@ -293,11 +253,7 @@ typedef struct
 
 int count_bigrams(const int n_tokens)
 {
-    const int n_2grams = n_tokens > 1 ? n_tokens - 1 : 0;
-
-    fprintf(log_file, "Generating %d 2-grams\n", n_2grams);
-
-    return n_2grams;
+    return n_tokens > 1 ? n_tokens - 1 : 0;
 }
 
 void generate_bigrams_from_tokens(token_t *tokens,
@@ -308,25 +264,6 @@ void generate_bigrams_from_tokens(token_t *tokens,
     {
         bigrams[i].fst = &tokens[i];
         bigrams[i].sec = &tokens[i + 1];
-    }
-
-    for (int i = 0; i < n_bigrams; ++i)
-    {
-        fprintf(log_file, "2-Gram [%d] (\"", i);
-
-        for (int j = 0; j < bigrams[i].fst->len; ++j)
-        {
-            fputc(bigrams[i].fst->ptr[j], log_file);
-        }
-
-        fprintf(log_file, "\" -> %p, \"", (void *)bigrams[i].fst);
-
-        for (int j = 0; j < bigrams[i].sec->len; ++j)
-        {
-            fputc(bigrams[i].sec->ptr[j], log_file);
-        }
-
-        fprintf(log_file, "\" -> %p)\n", (void *)bigrams[i].sec);
     }
 }
 
@@ -482,15 +419,6 @@ bool build_adjacency_list(bigram_t *bigrams,
 
     free(map);
 
-    for (int i = 0; i < n_uniques; ++i)
-    {
-        fprintf(log_file,
-                "Word [%d] has %d out of %d transitions\n",
-                i,
-                transitions[i].len,
-                transitions[i].total_count);
-    }
-
     return true;
 }
 
@@ -522,8 +450,6 @@ void generate_sentences(token_t *uniques,
 
     const int n_sentences = 32;
     const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
-
-    fprintf(log_file, "Generating %d sentences\n", n_sentences);
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
@@ -560,21 +486,21 @@ void generate_sentences(token_t *uniques,
             words[words_len++] = uniques[word_idx];
         }
 
-        fputs("Sentence: \"", log_file);
+        fputs("Sentence: \"", output_file);
         for (int i = 0; i < words_len; ++i)
         {
             for (int j = 0; j < words[i].len; ++j)
             {
-                fputc(words[i].ptr[j], log_file);
+                fputc(words[i].ptr[j], output_file);
             }
 
             if (i != words_len - 1)
             {
-                fputc(' ', log_file);
+                fputc(' ', output_file);
             }
         }
 
-        fputs("\"\n", log_file);
+        fputs("\"\n", output_file);
     }
 }
 
@@ -654,7 +580,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    if (!open_log_file(opts.output_path))
+    if (!open_output_file(opts.output_path))
     {
         fclose(corpus_file);
         return EXIT_FAILURE;
@@ -665,7 +591,7 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Error: Failed to determine corpus file size\n");
         fclose(corpus_file);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -673,7 +599,7 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Error: Corpus file is empty\n");
         fclose(corpus_file);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -683,7 +609,7 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Error: Failed to allocate memory for corpus text\n");
         fclose(corpus_file);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -694,7 +620,7 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Error: Corpus contains no valid word tokens\n");
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -703,7 +629,7 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "Error: Failed to parse tokens from corpus\n");
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -715,7 +641,7 @@ int main(int argc, char **argv)
         free(tokens);
         free(unique_tokens);
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -731,7 +657,7 @@ int main(int argc, char **argv)
         free(unique_tokens);
         free(tokens);
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -746,7 +672,7 @@ int main(int argc, char **argv)
             free(unique_tokens);
             free(tokens);
             free(text);
-            fclose(log_file);
+            fclose(output_file);
             return EXIT_FAILURE;
         }
 
@@ -762,7 +688,7 @@ int main(int argc, char **argv)
         free(unique_tokens);
         free(tokens);
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -778,7 +704,7 @@ int main(int argc, char **argv)
         free(unique_tokens);
         free(tokens);
         free(text);
-        fclose(log_file);
+        fclose(output_file);
         return EXIT_FAILURE;
     }
 
@@ -790,7 +716,7 @@ int main(int argc, char **argv)
     free(tokens);
     free(text);
 
-    fclose(log_file);
+    fclose(output_file);
 
     return EXIT_SUCCESS;
 }
