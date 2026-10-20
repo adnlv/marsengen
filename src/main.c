@@ -437,36 +437,59 @@ void free_transitions(word_transitions_t *transitions, const int n_uniques)
     free(transitions);
 }
 
+typedef struct
+{
+    const char *corpus_path;
+    const char *output_path;
+    int n_sentences;
+    int max_words;
+    unsigned int seed;
+    bool has_seed;
+    bool verbose;
+} cli_options_t;
+
 void generate_sentences(token_t *uniques,
                         const int n_uniques,
-                        word_transitions_t *transitions)
+                        word_transitions_t *transitions,
+                        const cli_options_t *opts)
 {
-    if (uniques == NULL || n_uniques <= 0 || transitions == NULL)
+    if (uniques == NULL || n_uniques <= 0 || transitions == NULL || opts == NULL)
     {
         return;
     }
 
-    srand((unsigned)time(NULL));
+    if (opts->has_seed)
+    {
+        srand(opts->seed);
+    }
+    else
+    {
+        srand((unsigned)time(NULL));
+    }
 
-    const int n_sentences = 32;
-    const int n_words_per_sentence = n_uniques < 0xFF ? n_uniques : 0xFF;
+    const int n_sentences = opts->n_sentences;
+    const int max_limit = opts->max_words < n_uniques ? opts->max_words : n_uniques;
+    const int words_cap = max_limit > 0 ? max_limit : 1;
 
     for (int sentences = 0; sentences < n_sentences; ++sentences)
     {
-        token_t words[n_words_per_sentence];
-        int words_len = 1;
+        token_t *words = malloc(sizeof(token_t) * (size_t)words_cap);
+        if (words == NULL)
+        {
+            fprintf(stderr, "Error: Failed to allocate memory for sentence buffer\n");
+            return;
+        }
 
+        int words_len = 1;
         int word_idx = rand() % n_uniques;
         words[0] = uniques[word_idx];
 
-        while (words_len < n_words_per_sentence)
+        while (words_len < words_cap)
         {
             word_transitions_t *wt = &transitions[word_idx];
             if (wt->len == 0)
             {
-                word_idx = rand() % n_uniques;
-                words[words_len++] = uniques[word_idx];
-                continue;
+                break;
             }
 
             int r = rand() % wt->total_count;
@@ -501,31 +524,35 @@ void generate_sentences(token_t *uniques,
         }
 
         fputs("\"\n", output_file);
+        free(words);
     }
 }
-
-typedef struct
-{
-    const char *corpus_path;
-    const char *output_path;
-} cli_options_t;
 
 static void print_usage(const char *prog_name)
 {
     printf("Usage: %s [OPTIONS]\n\n", prog_name);
     printf("Markov chain sentence generator.\n\n");
     printf("Options:\n");
-    printf("  -c, --corpus <path>   Input text corpus file (default: input.txt)\n");
-    printf("  -i, --input  <path>   Alias for -c, --corpus\n");
-    printf("  -o, --output <path>   Output file for logs and sentences (default: output.txt)\n");
-    printf("  -l, --log    <path>   Alias for -o, --output\n");
-    printf("  -h, --help            Display this help message and exit\n");
+    printf("  -c, --corpus    <path>    Input text corpus file (default: input.txt)\n");
+    printf("  -i, --input     <path>    Alias for -c, --corpus\n");
+    printf("  -o, --output    <path>    Output destination file (default: output.txt)\n");
+    printf("  -l, --log       <path>    Alias for -o, --output\n");
+    printf("  -n, --sentences <count>   Number of sentences to generate (default: 10)\n");
+    printf("  -w, --words     <count>   Maximum words per sentence (default: 50)\n");
+    printf("  -s, --seed      <number>  Seed for random number generator (default: current time)\n");
+    printf("  -v, --verbose             Display detailed processing statistics\n");
+    printf("  -h, --help                Display this help message and exit\n");
 }
 
 static bool parse_args(int argc, char **argv, cli_options_t *opts)
 {
     opts->corpus_path = "input.txt";
     opts->output_path = "output.txt";
+    opts->n_sentences = 10;
+    opts->max_words = 50;
+    opts->seed = 0;
+    opts->has_seed = false;
+    opts->verbose = false;
 
     for (int i = 1; i < argc; ++i)
     {
@@ -555,6 +582,53 @@ static bool parse_args(int argc, char **argv, cli_options_t *opts)
                 return false;
             }
             opts->output_path = argv[++i];
+        }
+        else if (strcmp(argv[i], "-n") == 0 || strcmp(argv[i], "--sentences") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Error: Option '%s' requires a positive integer.\n\n", argv[i]);
+                print_usage(argv[0]);
+                return false;
+            }
+            int val = atoi(argv[++i]);
+            if (val <= 0)
+            {
+                fprintf(stderr, "Error: Number of sentences must be greater than zero.\n\n");
+                return false;
+            }
+            opts->n_sentences = val;
+        }
+        else if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--words") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Error: Option '%s' requires a positive integer.\n\n", argv[i]);
+                print_usage(argv[0]);
+                return false;
+            }
+            int val = atoi(argv[++i]);
+            if (val <= 0)
+            {
+                fprintf(stderr, "Error: Maximum words per sentence must be greater than zero.\n\n");
+                return false;
+            }
+            opts->max_words = val;
+        }
+        else if (strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--seed") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Error: Option '%s' requires a non-negative integer.\n\n", argv[i]);
+                print_usage(argv[0]);
+                return false;
+            }
+            opts->seed = (unsigned int)strtoul(argv[++i], NULL, 10);
+            opts->has_seed = true;
+        }
+        else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--verbose") == 0)
+        {
+            opts->verbose = true;
         }
         else
         {
@@ -708,7 +782,20 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    generate_sentences(unique_tokens, n_unique_tokens, transitions);
+    if (opts.verbose)
+    {
+        printf("Corpus: \"%s\" (%ld characters)\n", opts.corpus_path, file_len);
+        printf("Formatted text: %d characters, %d tokens, %d unique vocabulary\n",
+               text_len, n_tokens, n_unique_tokens);
+        printf("Bigrams: %d\n", n_bigrams);
+    }
+
+    generate_sentences(unique_tokens, n_unique_tokens, transitions, &opts);
+
+    if (opts.verbose)
+    {
+        printf("Generated %d sentences to \"%s\"\n", opts.n_sentences, opts.output_path);
+    }
 
     free_transitions(transitions, n_unique_tokens);
     free(bigrams);
