@@ -9,46 +9,43 @@
 #define IS_LOWER(ch) ((ch) >= 'a' && (ch) <= 'z')
 #define IS_UPPER(ch) ((ch) >= 'A' && (ch) <= 'Z')
 
-static FILE *corpus_file = NULL;
-static FILE *output_file = NULL;
-
-bool open_corpus_file(const char *path)
+FILE *open_corpus_file(const char *path)
 {
     if (path == NULL)
     {
         fprintf(stderr, "Error: Corpus file path is NULL\n");
-        return false;
+        return NULL;
     }
 
-    corpus_file = fopen(path, "r");
-    if (corpus_file == NULL)
+    FILE *f = fopen(path, "r");
+    if (f == NULL)
     {
         fprintf(stderr, "Error: Failed to open corpus file \"%s\": %s\n", path, strerror(errno));
-        return false;
+        return NULL;
     }
 
-    return true;
+    return f;
 }
 
-bool open_output_file(const char *path)
+FILE *open_output_file(const char *path)
 {
     if (path == NULL)
     {
         fprintf(stderr, "Error: Output file path is NULL\n");
-        return false;
+        return NULL;
     }
 
-    output_file = fopen(path, "w+");
-    if (output_file == NULL)
+    FILE *f = fopen(path, "w+");
+    if (f == NULL)
     {
         fprintf(stderr, "Error: Failed to open output file \"%s\": %s\n", path, strerror(errno));
-        return false;
+        return NULL;
     }
 
-    return true;
+    return f;
 }
 
-long get_corpus_file_len(void)
+long get_corpus_file_len(FILE *corpus_file)
 {
     if (corpus_file == NULL)
     {
@@ -77,7 +74,7 @@ long get_corpus_file_len(void)
     return pos;
 }
 
-void format_corpus_text(char *buf, int *len_ptr)
+void format_corpus_text(FILE *corpus_file, char *buf, int *len_ptr)
 {
     int len = 0;
     bool is_prev_letter = false;
@@ -443,12 +440,14 @@ typedef struct
     bool verbose;
 } cli_options_t;
 
-void generate_sentences(token_t *uniques,
+void generate_sentences(FILE *output_file,
+                        token_t *uniques,
                         const int n_uniques,
                         word_transitions_t *transitions,
                         const cli_options_t *opts)
 {
-    if (uniques == NULL || n_uniques <= 0 || transitions == NULL || opts == NULL)
+    if (output_file == NULL || uniques == NULL || n_uniques <= 0 ||
+        transitions == NULL || opts == NULL)
     {
         return;
     }
@@ -644,18 +643,20 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    if (!open_corpus_file(opts.corpus_path))
+    FILE *corpus_file = open_corpus_file(opts.corpus_path);
+    if (corpus_file == NULL)
     {
         return EXIT_FAILURE;
     }
 
-    if (!open_output_file(opts.output_path))
+    FILE *output_file = open_output_file(opts.output_path);
+    if (output_file == NULL)
     {
         fclose(corpus_file);
         return EXIT_FAILURE;
     }
 
-    long file_len = get_corpus_file_len();
+    long file_len = get_corpus_file_len(corpus_file);
     if (file_len < 0)
     {
         fprintf(stderr, "Error: Failed to determine corpus file size\n");
@@ -682,7 +683,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    format_corpus_text(text, &text_len);
+    format_corpus_text(corpus_file, text, &text_len);
     fclose(corpus_file);
 
     if (text_len <= 0)
@@ -785,7 +786,7 @@ int main(int argc, char **argv)
         printf("Bigrams: %d\n", n_bigrams);
     }
 
-    generate_sentences(unique_tokens, n_unique_tokens, transitions, &opts);
+    generate_sentences(output_file, unique_tokens, n_unique_tokens, transitions, &opts);
 
     if (opts.verbose)
     {
